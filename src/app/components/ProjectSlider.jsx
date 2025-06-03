@@ -1,0 +1,341 @@
+"use client";
+import {
+  IconPlayerSkipForwardFilled,
+  IconPlayerSkipBackFilled,
+  IconCarouselHorizontalFilled,
+  IconColumns,
+  IconArrowUpRight,
+} from "@tabler/icons-react";
+
+import { motion, useMotionValue, animate } from "framer-motion";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { projects } from "../data/content";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function ProjectSlider({ setHoveredProject }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [layoutDirection, setLayoutDirection] = useState("row");
+
+  // x and y motion values are always needed to manage position, even if not directly dragged
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const sliderRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+  const [actualCardWidth, setActualCardWidth] = useState(0);
+  const [actualCardHeight, setActualCardHeight] = useState(0);
+
+  const gap = 40;
+  const itemSize =
+    layoutDirection === "row" ? actualCardWidth + gap : actualCardHeight + gap;
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const desktop = window.innerWidth >= 768;
+      setIsDesktop(desktop);
+      setLayoutDirection(desktop ? "row" : "column");
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (sliderRef.current) {
+        setContainerWidth(sliderRef.current.offsetWidth);
+        setContainerHeight(sliderRef.current.clientHeight);
+
+        const firstCard = sliderRef.current.querySelector(".project-card-item");
+        if (firstCard) {
+          setActualCardWidth(firstCard.offsetWidth);
+          setActualCardHeight(firstCard.offsetHeight);
+        } else {
+          setActualCardWidth(
+            window.innerWidth >= 768 ? 900 : window.innerWidth - 2 * 16
+          );
+          setActualCardHeight(window.innerWidth >= 768 ? 600 : 300);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(updateDimensions, 100);
+    window.addEventListener("resize", updateDimensions);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, [layoutDirection]);
+
+  const getStartOffset = useCallback(() => {
+    if (
+      containerWidth === 0 ||
+      containerHeight === 0 ||
+      actualCardWidth === 0 ||
+      actualCardHeight === 0
+    )
+      return 0;
+
+    if (layoutDirection === "row") {
+      return containerWidth / 2 - actualCardWidth / 2;
+    } else {
+      return 0;
+    }
+  }, [
+    containerWidth,
+    containerHeight,
+    actualCardWidth,
+    actualCardHeight,
+    layoutDirection,
+  ]);
+
+  const snapToProject = useCallback(
+    (indexToSnap) => {
+      if (actualCardWidth === 0 || actualCardHeight === 0) return;
+
+      const startOffset = getStartOffset();
+      let targetValue = -indexToSnap * itemSize + startOffset;
+
+      // Conditionally animate based on layout direction
+      if (layoutDirection === "row") {
+        animate(x, targetValue, {
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+        });
+      } else {
+        animate(y, targetValue, {
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+        });
+      }
+    },
+    [
+      x,
+      y,
+      itemSize,
+      getStartOffset,
+      layoutDirection,
+      actualCardWidth,
+      actualCardHeight,
+    ]
+  );
+
+  useEffect(() => {
+    setCurrentIndex(0);
+    snapToProject(0);
+  }, [layoutDirection, snapToProject]); // snapToProject is a dependency here
+
+  useEffect(() => {
+    snapToProject(currentIndex);
+  }, [currentIndex, snapToProject]);
+
+  // handleDragStart and handleDragEnd are only for desktop and row layout
+  const handleDragStart = useCallback(() => {
+    if (isDesktop && layoutDirection === "row") {
+      setIsDragging(true);
+    }
+  }, [isDesktop, layoutDirection]);
+
+  const handleDragEnd = useCallback(
+    (event, info) => {
+      if (!(isDesktop && layoutDirection === "row")) {
+        setIsDragging(false);
+        return;
+      }
+
+      const currentMotionValue = x.get();
+      const startOffset = getStartOffset();
+      const currentRelativeValue = currentMotionValue - startOffset;
+
+      let closestIndex = Math.round(-currentRelativeValue / itemSize);
+
+      if (closestIndex >= projects.length) {
+        closestIndex = 0;
+      } else if (closestIndex < 0) {
+        closestIndex = projects.length - 1;
+      }
+
+      setCurrentIndex(closestIndex);
+      setTimeout(() => setIsDragging(false), 50);
+    },
+    [isDesktop, layoutDirection, x, getStartOffset, itemSize]
+  );
+
+  const scrollToDirection = useCallback(
+    (direction) => {
+      let newIndex = currentIndex;
+
+      if (direction === "left" || direction === "up") {
+        newIndex = (currentIndex - 1 + projects.length) % projects.length;
+      } else {
+        newIndex = (currentIndex + 1) % projects.length;
+      }
+      setCurrentIndex(newIndex);
+    },
+    [currentIndex, projects.length]
+  );
+
+  // timerRef and handleMouseEnter are only for desktop
+  const timerRef = useRef(null);
+  const handleMouseEnter = useCallback(
+    (index) => {
+      if (isDesktop) {
+        setHoveredProject(index);
+
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+
+        timerRef.current = setTimeout(() => {
+          setHoveredProject(null);
+        }, 10000);
+      }
+    },
+    [isDesktop, setHoveredProject]
+  );
+
+  const handleClick = (event) => {
+    if (isDragging) {
+      event.preventDefault();
+    }
+    setIsDragging(false);
+  };
+
+  const toggleLayout = useCallback(() => {
+    setLayoutDirection((prev) => (prev === "row" ? "column" : "row"));
+    setCurrentIndex(0);
+    x.set(0);
+    y.set(0);
+  }, [x, y]);
+
+  const shouldBeDraggable = isDesktop && layoutDirection === "row";
+
+  return (
+    <motion.div className="grid relative place-items-center pt-0 pb-4 w-full h-auto md:pt-20">
+      {/* Layout Toggle Button - Only render if isDesktop is true */}
+      {isDesktop && (
+        <button
+          onClick={toggleLayout}
+          className="grid absolute right-2 top-4 z-50 place-items-center p-3 rounded-full shadow-sm bg-secondaryBg text-primaryText"
+        >
+          {layoutDirection === "row" ? (
+            <IconColumns stroke={2} className="w-5 h-5 rotate-90" />
+          ) : (
+            <IconCarouselHorizontalFilled stroke={2} className="w-5 h-5" />
+          )}
+        </button>
+      )}
+
+      {/* Slider Container */}
+      <div ref={sliderRef} className={`overflow-hidden relative w-full h-auto`}>
+        {/* The actual draggable content */}
+        <motion.div
+          style={layoutDirection === "row" ? { x } : { y }}
+          drag={shouldBeDraggable ? "x" : false}
+          dragConstraints={
+            shouldBeDraggable
+              ? {
+                  left: -(projects.length - 1) * itemSize + getStartOffset(),
+                  right: getStartOffset(),
+                }
+              : false
+          }
+          dragElastic={shouldBeDraggable ? 0.8 : 0}
+          dragTransition={
+            shouldBeDraggable ? { bounceStiffness: 600, damping: 20 } : {}
+          }
+          onDragStart={shouldBeDraggable ? handleDragStart : undefined}
+          onDragEnd={shouldBeDraggable ? handleDragEnd : undefined}
+          className={`flex gap-10 w-full h-full relative ${
+            layoutDirection === "row"
+              ? "flex-row md:w-auto md:gap-8"
+              : "flex-col"
+          } pb-4 ${
+            shouldBeDraggable ? "cursor-my-drag active:cursor-grabbing" : ""
+          }`}
+        >
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id || index}
+              className={`flex relative flex-col justify-center items-center h-full duration-300 ease-in-out project-card-item group
+                          ${
+                            layoutDirection === "row"
+                              ? "min-w-full md:min-w-[900px]"
+                              : "min-h-[400px] w-full md:min-h-[700px]"
+                          }`}
+              onMouseEnter={() => handleMouseEnter(index)}
+            >
+              <Link
+                href={project.href}
+                className="flex relative flex-col gap-6 w-full h-auto group"
+                draggable="false"
+                onClick={handleClick}
+              >
+                {project.video ? (
+                  <div
+                    className="overflow-hidden relative w-auto rounded-[24px]"
+                    style={{
+                      backgroundColor: project.color,
+                      // backgroundImage: "url(/assets/noise.png)",
+                    }}
+                  >
+                    <video
+                      src={project.video}
+                      className="w-full scale-125 h-[300px] md:h-[600px] rounded-[24px] group-hover:scale-[1.35] ease-card duration-500"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    ></video>
+                  </div>
+                ) : (
+                  <div
+                    className="overflow-hidden relative w-full h-[300px] md:h-[600px] rounded-[24px]"
+                    style={{
+                      backgroundColor: project.color,
+                      backgroundImage: "url(/assets/noise.png)",
+                    }}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      draggable="false"
+                      className="object-contain object-center duration-500 group-hover:scale-105 ease-card"
+                      sizes="(max-width: 768px) 100vw, 500px"
+                    />
+                  </div>
+                )}
+
+                <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col gap-2 justify-center items-center text-center md:w-2/3">
+                    <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                      {project.title}
+                    </h3>
+                    <p className="text-base text-secondaryText">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
+                  {project.tags}
+                </div>
+                <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
+                  <IconArrowUpRight stroke={2} />
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
