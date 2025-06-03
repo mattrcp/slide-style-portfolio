@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { highlight, personal } from "../../../public/assets";
+import {  personal } from "../../../public/assets";
 
 export default function HeroSingle() {
   return (
@@ -11,43 +11,43 @@ export default function HeroSingle() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex relative flex-col justify-between items-center w-full h-full"
+          className="relative flex flex-col items-center justify-between w-full h-full"
         >
-          <motion.div className="flex justify-start items-center w-full">
-            <h1 className="font-zodiak text-primaryText text-[clamp(30px,5vw,50px)] leading-snug w-full md:w-2/3 ">
+          <motion.div className="flex items-center justify-start w-full">
+            <h1 className="font-zodiak text-primaryText text-[clamp(30px,5vw,50px)]  leading-snug w-full md:w-2/3 ">
               Matt designs mobile products that grow with your users, combining
               strategic thinking with startup experience.
             </h1>
           </motion.div>
-          <motion.div className="flex justify-center items-center w-full h-full">
+          <motion.div className="flex items-center justify-center w-full h-full">
             <div className="relative w-[136px] h-auto group">
               <Image
                 src={personal}
                 alt="Matt's portrait image with orange sunset."
-                className="z-50 rounded-2xl border border-white grayscale transition-all duration-500 ease-card group-hover:grayscale-0 group-hover:-rotate-6"
+                className="z-50 transition-all duration-500 border border-white rounded-2xl grayscale ease-card group-hover:grayscale-0 group-hover:-rotate-6"
               />
-              <span className="absolute top-1/2 right-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:-top-12 group-hover:-right-10">
+              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 right-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-top-12 group-hover:-right-10">
                 🏃
               </span>
-              <span className="absolute right-0 top-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:top-20 group-hover:-right-20">
+              <span className="absolute right-0 text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:top-20 group-hover:-right-20">
                 🍵
               </span>
-              <span className="absolute top-1/2 left-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:top-1/2 group-hover:-left-20">
+              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:top-1/2 group-hover:-left-20">
                 📱
               </span>
-              <span className="absolute right-1/2 bottom-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-right-20">
+              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 right-1/2 bottom-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-right-20">
                 ☕
               </span>
-              <span className="absolute top-1/2 left-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:-top-10 group-hover:left-2">
+              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-top-10 group-hover:left-2">
                 🖥
               </span>
-              <span className="absolute bottom-1/2 left-1/2 text-4xl opacity-0 transition-all duration-500 rotate-6 -translate-x-1/2 -translate-y-1/2 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-left-10">
+              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 bottom-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-left-10">
                 🍛
               </span>
               <Svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-20 h-[505px] w-[680px] ease-card duration-500 transition-all " />
             </div>
           </motion.div>
-          {/* <motion.div className="flex justify-end items-center w-full">
+          {/* <motion.div className="flex items-center justify-end w-full">
             <p className="text-base md:text-xl md:w-1/3 text-secondaryText">
               Matt is a UX/UI Designer crafting a strategic, system-driven{" "}
               <span className="italic font-bold font-zodiak">

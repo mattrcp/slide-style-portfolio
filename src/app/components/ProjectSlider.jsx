@@ -1,11 +1,11 @@
 "use client";
 import {
-  IconPlayerSkipForwardFilled,
-  IconPlayerSkipBackFilled,
-  IconCarouselHorizontalFilled,
-  IconColumns,
+
   IconArrowUpRight,
+
 } from "@tabler/icons-react";
+import { TbCarouselHorizontalFilled } from "react-icons/tb";
+import { CgCarousel } from "react-icons/cg";
 
 import { motion, useMotionValue, animate } from "framer-motion";
 import { useState, useRef, useEffect, useCallback } from "react";
@@ -219,17 +219,17 @@ export default function ProjectSlider({ setHoveredProject }) {
   const shouldBeDraggable = isDesktop && layoutDirection === "row";
 
   return (
-    <motion.div className="grid relative place-items-center pt-0 pb-4 w-full h-auto md:pt-20">
+    <motion.div className="relative grid w-full h-auto pt-0 pb-4 place-items-center md:pt-20" id="work">
       {/* Layout Toggle Button - Only render if isDesktop is true */}
       {isDesktop && (
         <button
           onClick={toggleLayout}
-          className="grid absolute right-2 top-4 z-50 place-items-center p-3 rounded-full shadow-sm bg-secondaryBg text-primaryText"
+          className="absolute z-50 grid p-3 rounded-full shadow-sm right-2 top-4 place-items-center bg-secondaryBg text-primaryText"
         >
           {layoutDirection === "row" ? (
-            <IconColumns stroke={2} className="w-5 h-5 rotate-90" />
+            <CgCarousel  />
           ) : (
-            <IconCarouselHorizontalFilled stroke={2} className="w-5 h-5" />
+            <TbCarouselHorizontalFilled/>
           )}
         </button>
       )}
@@ -275,7 +275,7 @@ export default function ProjectSlider({ setHoveredProject }) {
             >
               <Link
                 href={project.href}
-                className="flex relative flex-col gap-6 w-full h-auto group"
+                className="relative flex flex-col w-full h-auto gap-6 group"
                 draggable="false"
                 onClick={handleClick}
               >
@@ -315,8 +315,8 @@ export default function ProjectSlider({ setHoveredProject }) {
                   </div>
                 )}
 
-                <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-col gap-2 justify-center items-center text-center md:w-2/3">
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-col items-center justify-center gap-2 text-center md:w-2/3">
                     <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
@@ -328,7 +328,7 @@ export default function ProjectSlider({ setHoveredProject }) {
                 <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
                   {project.tags}
                 </div>
-                <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
+                <span className="absolute grid p-2 rounded-full shadow-sm top-4 right-4 place-items-center bg-primaryBg text-primaryText">
                   <IconArrowUpRight stroke={2} />
                 </span>
               </Link>
