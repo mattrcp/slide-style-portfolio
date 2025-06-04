@@ -3,7 +3,6 @@ import Navigation from "../components/Navigation";
 import Overview from "../components/upliftt/Overview";
 import Discovery from "../components/upliftt/Discovery";
 import Define from "../components/upliftt/Define";
-import Develop from "../components/upliftt/Develop";
 import Delivery from "../components/upliftt/Learning";
 import Learning from "../components/upliftt/Delivery";
 import Footer from "../components/Footer";
@@ -32,7 +31,7 @@ export default page;
 
 const ImageThumbnail = () => {
   return (
-    <Wrapper className="w-full h-[40vh] py-4 md:h-screen md:w-screen md:pt-20 md:pb-4">
+    <Wrapper className="w-full py-4 h-[60vh] md:h-screen md:w-screen md:pt-20 md:pb-4">
       <div className="w-full h-full pl-2 pr-6 md:pl-4">
         <div className="w-full h-full bg-secondaryBg border-border rounded-2xl md:rounded-[32px] overflow-hidden relative">
           <Image
