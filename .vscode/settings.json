@@ -29,5 +29,7 @@
   "editor.suggest.showTypeParameters": true,
   "editor.suggest.showUnits": true,
   "editor.suggest.showUsers": true,
-  "editor.suggest.showIssues": true
+  "editor.suggest.showIssues": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "notebook.defaultFormatter": "esbenp.prettier-vscode"
 }
