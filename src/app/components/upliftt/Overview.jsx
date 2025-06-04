@@ -71,7 +71,7 @@ const Summary = () => {
         <div className="flex flex-col w-full gap-8 md:flex-row">
           {projectDetails.map((category) => (
             <div key={category.header} className="w-full h-full ">
-              <h3 className="mb-6 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+              <h3 className="mb-2 md:mb-6 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
                 {category.header}
               </h3>
               <ul className="flex flex-col gap-4 font-satoshi text-primaryText">
