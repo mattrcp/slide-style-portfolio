@@ -30,6 +30,10 @@ module.exports = {
       transitionTimingFunction: {
         card: "cubic-bezier(.83,-0.33,0,1.29)",
       },
+      screens: {
+        md: "780px",
+        // => @media (min-width: 768px) { ... }
+      },
     },
   },
   plugins: [],
