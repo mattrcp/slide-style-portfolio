@@ -268,8 +268,8 @@ export default function ProjectSlider({ setHoveredProject }) {
               className={`flex relative flex-col justify-center items-center h-full duration-300 ease-in-out project-card-item group
                           ${
                             layoutDirection === "row"
-                              ? "min-w-full md:min-w-[900px]"
-                              : "min-h-[400px] w-full md:min-h-[700px]"
+                              ? "min-w-full  md:min-w-[900px]"
+                              : "min-h-[400px] w-full mx-auto md:min-h-[700px]"
                           }`}
               onMouseEnter={() => handleMouseEnter(index)}
             >
@@ -318,7 +318,11 @@ export default function ProjectSlider({ setHoveredProject }) {
                 )}
 
                 <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-col items-center justify-center gap-2 text-center md:w-1/2">
+                  <div className={`flex flex-col items-center justify-center gap-2 text-center ${
+                            layoutDirection === "row"
+                              ? "md:w-1/2"
+                              : "md:w-1/3"
+                          }`}>
                     <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
