@@ -6,10 +6,10 @@ export const projects = [
     tags: "Intern",
     description:
       "Handcrafted Precision. Timeless Design. Explore eyewear crafted with meticulous detail and premium materials.",
-    video: "/assets/upliftt-thumbnail.mp4",
+    video: "/assets/test.mp4",
     href: "/upliftt",
     id: "todolist",
-    color: "#ACF12B",
+    // color: "#ACF12B",
   },
   {
     title: "Teammie",
@@ -20,7 +20,8 @@ export const projects = [
     image: teammie,
     href: "/teammie",
     id: "globespecs",
-    color: "#B6F0F1",
+    // color: "#B6F0F1",
+
   },
   {
     title: "Redesign Casetify",
@@ -30,7 +31,8 @@ export const projects = [
     image: casetify,
     href: "/casetify",
     id: "luma",
-    color: "#FC516B",
+    // color: "#FC516B",
+
   },
   {
     title: "GradMatch",
@@ -40,6 +42,7 @@ export const projects = [
     image: gradmatch,
     href: "/gradmatch",
     id: "globespecs2",
-    color: "#5176FC",
+    // color: "#5176FC",
+
   },
 ];
