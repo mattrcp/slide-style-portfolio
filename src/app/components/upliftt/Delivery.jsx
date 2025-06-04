@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Wrapper from "../Wrapper";
 
 const Delivery = () => {
@@ -12,6 +14,22 @@ const Delivery = () => {
 export default Delivery;
 
 const Final = () => {
+  const [loadingStates, setLoadingStates] = useState({});
+
+  const handleVideoLoad = (videoId) => {
+    setLoadingStates((prev) => ({
+      ...prev,
+      [videoId]: false,
+    }));
+  };
+
+  const handleVideoLoadStart = (videoId) => {
+    setLoadingStates((prev) => ({
+      ...prev,
+      [videoId]: true,
+    }));
+  };
+
   const finalFeatures = [
     {
       name: "Smart Calendar View",
@@ -88,14 +106,34 @@ const Final = () => {
 
           {/* Video Block */}
 
-          <div className="flex items-center justify-center w-full overflow-hidden border p-14 md:w-1/2 bg-secondaryBg rounded-3xl md:rounded-[32px] border-border aspect-square">
+          <div className="flex items-center justify-center w-full overflow-hidden border p-14 md:w-1/2 bg-secondaryBg rounded-3xl md:rounded-[32px] border-border aspect-square relative">
+            {/* Loading Animation */}
+            {loadingStates[`${feature.id}-${i}`] !== false && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-highlightBlue animate-spin"></div>
+                  <span className="text-sm font-medium text-highlightBlue">
+                    Loading video...
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Video */}
             <video
               src={feature.url}
               autoPlay
               muted
               loop
               playsInline
-              className="object-contain w-auto h-full rounded-3xl md:rounded-[50px]"
+              onLoadStart={() => handleVideoLoadStart(`${feature.id}-${i}`)}
+              onCanPlay={() => handleVideoLoad(`${feature.id}-${i}`)}
+              onLoadedData={() => handleVideoLoad(`${feature.id}-${i}`)}
+              className={`object-contain w-auto h-full rounded-3xl md:rounded-[50px] transition-opacity duration-300 ${
+                loadingStates[`${feature.id}-${i}`] === false
+                  ? "opacity-100"
+                  : "opacity-0"
+              }`}
             ></video>
           </div>
         </div>

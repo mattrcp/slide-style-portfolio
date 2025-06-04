@@ -38,7 +38,8 @@ const ImageThumbnail = () => {
             src={thumbnail}
             alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
             fill // <-- Use the fill prop
-            className="object-contain"
+            className="object-contain w-full h-full"
+            priority
           />
         </div>
       </div>
