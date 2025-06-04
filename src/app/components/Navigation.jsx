@@ -55,9 +55,12 @@ export default function Navigation() {
   return (
     <header className="relative w-screen">
       <motion.nav
-        className={`md:flex hidden   flex-row gap-2 justify-between items-start py-4 w-full h-auto md:py-6 px-4 z-[500] ${
-          pathname === "/" ? "fixed" : "block"
-        }`}
+        className={`md:flex hidden flex-row gap-2 justify-between items-start py-4 w-full h-auto md:py-6 px-4 z-[500]   fixed
+           `}
+          //  ${
+          //   pathname === "/" ? "fixed" : "block"
+          // }
+      
         variants={navAnimation}
         initial="hidden"
         animate="visible"
@@ -74,7 +77,7 @@ export default function Navigation() {
             showPulse={true}
           />
         </span>
-        <div className="flex flex-col gap-4 justify-center items-center w-full md:flex-row">
+        <div className="flex flex-col items-center justify-center w-full gap-4 md:flex-row">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -88,7 +91,7 @@ export default function Navigation() {
             </Link>
           ))}
         </div>{" "}
-        <div className="flex justify-end items-center w-full">
+        <div className="flex items-center justify-end w-full">
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme button"

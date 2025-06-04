@@ -6,13 +6,13 @@
   --primary-bg: 255, 255, 255;
   --secondary-bg: 248, 248, 248;
   --ternary-bg: 240, 240, 240;
-  --primary-text: 17, 17, 17;
+  --primary-text: 42, 42, 42;
   --secondary-text: 102, 102, 102;
   --ternary-text: 136, 136, 136;
   --primary-grey: 229, 229, 229;
   --secondary-grey: 204, 204, 204;
   --highlight-blue: 59, 130, 246;
-  --border: 229, 229, 229;
+  --border: 237, 237, 237;
 }
 
 .dark {
@@ -20,7 +20,7 @@
   --secondary-bg: 28, 28, 28;
   --ternary-bg: 38, 38, 38;
   --primary-text: 255, 255, 255;
-  --secondary-text: 163, 163, 163;
+  --secondary-text: 242, 242, 242;
   --ternary-text: 115, 115, 115;
   --primary-grey: 64, 64, 64;
   --secondary-grey: 82, 82, 82;
@@ -81,6 +81,57 @@ body {
   font-style: normal;
 }
 
+/* Satoshi Font Family */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/fonts/Satoshi-Light.woff2") format("woff2"),
+    url("/fonts/fonts/Satoshi-Light.woff") format("woff"),
+    url("/fonts/fonts/Satoshi-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("/fonts/fonts/Satoshi-Regular.woff") format("woff"),
+    url("/fonts/fonts/Satoshi-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/fonts/Satoshi-Medium.woff2") format("woff2"),
+    url("/fonts/fonts/Satoshi-Medium.woff") format("woff"),
+    url("/fonts/fonts/Satoshi-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("/fonts/fonts/Satoshi-Bold.woff") format("woff"),
+    url("/fonts/fonts/Satoshi-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/fonts/Satoshi-Black.woff2") format("woff2"),
+    url("/fonts/fonts/Satoshi-Black.woff") format("woff"),
+    url("/fonts/fonts/Satoshi-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -102,6 +153,7 @@ body {
   }
   p {
     @apply font-satoshi;
+    letter-spacing: 2%;
   }
 }
 
@@ -136,5 +188,19 @@ body {
   }
   50% {
     opacity: 0;
+  }
+}
+
+@layer components {
+  .list-item-hanging-indent {
+    /* Adjust --tw-list-indent for your bullet point size */
+    --tw-list-indent: 1.5em; /* Example: 1.5 times the font size for good spacing */
+    padding-left: var(--tw-list-indent);
+    text-indent: calc(-1 * var(--tw-list-indent));
+  }
+
+  /* Ensure the bullet is visible */
+  .list-item-hanging-indent::marker {
+    content: "• "; /* Or whatever bullet you prefer */
   }
 }

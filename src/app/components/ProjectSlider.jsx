@@ -1,9 +1,5 @@
 "use client";
-import {
-
-  IconArrowUpRight,
-
-} from "@tabler/icons-react";
+import { IconArrowUpRight } from "@tabler/icons-react";
 import { TbCarouselHorizontalFilled } from "react-icons/tb";
 import { CgCarousel } from "react-icons/cg";
 
@@ -219,7 +215,10 @@ export default function ProjectSlider({ setHoveredProject }) {
   const shouldBeDraggable = isDesktop && layoutDirection === "row";
 
   return (
-    <motion.div className="relative grid w-full h-auto pt-0 pb-4 place-items-center md:pt-20" id="work">
+    <motion.div
+      className="relative grid w-full h-auto pt-0 pb-4 place-items-center md:pt-20"
+      id="work"
+    >
       {/* Layout Toggle Button - Only render if isDesktop is true */}
       {isDesktop && (
         <button
@@ -227,9 +226,9 @@ export default function ProjectSlider({ setHoveredProject }) {
           className="absolute z-50 grid p-3 rounded-full shadow-sm right-2 top-4 place-items-center bg-secondaryBg text-primaryText"
         >
           {layoutDirection === "row" ? (
-            <CgCarousel  />
+            <CgCarousel />
           ) : (
-            <TbCarouselHorizontalFilled/>
+            <TbCarouselHorizontalFilled />
           )}
         </button>
       )}
@@ -281,24 +280,24 @@ export default function ProjectSlider({ setHoveredProject }) {
               >
                 {project.video ? (
                   <div
-                  className="overflow-hidden relative w-auto rounded-[24px] bg-[#F9F9F9] border-border py-4"
-                  style={{
-                    backgroundColor: project.color,
-                    // backgroundImage: "url(/assets/noise.png)",
-                  }}
-                >
-                  <video
-                    src={project.video}
-                    className="w-full h-[300px] md:h-[550px] group-hover:scale-105 ease-card duration-500 " // Corrected: added the closing ']'
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  ></video>
-                </div>
+                    className="overflow-hidden relative w-auto rounded-[24px] bg-[#F9F9F9] border-border py-4"
+                    style={{
+                      backgroundColor: project.color,
+                      // backgroundImage: "url(/assets/noise.png)",
+                    }}
+                  >
+                    <video
+                      src={project.video}
+                      className="w-full h-[300px] md:h-[550px] group-hover:scale-105 ease-card duration-500 " // Corrected: added the closing ']'
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    ></video>
+                  </div>
                 ) : (
                   <div
-                    className="overflow-hidden relative w-full  rounded-[24px] bg-[#F9F9F9] border-border py-4"
+                    className="overflow-hidden relative w-full grid place-items-center rounded-[24px] bg-[#F9F9F9] border-border py-4"
                     style={{
                       backgroundColor: project.color,
                       backgroundImage: "url(/assets/noise.png)",
@@ -307,7 +306,6 @@ export default function ProjectSlider({ setHoveredProject }) {
                     <Image
                       src={project.image}
                       alt={project.title}
-
                       draggable="false"
                       className="object-center object-contain duration-500 group-hover:scale-105 ease-card h-[300px] md:h-[550px]"
                       sizes="(max-width: 768px) 100vw, 900px"
@@ -318,11 +316,13 @@ export default function ProjectSlider({ setHoveredProject }) {
                 )}
 
                 <div className="flex flex-col items-center justify-center">
-                  <div className={`flex flex-col items-center justify-center gap-2 text-center ${
-                            layoutDirection === "row"
-                              ? "md:w-1/2"
-                              : "md:w-1/3"
-                          }`}>
+                  <div
+                    className={`flex flex-col items-center justify-center gap-2 text-center ${
+                      layoutDirection === "row"
+                        ? "w-full md:w-2/3"
+                        : "w-full md:w-1/2"
+                    }`}
+                  >
                     <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
