@@ -43,7 +43,7 @@ const Summary = () => {
   return (
     <Wrapper>
       <div className="w-full py-4 border-b border-border">
-        <h1 className="text-[32px md:text-[40px] leading-none text-secondaryText">
+        <h1 className="text-[32px] md:text-[40px] leading-none text-secondaryText">
           Summary
         </h1>
       </div>
