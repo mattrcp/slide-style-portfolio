@@ -254,7 +254,7 @@ export default function ProjectSlider({ setHoveredProject }) {
           }
           onDragStart={shouldBeDraggable ? handleDragStart : undefined}
           onDragEnd={shouldBeDraggable ? handleDragEnd : undefined}
-          className={`flex gap-10 w-full h-full relative ${
+          className={`flex gap-20 w-full h-full relative ${
             layoutDirection === "row"
               ? "flex-row md:w-auto md:gap-8"
               : "flex-col"
@@ -281,24 +281,24 @@ export default function ProjectSlider({ setHoveredProject }) {
               >
                 {project.video ? (
                   <div
-                    className="overflow-hidden relative w-auto rounded-[24px]"
-                    style={{
-                      backgroundColor: project.color,
-                      // backgroundImage: "url(/assets/noise.png)",
-                    }}
-                  >
-                    <video
-                      src={project.video}
-                      className="w-full scale-125 h-[300px] md:h-[600px] rounded-[24px] group-hover:scale-[1.35] ease-card duration-500"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    ></video>
-                  </div>
+                  className="overflow-hidden relative w-auto rounded-[24px] bg-[#F9F9F9] border-border py-4"
+                  style={{
+                    backgroundColor: project.color,
+                    // backgroundImage: "url(/assets/noise.png)",
+                  }}
+                >
+                  <video
+                    src={project.video}
+                    className="w-full h-[300px] md:h-[550px] group-hover:scale-105 ease-card duration-500 " // Corrected: added the closing ']'
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  ></video>
+                </div>
                 ) : (
                   <div
-                    className="overflow-hidden relative w-full h-[300px] md:h-[600px] rounded-[24px]"
+                    className="overflow-hidden relative w-full  rounded-[24px] bg-[#F9F9F9] border-border py-4"
                     style={{
                       backgroundColor: project.color,
                       backgroundImage: "url(/assets/noise.png)",
@@ -307,16 +307,18 @@ export default function ProjectSlider({ setHoveredProject }) {
                     <Image
                       src={project.image}
                       alt={project.title}
-                      fill
+
                       draggable="false"
-                      className="object-contain object-center duration-500 group-hover:scale-105 ease-card"
-                      sizes="(max-width: 768px) 100vw, 500px"
+                      className="object-center object-contain duration-500 group-hover:scale-105 ease-card h-[300px] md:h-[550px]"
+                      sizes="(max-width: 768px) 100vw, 900px"
+                      quality={95}
+                      priority={index < 2}
                     />
                   </div>
                 )}
 
                 <div className="flex flex-col items-center justify-center">
-                  <div className="flex flex-col items-center justify-center gap-2 text-center md:w-2/3">
+                  <div className="flex flex-col items-center justify-center gap-2 text-center md:w-1/2">
                     <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
