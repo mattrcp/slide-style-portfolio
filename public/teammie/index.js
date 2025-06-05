@@ -8,13 +8,16 @@ import lowfi from "./lowfi.png";
 import matt from "./matt.jpg";
 import midfi from "./midfi.png";
 import ownerPage from "./owner.png";
-import presentation from "./promote.jpeg";
-import presentation2 from "./promote2.jpeg";
+import promote from "./promote.jpeg";
+import promote2 from "./promote2.jpeg";
 import studentPage from "./student.png";
 import timeline from "./timeline.png";
 import usability from "./usability.png";
 import userflow from "./userflow.png";
 import userJourney from "./userjourney.png";
+import thumbnail from "./thumbnail.png";
+import faqPage from "./faq.png";
+import interview from "./interview.png";
 
 export {
   projectOwner,
@@ -26,12 +29,15 @@ export {
   matt,
   midfi,
   ownerPage,
-  presentation,
-  presentation2,
+  promote,
+  promote2,
   studentPage,
   timeline,
   usability,
   userflow,
   userJourney,
   keeva,
+  thumbnail,
+  faqPage,
+  interview,
 };
