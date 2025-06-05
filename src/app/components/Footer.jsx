@@ -20,7 +20,7 @@ const Footer = () => {
       <div className="flex flex-col items-center justify-center h-full">
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="text-lg font-medium font-satoshi text-secondaryText">
-            Don't be shy ジ
+            Let's connect ジ
           </p>
           <div className="flex flex-row items-center justify-center gap-4 px-4 py-8 border rounded-2xl md:pr-8 md:pl-10 bg-secondaryBg border-border">
             <Link

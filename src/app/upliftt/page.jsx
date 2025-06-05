@@ -15,7 +15,7 @@ const page = () => {
     <div>
       <Navigation />
       <ImageThumbnail />
-      <main className="flex flex-col items-start justify-center w-full  mx-auto overflow-visible max-w-[1300px] gap-8">
+      <main className="w-full px-4 md:px-6 lg:px-8 xl:px-10 mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-[1280px] 2xl:max-w-[1440px]">
         <Overview />
         <Discovery />
         <Define />

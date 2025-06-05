@@ -44,7 +44,7 @@ const Summary = () => {
     <Wrapper>
       <div className="w-full py-4 border-b border-border">
         <h1 className="text-[32px] md:text-[40px] leading-none text-secondaryText">
-          Summary
+          Upliftt
         </h1>
       </div>
       <div className="flex flex-col w-full gap-8 md:flex-row md:gap-20 text-primaryText">
