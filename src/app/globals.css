@@ -6,9 +6,11 @@
   --primary-bg: 255, 255, 255;
   --secondary-bg: 248, 248, 248;
   --ternary-bg: 240, 240, 240;
+  --swap-bg: 17, 17, 17;
   --primary-text: 42, 42, 42;
   --secondary-text: 102, 102, 102;
   --ternary-text: 136, 136, 136;
+  --swap-text: 255, 255, 255;
   --primary-grey: 229, 229, 229;
   --secondary-grey: 204, 204, 204;
   --highlight-blue: 59, 130, 246;
@@ -19,9 +21,11 @@
   --primary-bg: 17, 17, 17;
   --secondary-bg: 28, 28, 28;
   --ternary-bg: 38, 38, 38;
+  --swap-bg: 255, 255, 255;
   --primary-text: 255, 255, 255;
   --secondary-text: 242, 242, 242;
   --ternary-text: 115, 115, 115;
+  --swap-text: 17, 17, 17;
   --primary-grey: 64, 64, 64;
   --secondary-grey: 82, 82, 82;
   --highlight-blue: 96, 165, 250;
