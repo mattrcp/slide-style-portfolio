@@ -51,13 +51,13 @@ const Research = () => {
     },
   ];
 
-  const featureVariants = {
-    initial: { opacity: 0, y: 50 }, // Start slightly below and invisible
+  const cardVariants = {
+    initial: { opacity: 0, y: 50 }, // Start yd down and invisible
     inView: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    }, // Animate to full opacity and original position
+      transition: { duration: 0.8, ease: "easeOut" },
+    }, // y to original size and fade in
   };
 
   return (
@@ -86,10 +86,14 @@ const Research = () => {
       </div>
 
       {finalFeatures.map((feature, i) => (
-        <Wrapper
+        <div
           className={`flex flex-col gap-10 md:gap-20 items-center md:flex-row-reverse justify-center `}
           key={i}
           id={feature.id}
+          variants={cardVariants} // Apply the defined variants
+          initial="initial" // Set the initial state
+          whileInView="inView" // Animate to 'inView' when in viewport
+          viewport={{ once: true, amount: 0.5 }} // Configure viewport behavior
         >
           {/* Text Content Block */}
           <div className="flex flex-col w-full gap-4 md:w-1/2">
@@ -122,7 +126,7 @@ const Research = () => {
               />
             </div>
           </div>
-        </Wrapper>
+        </div>
       ))}
     </div>
   );

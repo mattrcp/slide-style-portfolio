@@ -210,7 +210,7 @@ export default function AboutModal({ isOpen, onClose }) {
                                 <p
                                   className={`flex-shrink-0 w-full md:w-auto text-nowrap overflow-hidden text-ellipsis ${
                                     index === 0
-                                      ? "text-[#295D0E] font-semibold"
+                                      ? "text-highlightBlue font-semibold"
                                       : "text-primaryText"
                                   } max-w-[calc(50%_-_4rem)]`}
                                 >
