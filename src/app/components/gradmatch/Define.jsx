@@ -88,7 +88,7 @@ const TargetUsers = () => {
   ];
 
   return (
-    <Wrapper>
+    <div className="flex flex-col min-w-full gap-8 py-8 overflow-auto md:py-16">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Our Main Users
@@ -105,7 +105,7 @@ const TargetUsers = () => {
         </div>
         <div className="grid w-full grid-cols-1 gap-4 md:w-1/2 ">
           {results.map((result, i) => (
-            <div
+            <Wrapper
               key={i}
               className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
             >
@@ -115,7 +115,7 @@ const TargetUsers = () => {
               <p className="w-full text-[18px] font-base md:text-[20px] text-primaryText flex-grow">
                 {result.description}
               </p>
-            </div>
+            </Wrapper>
           ))}
         </div>
       </div>
@@ -161,7 +161,7 @@ const TargetUsers = () => {
           </div>
         ))}
       </div>
-    </Wrapper>
+    </div>
   );
 };
 

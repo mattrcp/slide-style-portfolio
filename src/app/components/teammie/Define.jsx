@@ -57,9 +57,20 @@ const Audience = () => {
       ],
     },
   ];
+  const cardVariants = {
+    initial: { opacity: 0, y: 50 }, // Start yd down and invisible
+    inView: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    }, // y to original size and fade in
+  };
 
   return (
-    <Wrapper id="user">
+    <div
+      id="user"
+      className="flex flex-col min-w-full gap-8 py-8 overflow-auto md:py-16"
+    >
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Our Target User
@@ -70,6 +81,10 @@ const Audience = () => {
           <div
             key={user.id}
             className="flex flex-col w-full px-6 py-6 gap-8 bg-secondaryBg  border-border border md:flex-1 rounded-2xl md:rounded-[32px]"
+            variants={cardVariants} // Apply the defined variants
+            initial="initial" // Set the initial state
+            whileInView="inView" // Animate to 'inView' when in viewport
+            viewport={{ once: true, amount: 0.5 }} // Configure viewport behavior
           >
             <div className="flex items-center gap-4 h-[300px]  md:h-[600px] ">
               {" "}
@@ -115,7 +130,7 @@ const Audience = () => {
           </div>
         ))}
       </div>
-    </Wrapper>
+    </div>
   );
 };
 

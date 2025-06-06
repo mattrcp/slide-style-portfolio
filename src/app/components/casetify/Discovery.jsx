@@ -61,12 +61,9 @@ const Research = () => {
   };
 
   return (
-    <motion.div
+    <div
       id="research"
       className="flex flex-col min-w-full gap-8 py-8 overflow-auto md:py-16 "
-      variants={featureVariants} // Apply the variants
-      initial="initial" // Set initial state
-      whileInView="inView" // Animate when in view
       viewport={{ once: true, amount: 0.3 }} // Adjust amount as needed (e.g., 0.3 for 30% visibility)
     >
       <div className="w-full py-4 border-b border-border">
@@ -89,14 +86,10 @@ const Research = () => {
       </div>
 
       {finalFeatures.map((feature, i) => (
-        <motion.div
+        <Wrapper
           className={`flex flex-col gap-10 md:gap-20 items-center md:flex-row-reverse justify-center `}
           key={i}
           id={feature.id}
-          variants={featureVariants} // Apply the variants
-          initial="initial" // Set initial state
-          whileInView="inView" // Animate when in view
-          viewport={{ once: true, amount: 0.3 }} // Adjust amount as needed (e.g., 0.3 for 30% visibility)
         >
           {/* Text Content Block */}
           <div className="flex flex-col w-full gap-4 md:w-1/2">
@@ -129,9 +122,9 @@ const Research = () => {
               />
             </div>
           </div>
-        </motion.div>
+        </Wrapper>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
