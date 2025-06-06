@@ -1,11 +1,11 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import {  personal } from "../../../public/assets";
+import { personal } from "../../../public/assets";
 
 export default function HeroSingle() {
   return (
-    <div className="flex flex-col justify-center items-center  pt-10 pb-10 w-full h-[90vh] md:h-screen md:pt-20 md:mt-0">
+    <div className="flex flex-col justify-center items-center  pt-16 pb-10 w-full h-[90vh] md:h-screen md:pt-20 md:mt-0">
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

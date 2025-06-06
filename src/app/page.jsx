@@ -8,12 +8,14 @@ import HeroSingle from "./components/HeroSingle";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  const [hoveredProject, setHoveredProject] = useState(null);
+
   return (
     <AnimatePresence mode="wait">
       <Navigation />
-      <main className="flex flex-col justify-center items-start px-2 w-full md:px-4">
+      <main className="flex flex-col items-start justify-center w-full px-2 md:px-4">
         <HeroSingle />
-        <ProjectSlider />
+        <ProjectSlider setHoveredProject={setHoveredProject} />
       </main>
       <Footer />
     </AnimatePresence>

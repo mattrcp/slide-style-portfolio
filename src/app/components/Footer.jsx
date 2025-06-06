@@ -8,10 +8,17 @@ import Link from "next/link";
 import { IconArrowUpRight } from "@tabler/icons-react";
 
 const links = [
-  { href: "https://www.youtube.com/", label: "Dribble" },
-  { href: "https://www.youtube.com/", label: "Instagram" },
-  { href: "https://www.youtube.com/", label: "LinkedIn" },
+  { href: "https://dribbble.com/ratchapon", label: "Dribble" },
+  {
+    href: "https://www.instagram.com/tooboredto.design/",
+    label: "Instagram",
+  },
+  {
+    href: "https://www.linkedin.com/in/matt-ngamdan-b251171a1/",
+    label: "LinkedIn",
+  },
   { href: "https://www.youtube.com/", label: "Resume" },
+  { href: "mailto:ratchapon.ngam@gmail.com", label: "Email" },
 ];
 
 const Footer = () => {

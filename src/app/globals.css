@@ -50,12 +50,67 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Custom Drag Cursors */
 .cursor-my-drag {
   cursor: grab;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
 }
 
 .cursor-my-drag:active {
   cursor: grabbing;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+.cursor-my-drag:hover {
+  cursor: grab;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+/* Custom drag cursor with your custom SVG */
+.cursor-drag-custom {
+  cursor: url("/drag-me.svg") 12 12, grab;
+}
+
+.cursor-drag-custom:active {
+  cursor: url("/drag-me.svg") 12 12, grabbing;
+}
+
+/* Alternative custom cursor with hand icon */
+.cursor-drag-hand {
+  cursor: ("/drag-me.svg") 10 10, grab;
+}
+
+/* If you want different cursor for dark mode, you can add a separate SVG file */
+/* 
+.dark .cursor-drag-custom {
+  cursor: url("/drag-me-dark.svg") 12 12, grab;
+}
+
+.dark .cursor-drag-custom:active {
+  cursor: url("/drag-me-dark.svg") 12 12, grabbing;
+}
+*/
+
+/* Smooth cursor transition */
+.cursor-drag-custom,
+.cursor-my-drag {
+  transition: cursor 0.2s ease;
+}
+
+/* Custom cursor for non draggable state (mobile/column view) */
+.cursor-scroll-hint {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M12 5v14M19 12l-7 7-7-7'/%3E%3C/svg%3E")
+      10 10,
+    auto;
+}
+
+.dark .cursor-scroll-hint {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M12 5v14M19 12l-7 7-7-7'/%3E%3C/svg%3E")
+      10 10,
+    auto;
 }
 
 @layer utilities {

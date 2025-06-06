@@ -8,12 +8,14 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { projects } from "../data/content";
 import Image from "next/image";
 import Link from "next/link";
+import { usePageTransition } from "./PageTransitionProvider";
 
-export default function ProjectSlider({ setHoveredProject }) {
+export default function ProjectSlider({ setHoveredProject = () => {} }) {
+  const { triggerTransition } = usePageTransition();
   const [isDragging, setIsDragging] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [layoutDirection, setLayoutDirection] = useState("row");
+  const [layoutDirection, setLayoutDirection] = useState("column");
 
   // x and y motion values are always needed to manage position, even if not directly dragged
   const x = useMotionValue(0);
@@ -33,7 +35,7 @@ export default function ProjectSlider({ setHoveredProject }) {
     const checkScreenSize = () => {
       const desktop = window.innerWidth >= 768;
       setIsDesktop(desktop);
-      setLayoutDirection(desktop ? "row" : "column");
+      setLayoutDirection(desktop ? "column" : "row");
     };
 
     checkScreenSize();
@@ -183,7 +185,7 @@ export default function ProjectSlider({ setHoveredProject }) {
   const timerRef = useRef(null);
   const handleMouseEnter = useCallback(
     (index) => {
-      if (isDesktop) {
+      if (isDesktop && setHoveredProject) {
         setHoveredProject(index);
 
         if (timerRef.current) {
@@ -198,11 +200,19 @@ export default function ProjectSlider({ setHoveredProject }) {
     [isDesktop, setHoveredProject]
   );
 
-  const handleClick = (event) => {
+  const handleClick = async (event, projectHref) => {
     if (isDragging) {
       event.preventDefault();
+      return;
     }
+
+    event.preventDefault();
     setIsDragging(false);
+
+    // Use page transition for navigation
+    if (triggerTransition) {
+      await triggerTransition(projectHref);
+    }
   };
 
   const toggleLayout = useCallback(() => {
@@ -214,13 +224,27 @@ export default function ProjectSlider({ setHoveredProject }) {
 
   const shouldBeDraggable = isDesktop && layoutDirection === "row";
 
+  const cardVariants = {
+    initial: { opacity: 0.9, scale: 0.9 }, // Start scaled down and invisible
+    inView: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0, ease: "easeOut" },
+    }, // Scale to original size and fade in
+    outOfView: {
+      opacity: 0.9,
+      scale: 0.9,
+      transition: { duration: 0, ease: "easeIn" },
+    }, // Scale down and fade out when leaving view
+  };
+
   return (
     <motion.div
       className="relative grid w-full h-auto pt-0 pb-4 place-items-center md:pt-20"
       id="work"
     >
       {/* Layout Toggle Button - Only render if isDesktop is true */}
-      {isDesktop && (
+      {/* {isDesktop && (
         <button
           onClick={toggleLayout}
           className="absolute z-50 grid p-3 rounded-full shadow-sm right-2 top-4 place-items-center bg-secondaryBg text-primaryText"
@@ -231,10 +255,15 @@ export default function ProjectSlider({ setHoveredProject }) {
             <TbCarouselHorizontalFilled />
           )}
         </button>
-      )}
+      )} */}
 
       {/* Slider Container */}
-      <div ref={sliderRef} className={`overflow-hidden relative w-full h-auto`}>
+      <div
+        ref={sliderRef}
+        className={`overflow-hidden relative w-full h-auto ${
+          shouldBeDraggable ? "cursor-drag-custom" : ""
+        }`}
+      >
         {/* The actual draggable content */}
         <motion.div
           style={layoutDirection === "row" ? { x } : { y }}
@@ -253,12 +282,15 @@ export default function ProjectSlider({ setHoveredProject }) {
           }
           onDragStart={shouldBeDraggable ? handleDragStart : undefined}
           onDragEnd={shouldBeDraggable ? handleDragEnd : undefined}
-          className={`flex gap-20 w-full h-full relative ${
+          className={`flex gap-8  w-full h-full relative ${
             layoutDirection === "row"
-              ? "flex-row md:w-auto md:gap-8"
+              ? // change to flex row if you want to see the card in row layout
+                "flex-col md:w-auto md:gap-8"
               : "flex-col"
           } pb-4 ${
-            shouldBeDraggable ? "cursor-my-drag active:cursor-grabbing" : ""
+            shouldBeDraggable
+              ? "cursor-drag-custom hover:cursor-drag-custom"
+              : ""
           }`}
         >
           {projects.map((project, index) => (
@@ -268,19 +300,25 @@ export default function ProjectSlider({ setHoveredProject }) {
                           ${
                             layoutDirection === "row"
                               ? "min-w-full  md:min-w-[900px]"
-                              : "min-h-[400px] w-full mx-auto md:min-h-[700px]"
+                              : "min-h-[400px] w-full mx-auto md:min-h-auto"
                           }`}
               onMouseEnter={() => handleMouseEnter(index)}
+              variants={cardVariants} // Apply the defined variants
+              initial="initial" // Set the initial state
+              whileInView="inView" // Animate to 'inView' when in viewport
+              exit="outOfView" // Animate to 'outOfView' when exiting
+              viewport={{ once: true, amount: 0.5 }} // Configure viewport behavior
             >
-              <Link
-                href={project.href}
-                className="relative flex flex-col w-full h-auto gap-6 group"
+              <div
+                className={`relative flex flex-col w-full h-full gap-6 group cursor-pointer ${
+                  shouldBeDraggable ? "cursor-drag-custom" : ""
+                }`}
                 draggable="false"
-                onClick={handleClick}
+                onClick={(e) => handleClick(e, project.href)}
               >
                 {project.video ? (
                   <div
-                    className="overflow-hidden relative w-auto rounded-[24px] bg-[#F9F9F9] border-border py-4"
+                    className="overflow-hidden relative w-auto h-full rounded-[24px] bg-[#F9F9F9] border-border border-[1px] py-6"
                     style={{
                       backgroundColor: project.color,
                       // backgroundImage: "url(/assets/noise.png)",
@@ -288,16 +326,26 @@ export default function ProjectSlider({ setHoveredProject }) {
                   >
                     <video
                       src={project.video}
-                      className="w-full h-[300px] md:h-[550px] group-hover:scale-105 ease-card duration-500 " // Corrected: added the closing ']'
+                      className="w-full h-[300px] md:h-[60vh] duration-500 group-hover:scale-105 ease-card"
                       autoPlay
                       loop
                       muted
                       playsInline
                     ></video>
+                    {layoutDirection != "row" && (
+                      <div className="absolute hidden p-6 duration-300 opacity-0 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bottom-6 left-6 rounded-3xl bg-primaryBg">
+                        <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                          {project.title}
+                        </h3>
+                        <p className="text-base font-medium text-secondaryText">
+                          {project.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div
-                    className="overflow-hidden relative w-full grid place-items-center rounded-[24px] bg-[#F9F9F9] border-border py-4"
+                    className="overflow-hidden relative w-full grid place-items-center rounded-[24px] bg-[#F9F9F9] border-border border-[1px] py-6"
                     style={{
                       backgroundColor: project.color,
                       backgroundImage: "url(/assets/noise.png)",
@@ -307,26 +355,38 @@ export default function ProjectSlider({ setHoveredProject }) {
                       src={project.image}
                       alt={project.title}
                       draggable="false"
-                      className="object-center object-contain duration-500 group-hover:scale-105 ease-card h-[300px] md:h-[550px]"
-                      sizes="(max-width: 768px) 100vw, 900px"
-                      quality={95}
+                      className="object-center object-contain duration-500 group-hover:scale-105 ease-card h-[300px] md:h-[60vh]"
                       priority={index < 2}
                     />
+                    {layoutDirection != "row" && (
+                      <div className="absolute p-6 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bottom-6 left-6 rounded-3xl bg-primaryBg">
+                        <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                          {project.title}
+                        </h3>
+                        <p className="text-base font-medium text-secondaryText">
+                          {project.description}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
 
-                <div className="flex flex-col items-center justify-center">
+                <div
+                  className={`flex flex-col items-center justify-center duration-300 ease-card ${
+                    layoutDirection != "row" ? "sm:hidden " : ""
+                  }`}
+                >
                   <div
                     className={`flex flex-col items-center justify-center gap-2 text-center ${
                       layoutDirection === "row"
-                        ? "w-full md:w-2/3"
-                        : "w-full md:w-1/2"
+                        ? "w-full sm:w-2/3"
+                        : "w-full sm:w-1/2"
                     }`}
                   >
                     <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
-                    <p className="text-base text-secondaryText">
+                    <p className="text-base font-medium text-secondaryText">
                       {project.description}
                     </p>
                   </div>
@@ -337,7 +397,7 @@ export default function ProjectSlider({ setHoveredProject }) {
                 <span className="absolute grid p-2 rounded-full shadow-sm top-4 right-4 place-items-center bg-primaryBg text-primaryText">
                   <IconArrowUpRight stroke={2} />
                 </span>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </motion.div>
