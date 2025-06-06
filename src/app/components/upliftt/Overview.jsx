@@ -41,7 +41,7 @@ const Summary = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper id="overview">
       <div className="w-full py-4 border-b border-border">
         <h1 className="text-[32px] md:text-[40px] leading-none text-secondaryText">
           Upliftt

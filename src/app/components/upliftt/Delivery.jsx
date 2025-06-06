@@ -1,7 +1,9 @@
+// components/Delivery.jsx (or wherever Final is defined)
 "use client";
 
 import React, { useState } from "react";
 import Wrapper from "../Wrapper";
+import { motion } from "framer-motion"; // <-- Import motion here
 
 const Delivery = () => {
   return (
@@ -73,8 +75,21 @@ const Final = () => {
     },
   ];
 
+  // Define the animation variants for each feature
+  const featureVariants = {
+    initial: { opacity: 0, y: 50 }, // Start slightly below and invisible
+    inView: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    }, // Animate to full opacity and original position
+  };
+
   return (
-    <Wrapper>
+    <div
+      id="deliverable"
+      className="flex flex-col min-w-full gap-8 py-8 overflow-auto md:py-16 "
+    >
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Final Design
@@ -82,17 +97,19 @@ const Final = () => {
       </div>
 
       {finalFeatures.map((feature, i) => (
-        <div
+        <motion.div // <--- Changed to motion.div
+          key={i}
+          id={feature.id}
           className={`flex flex-col gap-10 md:gap-20 items-center justify-center ${
             i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
           }`}
-          key={i}
-          id={feature.id}
+          variants={featureVariants} // Apply the variants
+          initial="initial" // Set initial state
+          whileInView="inView" // Animate when in view
+          viewport={{ once: true, amount: 0.3 }} // Adjust amount as needed (e.g., 0.3 for 30% visibility)
         >
           {/* Text Content Block */}
           <div className="flex flex-col w-full gap-4 md:w-1/2">
-            {" "}
-            {/* Added md:w-1/2 to share space */}
             <span className="text-base font-medium font-satoshi text-highlightBlue">
               {feature.name}
             </span>
@@ -105,7 +122,6 @@ const Final = () => {
           </div>
 
           {/* Video Block */}
-
           <div className="flex items-center justify-center w-full overflow-hidden border p-14 md:w-1/2 bg-secondaryBg rounded-3xl md:rounded-[32px] border-border aspect-square relative">
             {/* Loading Animation */}
             {loadingStates[`${feature.id}-${i}`] !== false && (
@@ -136,8 +152,8 @@ const Final = () => {
               }`}
             ></video>
           </div>
-        </div>
+        </motion.div>
       ))}
-    </Wrapper>
+    </div>
   );
 };

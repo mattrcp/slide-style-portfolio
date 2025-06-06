@@ -7,6 +7,7 @@ const Discovery = () => {
   return (
     <section className="w-full h-full overflow-visible">
       <WhatIsUpliftt />
+      <MyGoal />
       <Audience />
     </section>
   );
@@ -31,6 +32,32 @@ const WhatIsUpliftt = () => {
           productivity, and support health-driven communities, the platform
           helps fitness professionals grow their businesses and deliver real
           results.
+        </p>
+      </div>
+    </Wrapper>
+  );
+};
+
+const MyGoal = () => {
+  return (
+    <Wrapper id="goal">
+      <div className="w-full py-4 border-b border-border">
+        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+          My Goal
+        </h2>
+      </div>
+
+      <div className="flex flex-col w-full md:w-1/2">
+        <p className="w-full text-lg text-primaryText md:text-[18px]">
+          Trainees often lose motivation and fall off track with their fitness
+          goals due to lack of structure, habit reinforcement, and engaging
+          feedback.{" "}
+          <span className="font-semibold">
+            My challenge was to design a mobile experience that feels
+            motivating, habit-forming, and distinct from competitors blending
+            simplicity with light gamification to keep users consistently
+            engaged with their workout and meal plans.
+          </span>
         </p>
       </div>
     </Wrapper>
@@ -86,7 +113,7 @@ const Audience = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper id="research">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Our Target Audience
