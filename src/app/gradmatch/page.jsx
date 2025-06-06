@@ -1,21 +1,65 @@
 import React from "react";
 import Navigation from "../components/Navigation";
-import HeroSingle from "../components/HeroSingle";
-import ProjectSlider from "../components/ProjectSlider";
 import Footer from "../components/Footer";
+import { thumbnail } from "/public/gradmatch";
+import Image from "next/image";
+import Wrapper from "../components/Wrapper";
+
+import TableOfContents from "../components/TableoOfContents";
+import ProjectsShowcase from "../components/ProjectsShowcase";
+import Overview from "../components/gradmatch/Overview";
+import Discovery from "../components/gradmatch/Discovery";
+import Define from "../components/gradmatch/Define";
+import Develop from "../components/gradmatch/Develop";
+import Delivery from "../components/gradmatch/Delivery";
+import Learning from "../components/gradmatch/Learning";
+
+const tocItems = [
+  { id: "overview", label: "Overview", href: "#overview" },
+  { id: "discovery", label: "Discovery", href: "#discovery" },
+  { id: "define", label: "Define", href: "#define" },
+  { id: "develop", label: "Develop", href: "#develop" },
+  { id: "delivery", label: "Delivery", href: "#delivery" },
+  { id: "reflection", label: "Reflection", href: "#reflection" },
+];
 
 const page = () => {
   return (
-    <div>
+    <div className="relative">
       <Navigation />
-      <main className="flex flex-col items-start justify-center w-full max-w-[1200px] mx-auto">
-        <h1 className="text-2xl text-primaryText">
-          This is the GradMatch page
-        </h1>
+      <ImageThumbnail />
+      <main className="w-full px-4 md:px-6 lg:px-8 xl:px-10 mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-[1300px] 2xl:max-w-[1440px]">
+        <Overview />
+        <Discovery />
+        <Define />
+        <Develop />
+        <Delivery />
+        <Learning />
       </main>
+      <div className="fixed z-50 items-center justify-center hidden w-screen gap-6 px-2 py-2 md:flex bottom-2">
+        <TableOfContents items={tocItems} />
+        {/* <ProjectsShowcase /> */}
+      </div>
       <Footer />
     </div>
   );
 };
 
 export default page;
+
+const ImageThumbnail = () => {
+  return (
+    <Wrapper className="w-full h-[50vh] py-4 md:h-screen md:w-screen md:pt-20 md:pb-4">
+      <div className="w-full h-full pl-2 pr-2 md:pl-4 md:pr-6">
+        <div className="w-full h-full bg-secondaryBg border-border grid place-items-end rounded-2xl md:rounded-[32px] overflow-hidden relative">
+          <Image
+            src={thumbnail}
+            alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
+            fill // <-- Use the fill prop
+            className="object-cover object-bottom w-full h-auto md:object-contain "
+          />
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
