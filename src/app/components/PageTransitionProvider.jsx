@@ -4,12 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import ScrollToTop from "./ScrollToTop";
 import Lenis from "@studio-freight/lenis";
+import Image from "next/image";
 
 const PageTransitionContext = createContext();
 
 export function PageTransitionProvider({ children }) {
-  const [isAnimating, setIsAnimating] = useState(true);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [nextHref, setNextHref] = useState(null);
 
   const pathname = usePathname();
@@ -38,23 +38,32 @@ export function PageTransitionProvider({ children }) {
   }, []);
 
   const triggerTransition = (href) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setNextHref(href);
+    if (isAnimating) return Promise.resolve();
+
+    return new Promise((resolve) => {
+      setIsAnimating(true);
+      setNextHref(href);
+
+      // Complete the transition after animation
+      setTimeout(() => {
+        router.push(href);
+        setNextHref(null);
+        setIsAnimating(false);
+
+        // Scroll to top after navigation
+        setTimeout(() => {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+          } else {
+            window.scrollTo({ top: 0, behavior: "instant" });
+          }
+          resolve();
+        }, 100);
+      }, 600); // Match the animation duration
+    });
   };
 
-  const handleComplete = () => {
-    if (nextHref) {
-      router.push(nextHref);
-      setNextHref(null);
-      setTimeout(() => setIsAnimating(false), 400);
-    } else if (initialLoad) {
-      setInitialLoad(false);
-      setIsAnimating(false);
-    }
-  };
-
-  const barVariants = {
+  const overlayVariants = {
     initial: {
       scale: 0,
       opacity: 0,
@@ -63,15 +72,15 @@ export function PageTransitionProvider({ children }) {
       scale: 1,
       opacity: 1,
       transition: {
-        duration: 0.3,
+        duration: 0.4,
         ease: [0.76, 0, 0.24, 1],
       },
     },
     exit: {
-      scale: 0,
+      scale: 1.2,
       opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: [0.76, 0, 0.24, 1],
       },
     },
@@ -79,39 +88,41 @@ export function PageTransitionProvider({ children }) {
 
   return (
     <PageTransitionContext.Provider value={{ isAnimating, triggerTransition }}>
-      <AnimatePresence mode="wait">
-        <motion.div className="overflow-hidden relative w-full h-full">
-          {/* TRANSITION OVERLAY */}
-          {isAnimating && (
-            <motion.div className="flex fixed inset-0 z-50 justify-center items-center">
-              <motion.div
-                key="transition-bar"
-                variants={barVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                onAnimationComplete={handleComplete}
-                className="w-32 h-32 bg-pink-500 rounded-full"
-              />
-            </motion.div>
-          )}
+      <div className="relative w-full h-full">
+        {/* PAGE CONTENT - Always visible */}
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {children}
+        </motion.div>
 
-          {/* PAGE CONTENT */}
-          {!isAnimating && (
+        {/* TRANSITION OVERLAY - Only when transitioning */}
+        <AnimatePresence>
+          {isAnimating && (
             <motion.div
-              key={pathname}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.2 }}
             >
-              {children}
+              <div className="relative w-40 h-40">
+                <Image
+                  src="/assets/logo-animation.gif"
+                  className="object-contain w-full h-full"
+                  alt="logo animation"
+                  fill
+                />
+              </div>
             </motion.div>
           )}
+        </AnimatePresence>
 
-          <ScrollToTop />
-        </motion.div>
-      </AnimatePresence>
+        <ScrollToTop />
+      </div>
     </PageTransitionContext.Provider>
   );
 }
