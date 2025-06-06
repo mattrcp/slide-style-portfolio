@@ -59,24 +59,24 @@ const Audience = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper id="user">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Our Target Audience
+          Our Target User
         </h2>
       </div>
       <div className="flex flex-col w-full gap-4 md:flex-row text-primaryText">
         {userLists.map((user) => (
           <div
             key={user.id}
-            className="flex flex-col w-full px-6 py-6 gap-8 bg-secondaryBg  border-border border md:flex-1 rounded-[32px]"
+            className="flex flex-col w-full px-6 py-6 gap-8 bg-secondaryBg  border-border border md:flex-1 rounded-2xl md:rounded-[32px]"
           >
-            <div className="flex items-center gap-4  h-[600px] ">
+            <div className="flex items-center gap-4 h-[300px]  md:h-[600px] ">
               {" "}
               <Image
                 src={user.image}
                 alt={user.header}
-                className="object-cover object-center w-full h-full rounded-2xl"
+                className="object-cover object-center w-full h-full rounded-lg md:rounded-2xl"
               />
             </div>
             <div className="flex flex-col gap-6">
@@ -139,7 +139,7 @@ const UserJourney = () => {
         <Image
           src={userJourney}
           alt="an image of how the user journey looks like"
-          className=" rounded-2xl"
+          className="rounded-lg md:rounded-2xl"
           quality={100}
         />
       </div>
@@ -149,7 +149,7 @@ const UserJourney = () => {
 
 const Ideation = () => {
   return (
-    <Wrapper>
+    <Wrapper id="ideation">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Ideation
@@ -174,7 +174,7 @@ const Ideation = () => {
         <Image
           src={hmw}
           alt="an image of how the How Might We process looks like"
-          className=" rounded-2xl"
+          className="rounded-lg md:rounded-2xl"
           quality={100}
         />
       </div>

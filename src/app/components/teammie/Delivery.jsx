@@ -49,10 +49,10 @@ const Solution = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper id="final">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Solution
+          Final Design
         </h2>
       </div>
 

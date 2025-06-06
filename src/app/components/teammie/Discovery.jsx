@@ -27,7 +27,7 @@ export default Discovery;
 
 const WhatsTeammie = () => {
   return (
-    <Wrapper>
+    <Wrapper id="problem">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Why did we make Teammie?
@@ -112,7 +112,7 @@ const Planning = () => {
         <Image
           src={timeline}
           alt="Figma workspace"
-          className=" rounded-2xl"
+          className="rounded-lg md:rounded-2xl"
           quality={100}
         />
       </div>
@@ -170,7 +170,7 @@ const Research = () => {
           <Image
             src={interview}
             alt="an image of the results after the interview"
-            className=" rounded-2xl"
+            className="rounded-lg md:rounded-2xl"
             quality={100}
           />
         </div>

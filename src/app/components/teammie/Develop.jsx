@@ -19,7 +19,7 @@ export default Develop;
 
 const UserFlow = () => {
   return (
-    <Wrapper>
+    <Wrapper id="process">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           User Flow
@@ -40,7 +40,7 @@ const UserFlow = () => {
           <Image
             src={userflow}
             alt="an image of how the user flow looks like"
-            className=" rounded-2xl"
+            className="rounded-lg md:rounded-2xl"
             quality={100}
           />
         </div>
@@ -89,7 +89,7 @@ const LowFi = () => {
         <Image
           src={lowfi}
           alt="an image of how the user flow looks like"
-          className=" rounded-2xl"
+          className="rounded-lg md:rounded-2xl"
           quality={100}
         />
       </div>
@@ -134,7 +134,7 @@ const MidFi = () => {
         <Image
           src={midfi}
           alt="an image of how the user flow looks like"
-          className=" rounded-2xl"
+          className="rounded-lg md:rounded-2xl"
           quality={100}
         />
       </div>
@@ -157,7 +157,7 @@ const UsabilityTest = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper id="usability">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Results from the usability test

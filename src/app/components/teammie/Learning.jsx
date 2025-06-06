@@ -18,7 +18,7 @@ export default Learning;
 
 const Reflection = () => {
   return (
-    <Wrapper>
+    <Wrapper id="learning">
       <div className="w-full py-4 border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Reflection
@@ -77,7 +77,7 @@ const Growth = () => {
             key={image.alt}
             className="flex flex-col flex-shrink-0 w-[80vw] gap-6 md:w-auto"
           >
-            <div className="relative w-auto  h-[400px] border bg-secondaryBg rounded-2xl border-border aspect-video ">
+            <div className="relative w-full   h-[400px] border bg-secondaryBg rounded-2xl border-border aspect-video ">
               <Image
                 src={image.src}
                 alt={image.alt}
