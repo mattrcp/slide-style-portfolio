@@ -50,12 +50,12 @@ const Summary = () => {
       <div className="flex flex-col w-full gap-8 md:flex-row md:gap-20 text-primaryText">
         <div className="flex flex-col w-full gap-8">
           <p className="w-full text-lg text-primaryText md:text-[18px]">
-            As a UX/UI Design Intern at LightWeight360, I designed the iOS app
-            for trainees to follow personalized workout and meal plans. I
-            created the full design system, wireframes, high-fidelity mockups,
-            and interaction flows. I collaborated closely with the CTO and
-            stakeholders, and delivered a detailed dev handoff for
-            implementation.
+            As a UX/UI Design Intern at Upliftt (Previous name Lightweight360),
+            I designed the iOS app for trainees to follow personalized workout
+            and meal plans. I created the full design system, wireframes,
+            high-fidelity mockups, and interaction flows. I collaborated closely
+            with the CTO and stakeholders, and delivered a detailed dev handoff
+            for implementation.
           </p>
           <div className="flex items-center justify-start gap-2 pb-2 border-b border-border w-fit ">
             <Link

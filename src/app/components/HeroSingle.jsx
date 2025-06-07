@@ -68,7 +68,7 @@ export default function HeroSingle() {
               with past experience working in a startup.
             </p>
           </motion.div> */}
-          <motion.div className="flex items-center justify-between w-full overflow-hidden md:justify-end md:gap-16">
+          <motion.div className="flex items-center justify-between w-full overflow-hidden  md:justify-end md:gap-16">
             {emojiList.map((emoji, index) => (
               <motion.span className="text-2xl md:text-4xl blink-emoji">
                 {emoji}
