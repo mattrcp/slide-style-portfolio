@@ -65,7 +65,7 @@ const Final = () => {
       header: "HMW make fitness tracking simple and engaging?",
       description:
         "The calendar uses icons in the weekly view and color-coded dates in the monthly view to show the user's workout, cardio, rest days, and progress. It gives a quick, visual summary that helps users stay on track without needing to tap around.",
-      url: "/upliftt/calendar.mp4",
+      url: "/upliftt/Calendar.mp4",
       id: "calendar",
     },
     {
@@ -73,7 +73,7 @@ const Final = () => {
       header: "HMW help busy users stay consistent with their workout routine?",
       description:
         "The swipeable carousel syncs with the calendar and lets users preview or start workouts for each day. It adds structure and routine, making it easy to focus on just today's plan.",
-      url: "/upliftt/carousel.mp4",
+      url: "/upliftt/Carousel.mp4",
       id: "workout",
     },
     {
@@ -81,7 +81,7 @@ const Final = () => {
       header: "HMW track progress in an engaging way?",
       description:
         "The tab bar includes key data like weight lost, weight left, and total workout time with an expandable dropdown for a full progress breakdown. This encourages habit-building by showing results without overwhelming the user.",
-      url: "/upliftt/navigation.mp4",
+      url: "/upliftt/Navigation.mp4",
       id: "navigation",
     },
     {
@@ -89,7 +89,7 @@ const Final = () => {
       header: "HMW help busy users stay consistent with their meal routine?",
       description:
         "Tapping a meal opens a dedicated page where users can complete meals, triggering a satisfying animation and auto-transition to the next. It simplifies nutrition tracking while making it feel rewarding and smooth.",
-      url: "/upliftt/meal.mp4",
+      url: "/upliftt/Meal.mp4",
       id: "meal",
     },
     {
