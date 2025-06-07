@@ -295,22 +295,19 @@ export default function AboutModal({ isOpen, onClose }) {
                     </h3>
                     <div className="flex flex-row flex-wrap items-start justify-between w-full gap-2 md:gap-8">
                       {links.map((link, index) => (
-                        <div
-                          className="flex flex-row items-center justify-center gap-2 text-primaryText"
-                          key={index}
-                        >
+                        <div className="" key={index}>
                           <Link
                             href={link.href}
-                            className="text-base font-satoshi"
+                            className="flex flex-row items-center justify-center gap-2 text-base font-satoshi text-primaryText"
                             target="_blank" // Added target="_blank" for external links
                             rel="noopener noreferrer" // Security best practice for target="_blank"
                           >
                             {link.label}
+                            <IconArrowUpRight
+                              stroke={2}
+                              className="w-4 h-4 md:w-5 md:h-5"
+                            />
                           </Link>
-                          <IconArrowUpRight
-                            stroke={2}
-                            className="w-4 h-4 md:w-5 md:h-5"
-                          />
                         </div>
                       ))}
                     </div>
