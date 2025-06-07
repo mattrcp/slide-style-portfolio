@@ -11,12 +11,13 @@ const PageTransitionContext = createContext();
 export function PageTransitionProvider({ children }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [nextHref, setNextHref] = useState(null);
+  const [loadingPercent, setLoadingPercent] = useState(0);
 
   const pathname = usePathname();
   const router = useRouter();
   const lenisRef = useRef(null);
+  const previousPathnameRef = useRef(pathname);
 
-  // Setup Lenis once after mount
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -37,86 +38,140 @@ export function PageTransitionProvider({ children }) {
     };
   }, []);
 
-  const triggerTransition = (href) => {
+  useEffect(() => {
+    previousPathnameRef.current = pathname;
+  }, [pathname]);
+
+  const triggerTransition = async (href) => {
     if (isAnimating) return Promise.resolve();
 
     return new Promise((resolve) => {
       setIsAnimating(true);
       setNextHref(href);
 
-      // Complete the transition after animation
-      setTimeout(() => {
-        router.push(href);
-        setNextHref(null);
-        setIsAnimating(false);
+      // Start simulated loading percentage
+      let current = 0;
+      const interval = setInterval(() => {
+        current += Math.floor(Math.random() * 5) + 1; // 1–5%
+        if (current >= 95) {
+          current = 95;
+        }
+        setLoadingPercent(current);
+      }, 60);
 
-        // Scroll to top after navigation
-        setTimeout(() => {
-          if (lenisRef.current) {
-            lenisRef.current.scrollTo(0, { immediate: true });
-          } else {
-            window.scrollTo({ top: 0, behavior: "instant" });
-          }
-          resolve();
-        }, 100);
-      }, 600); // Match the animation duration
+      // Start the navigation
+      const navigateAndWait = async () => {
+        try {
+          router.push(href);
+
+          await new Promise((loadResolve) => {
+            let routeChanged = false;
+            let minimumTimePassed = false;
+
+            setTimeout(() => {
+              minimumTimePassed = true;
+              checkComplete();
+            }, 800);
+
+            const checkRouteChange = () => {
+              if (
+                window.location.pathname === href ||
+                window.location.pathname + window.location.hash === href
+              ) {
+                routeChanged = true;
+                checkComplete();
+              } else {
+                setTimeout(checkRouteChange, 50);
+              }
+            };
+
+            const checkComplete = () => {
+              if (routeChanged && minimumTimePassed) {
+                setTimeout(() => {
+                  loadResolve();
+                }, 400);
+              }
+            };
+
+            checkRouteChange();
+          });
+
+          // Final loading to 100%
+          clearInterval(interval);
+          let final = 95;
+          const finalInterval = setInterval(() => {
+            final += 1;
+            setLoadingPercent(final);
+            if (final >= 100) clearInterval(finalInterval);
+          }, 20);
+
+          setTimeout(() => {
+            setNextHref(null);
+            setIsAnimating(false);
+
+            setTimeout(() => {
+              if (lenisRef.current) {
+                lenisRef.current.scrollTo(0, { immediate: true });
+              } else {
+                window.scrollTo({ top: 0, behavior: "instant" });
+              }
+              setTimeout(() => {
+                setLoadingPercent(0); // Reset for next time
+                resolve();
+              }, 200);
+            }, 100);
+          }, 400);
+        } catch (error) {
+          console.error("Navigation error:", error);
+          clearInterval(interval);
+          setTimeout(() => {
+            setNextHref(null);
+            setIsAnimating(false);
+            resolve();
+          }, 2000);
+        }
+      };
+
+      navigateAndWait();
     });
-  };
-
-  const overlayVariants = {
-    initial: {
-      scale: 0,
-      opacity: 0,
-    },
-    animate: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: [0.76, 0, 0.24, 1],
-      },
-    },
-    exit: {
-      scale: 1.2,
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-        ease: [0.76, 0, 0.24, 1],
-      },
-    },
   };
 
   return (
     <PageTransitionContext.Provider value={{ isAnimating, triggerTransition }}>
       <div className="relative w-full h-full">
-        {/* PAGE CONTENT - Always visible */}
+        {/* Page content */}
         <motion.div
           key={pathname}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
+          style={{ display: isAnimating ? "none" : "block" }}
         >
           {children}
         </motion.div>
 
-        {/* TRANSITION OVERLAY - Only when transitioning */}
+        {/* Overlay loading screen */}
         <AnimatePresence>
           {isAnimating && (
             <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm"
+              className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-primaryBg backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
             >
               <div className="relative w-40 h-40">
                 <Image
                   src="/assets/logo-animation.gif"
-                  className="object-contain w-full h-full"
                   alt="logo animation"
+                  className="object-contain w-full h-full"
                   fill
+                  priority
                 />
               </div>
+              <span className="text-lg font-medium text-primaryText font-zodiak">
+                {loadingPercent}%
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
