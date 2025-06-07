@@ -154,7 +154,6 @@ const Final = () => {
             {loadingStates[`${feature.id}-${i}`] !== false && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-secondaryBg/80">
                 {" "}
-                {/* Added bg-secondaryBg/80 and z-10 */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-highlightBlue animate-spin"></div>
                   <span className="text-sm font-medium text-highlightBlue">
@@ -178,9 +177,10 @@ const Final = () => {
             <video
               src={feature.url}
               autoPlay
-              muted
               loop
+              muted
               playsInline
+              preload="metadata"
               // Use a unique ID for each video's state
               onLoadStart={() => handleVideoLoadStart(`${feature.id}-${i}`)}
               onCanPlayThrough={() => handleVideoLoad(`${feature.id}-${i}`)} // Use onCanPlayThrough for better loading indication
