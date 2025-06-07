@@ -1,11 +1,11 @@
-"use client"; // Important for client-side interactivity
+"use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { personal } from "public/assets";
-import { calendar } from "public/upliftt"; // Ensure 'calendar' is a valid image path for all experiences that use it.
+import { calendar } from "public/upliftt";
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { useState, useEffect } from "react"; // Import useState and useEffect
+import React, { useState, useEffect, useRef } from "react"; // Import useRef
 import Link from "next/link";
 
 // Framer Motion Variants (no changes here, they are fine)
@@ -28,7 +28,7 @@ const modalVariants = {
     x: "100%",
     opacity: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.4, // Changed from 1s to 0.4s for consistency with modal entry
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -47,7 +47,7 @@ const overlayVariants = {
   exit: {
     opacity: 0,
     transition: {
-      duration: 1,
+      duration: 0.3, // Changed from 1s to 0.3s for consistency with overlay entry
     },
   },
 };
@@ -68,12 +68,14 @@ const contentVariants = {
 };
 
 export default function AboutModal({ isOpen, onClose }) {
-  // --- New State for Hovered Image and Mouse Position ---
   const [hoveredImageSrc, setHoveredImageSrc] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAnyExperienceHovered, setIsAnyExperienceHovered] = useState(false);
 
-  // Handle escape key (Existing logic, no change)
+  const modalScrollRef = useRef(null); // Ref for the main scrollable modal content area
+  const touchStartY = useRef(0); // Use ref instead of let variable
+
+  // Handle escape key and comprehensive scroll lock
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -81,16 +83,47 @@ export default function AboutModal({ isOpen, onClose }) {
       }
     };
 
+    // Store original body scroll position
+    let originalScrollY = 0;
+
     if (isOpen) {
+      // Store current scroll position
+      originalScrollY = window.scrollY;
+
       document.addEventListener("keydown", handleEscape);
-      // Prevent body scroll when modal is open
+
+      // Apply comprehensive body scroll lock
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${originalScrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+
+      // Prevent scroll on html element too
+      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.touchAction = "none";
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      // Restore body scroll when modal is closed
-      document.body.style.overflow = "unset";
+
+      // Restore body styles
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+
+      // Restore html styles
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.touchAction = "";
+
+      // Restore scroll position
+      if (originalScrollY > 0) {
+        window.scrollTo(0, originalScrollY);
+      }
     };
   }, [isOpen, onClose]);
 
@@ -101,19 +134,16 @@ export default function AboutModal({ isOpen, onClose }) {
     };
 
     if (isAnyExperienceHovered) {
-      // Only add listener if an experience is hovered to optimize
       window.addEventListener("mousemove", handleMouseMove);
     } else {
       window.removeEventListener("mousemove", handleMouseMove);
     }
 
-    // Cleanup function: remove listener when component unmounts or hover state changes
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isAnyExperienceHovered]); // Dependency array: re-run effect if isAnyExperienceHovered changes
+  }, [isAnyExperienceHovered]);
 
-  // --- New Event Handlers for List Items ---
   const handleItemMouseEnter = (imageSrc) => {
     setHoveredImageSrc(imageSrc);
     setIsAnyExperienceHovered(true);
@@ -124,25 +154,47 @@ export default function AboutModal({ isOpen, onClose }) {
     setIsAnyExperienceHovered(false);
   };
 
+  // Touch event handlers for improved mobile scroll behavior
+  const handleTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!modalScrollRef.current) return;
+
+    const currentY = e.touches[0].clientY;
+    const delta = touchStartY.current - currentY;
+
+    const { scrollTop, scrollHeight, clientHeight } = modalScrollRef.current;
+    const isAtTop = scrollTop <= 0;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1; // Small tolerance
+
+    // Allow scrolling within the modal, but prevent overscroll
+    if ((delta < 0 && isAtTop) || (delta > 0 && isAtBottom)) {
+      e.preventDefault();
+    }
+
+    // Update touch position for next calculation
+    touchStartY.current = currentY;
+  };
+
   // Your experiences data
   const experiences = [
     {
       title: "Open to Work",
-      // company: "Current", // 'company' field is used, but this object doesn't have it.
       date: "Current",
-      // No image for "Open to Work", so it won't pop up. Add `image: someImageSource` if you want it to.
     },
     {
       title: "UI/UX Designer Intern",
       company: "Upliftt",
       date: "Feb - Apr 2025",
-      image: "/assets/upliftt.png", // Assuming 'calendar' is imported correctly and is a valid image source (e.g., /_next/static/media/...)
+      image: "/assets/upliftt.png",
     },
     {
       title: "Freelance UI/UX Designer",
-      company: "Upliftt",
+      company: "Upliftt", // Assuming this should be Freelance, not Upliftt based on your file structure
       date: "Dec - Jan 2025",
-      image: "/assets/dashboard.png", // Using 'personal' as an example for different image
+      image: "/assets/dashboard.png",
     },
     {
       title: "Jr. Entrepreneurs In Residence",
@@ -165,7 +217,7 @@ export default function AboutModal({ isOpen, onClose }) {
     {
       href: "https://drive.google.com/file/d/127RnFN0WAj9nbaBzpidA9xSeUWODGFg9/view?usp=sharing",
       label: "Resume",
-    }, // This URL seems like a placeholder.
+    },
     { href: "mailto:ratchapon.ngam@gmail.com", label: "Email" },
   ];
 
@@ -175,7 +227,7 @@ export default function AboutModal({ isOpen, onClose }) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 backdrop-blur-sm md:backdrop-blur-none bg-black/30 z-[998]" // Added bg-black/30 for better overlay visibility
+            className="fixed inset-0 backdrop-blur-sm md:backdrop-blur-none overflow-visible bg-black/30 z-[999]"
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
@@ -185,17 +237,27 @@ export default function AboutModal({ isOpen, onClose }) {
 
           {/* Modal */}
           <motion.div
-            className="fixed top-2 md:top-12 w-full md:w-[60vw] p-2 right-0 h-full md:h-auto z-[999] " // Changed overflow-visible to overflow-y-auto for modal content
+            className="fixed inset-0 md:inset-auto md:top-12 md:right-6 md:w-[60vw] md:h-auto z-[999] 
+                       flex items-center justify-center md:block p-2 md:p-0"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative h-full py-6 bg-primaryBg shadow-xl rounded-lg border-border border-[1px] ">
+            <div
+              ref={modalScrollRef}
+              className="w-full max-w-full md:w-full max-h-[97vh] md:max-h-[calc(100vh-6rem)] md:h-full
+                         overflow-y-auto overscroll-contain
+                         rounded-lg md:rounded-xl bg-primaryBg border-border border-[1px]
+                         touch-pan-y relative md:m-2"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+            >
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute z-10 flex items-center justify-center w-8 h-8 transition-colors rounded-full md:hidden bg-swapBg top-1 right-1"
+                className="absolute z-10 flex items-center justify-center w-8 h-8 transition-colors rounded-full top-4 right-4 md:hidden bg-swapBg"
                 aria-label="Close modal"
               >
                 <svg
@@ -215,9 +277,7 @@ export default function AboutModal({ isOpen, onClose }) {
               </button>
 
               {/* Content */}
-              <div className="h-full px-2 md:px-6">
-                {" "}
-                {/* No overflow-y-auto here, it's on the motion.div wrapper */}
+              <div className="px-4 py-6 md:px-6 md:h-full">
                 <motion.div
                   className="flex flex-col gap-6"
                   variants={contentVariants}
@@ -235,11 +295,11 @@ export default function AboutModal({ isOpen, onClose }) {
                   </div>
 
                   <div className="flex flex-col gap-4 md:flex-row">
-                    <div className="w-full h-full md:w-1/3">
+                    <div className="flex-shrink-0 w-full h-48 md:w-1/4 md:h-auto">
                       <Image
                         src={personal}
                         alt="personal"
-                        className="object-cover w-full h-full rounded-lg" // Added object-cover and rounded-lg
+                        className="object-cover w-full h-full rounded-lg"
                       />
                     </div>
 
@@ -255,11 +315,10 @@ export default function AboutModal({ isOpen, onClose }) {
                           {experiences.map((experience, index) => (
                             <li
                               key={index}
-                              className="relative" // 'group:' is not a valid Tailwind class for parent-child hover. Remove it.
-                              onMouseEnter={
-                                () =>
-                                  experience.image &&
-                                  handleItemMouseEnter(experience.image) // Only trigger if image exists
+                              className="relative"
+                              onMouseEnter={() =>
+                                experience.image &&
+                                handleItemMouseEnter(experience.image)
                               }
                               onMouseLeave={handleItemMouseLeave}
                             >
@@ -275,14 +334,11 @@ export default function AboutModal({ isOpen, onClose }) {
                                 </p>
                                 <div className="h-0.5 flex-grow bg-primaryGrey min-w-[1rem]" />
                                 <p className="flex-shrink-0 w-full md:w-auto text-sm text-end text-secondaryText text-nowrap overflow-hidden text-ellipsis max-w-[calc(50%_-_4rem)]">
-                                  {/* Handle cases where company might be undefined, like "Open to Work" */}
                                   {experience.company
                                     ? `${experience.company} (${experience.date})`
                                     : experience.date}
                                 </p>
                               </div>
-                              {/* The hidden group-hover:absolute div below is no longer needed.
-                                  The image will be rendered globally. */}
                             </li>
                           ))}
                         </ul>
@@ -299,8 +355,8 @@ export default function AboutModal({ isOpen, onClose }) {
                           <Link
                             href={link.href}
                             className="flex flex-row items-center justify-center gap-2 text-base font-satoshi text-primaryText"
-                            target="_blank" // Added target="_blank" for external links
-                            rel="noopener noreferrer" // Security best practice for target="_blank"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             {link.label}
                             <IconArrowUpRight
@@ -317,31 +373,31 @@ export default function AboutModal({ isOpen, onClose }) {
             </div>
           </motion.div>
 
-          {/* --- Floating Hover Image (Rendered Outside Modal's Scroll) --- */}
+          {/* Floating Hover Image (Rendered Outside Modal's Scroll) */}
           <AnimatePresence>
             {isAnyExperienceHovered && hoveredImageSrc && (
               <motion.div
-                key="hover-image" // Add a key for AnimatePresence to track
-                className="fixed pointer-events-none z-[1000] " // Higher z-index than modal, pointer-events-none is crucial
-                initial={{ opacity: 0, scale: 0.8 }} // Initial state for the image pop-in
-                animate={{ opacity: 1, scale: 1 }} // Animate to full size and visible
-                exit={{ opacity: 0, scale: 0.8 }} // Animate out
-                transition={{ duration: 0.2, ease: "easeOut" }} // Quick transition for the image
+                key="hover-image"
+                className="fixed pointer-events-none z-[1000] "
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{
-                  left: mousePosition.x + 20, // Offset from mouse cursor
-                  top: mousePosition.y + 20, // Offset from mouse cursor
+                  left: mousePosition.x + 20,
+                  top: mousePosition.y + 20,
                 }}
               >
                 <Image
                   src={hoveredImageSrc}
                   alt="Experience Detail"
-                  width={200} // Adjust size as desired
-                  height={150} // Adjust height to maintain aspect ratio, or use object-cover/contain
+                  width={200}
+                  height={150}
                   className={`w-full border border-border rounded-lg shadow-xl  bg-primaryBg ${
                     hoveredImageSrc === "/assets/upliftt.png"
                       ? "h-[30vh]"
                       : "h-auto"
-                  }`} // Added styling for the image
+                  }`}
                 />
               </motion.div>
             )}
