@@ -2,8 +2,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Wrapper from "../Wrapper";
-import { motion } from "framer-motion"; // <-- Import motion here
+import Wrapper from "../Wrapper"; // Assuming Wrapper is a simple container now as per previous fix
+import { motion } from "framer-motion";
 
 const Delivery = () => {
   return (
@@ -17,18 +17,45 @@ export default Delivery;
 
 const Final = () => {
   const [loadingStates, setLoadingStates] = useState({});
+  const [videoErrors, setVideoErrors] = useState({}); // New state for video errors
 
   const handleVideoLoad = (videoId) => {
+    console.log(`[Video Load Success]: Video ${videoId} is ready to play.`);
     setLoadingStates((prev) => ({
       ...prev,
-      [videoId]: false,
+      [videoId]: false, // Hide loading spinner on successful load
+    }));
+    setVideoErrors((prev) => ({
+      ...prev,
+      [videoId]: false, // Clear any previous error for this video
     }));
   };
 
   const handleVideoLoadStart = (videoId) => {
+    console.log(`[Video Load Start]: Starting to load video ${videoId}.`);
     setLoadingStates((prev) => ({
       ...prev,
-      [videoId]: true,
+      [videoId]: true, // Show loading spinner
+    }));
+    setVideoErrors((prev) => ({
+      ...prev,
+      [videoId]: false, // Clear error when load starts again
+    }));
+  };
+
+  // --- NEW: handleVideoError function ---
+  const handleVideoError = (videoId, event) => {
+    console.error(
+      `[Video Load Error]: Failed to load video ${videoId}.`,
+      event
+    );
+    setLoadingStates((prev) => ({
+      ...prev,
+      [videoId]: false, // Hide loading spinner, as it's an error, not just loading
+    }));
+    setVideoErrors((prev) => ({
+      ...prev,
+      [videoId]: true, // Set error state for this video
     }));
   };
 
@@ -97,16 +124,16 @@ const Final = () => {
       </div>
 
       {finalFeatures.map((feature, i) => (
-        <motion.div // <--- Changed to motion.div
+        <motion.div
           key={i}
           id={feature.id}
           className={`flex flex-col gap-10 md:gap-20 items-center justify-center ${
             i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
           }`}
-          variants={featureVariants} // Apply the variants
-          initial="initial" // Set initial state
-          whileInView="inView" // Animate when in view
-          viewport={{ once: true, amount: 0.3 }} // Adjust amount as needed (e.g., 0.3 for 30% visibility)
+          variants={featureVariants}
+          initial="initial"
+          whileInView="inView"
+          viewport={{ once: true, amount: 0.3 }}
         >
           {/* Text Content Block */}
           <div className="flex flex-col w-full gap-4 md:w-1/2">
@@ -125,13 +152,25 @@ const Final = () => {
           <div className="flex items-center justify-center w-full overflow-hidden border p-14 md:w-1/2 bg-secondaryBg rounded-3xl md:rounded-[32px] border-border aspect-square relative">
             {/* Loading Animation */}
             {loadingStates[`${feature.id}-${i}`] !== false && (
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-secondaryBg/80">
+                {" "}
+                {/* Added bg-secondaryBg/80 and z-10 */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-highlightBlue animate-spin"></div>
                   <span className="text-sm font-medium text-highlightBlue">
                     Loading video...
                   </span>
                 </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {videoErrors[`${feature.id}-${i}`] && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center text-white bg-red-500/80 rounded-3xl">
+                <p className="mb-2 font-semibold">Video Load Error!</p>
+                <p className="text-sm">
+                  Could not load video. Please check the URL.
+                </p>
               </div>
             )}
 
@@ -142,13 +181,14 @@ const Final = () => {
               muted
               loop
               playsInline
+              // Use a unique ID for each video's state
               onLoadStart={() => handleVideoLoadStart(`${feature.id}-${i}`)}
-              onCanPlay={() => handleVideoLoad(`${feature.id}-${i}`)}
-              onLoadedData={() => handleVideoLoad(`${feature.id}-${i}`)}
+              onCanPlayThrough={() => handleVideoLoad(`${feature.id}-${i}`)} // Use onCanPlayThrough for better loading indication
+              onError={(e) => handleVideoError(`${feature.id}-${i}`, e)} // NEW: Error event handler
               className={`object-contain w-auto h-full rounded-3xl md:rounded-[50px] transition-opacity duration-300 ${
                 loadingStates[`${feature.id}-${i}`] === false
-                  ? "opacity-100"
-                  : "opacity-0"
+                  ? "opacity-100" // Video loaded or error, show it if no error
+                  : "opacity-0" // Still loading
               }`}
             ></video>
           </div>
