@@ -2,6 +2,7 @@ import "./globals.css";
 import { PageTransitionProvider } from "./components/PageTransitionProvider";
 import { ThemeProvider } from "./context/ThemeContext";
 import ScrollToTop from "./components/ScrollToTop";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Matt's Space 🚀",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
             {/* <ScrollToTop /> */}
           </PageTransitionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
