@@ -17,7 +17,10 @@ const links = [
     href: "https://www.linkedin.com/in/matt-ngamdan-b251171a1/",
     label: "LinkedIn",
   },
-  { href: "https://www.youtube.com/", label: "Resume" },
+  {
+    href: "https://drive.google.com/file/d/127RnFN0WAj9nbaBzpidA9xSeUWODGFg9/view?usp=sharing",
+    label: "Resume",
+  },
   { href: "mailto:ratchapon.ngam@gmail.com", label: "Email" },
 ];
 
@@ -53,6 +56,7 @@ const Footer = () => {
               >
                 <Link
                   href={link.href}
+                  target="_blank"
                   className="text-sm italic md:text-lg font-satoshi"
                 >
                   {link.label}
