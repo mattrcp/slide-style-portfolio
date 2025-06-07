@@ -12,6 +12,7 @@ export function PageTransitionProvider({ children }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [nextHref, setNextHref] = useState(null);
   const [loadingPercent, setLoadingPercent] = useState(0);
+  const [isInitialLoad, setIsInitialLoad] = useState(true); // New state for initial load
 
   const pathname = usePathname();
   const router = useRouter();
@@ -37,6 +38,42 @@ export function PageTransitionProvider({ children }) {
       lenis.destroy();
     };
   }, []);
+
+  // Effect to handle initial loading screen
+  useEffect(() => {
+    if (isInitialLoad) {
+      setIsAnimating(true); // Show loading animation
+      let current = 0;
+      const interval = setInterval(() => {
+        current += Math.floor(Math.random() * 5) + 1;
+        if (current >= 95) {
+          current = 95;
+        }
+        setLoadingPercent(current);
+      }, 60);
+
+      const timer = setTimeout(() => {
+        clearInterval(interval);
+        let final = 95;
+        const finalInterval = setInterval(() => {
+          final += 1;
+          setLoadingPercent(final);
+          if (final >= 100) clearInterval(finalInterval);
+        }, 20);
+
+        setTimeout(() => {
+          setIsAnimating(false);
+          setIsInitialLoad(false); // Mark initial load as complete
+          setLoadingPercent(0); // Reset for next time
+        }, 400);
+      }, 1500); // Simulate initial load time (e.g., 1.5 seconds)
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timer);
+      };
+    }
+  }, [isInitialLoad]); // Dependency on isInitialLoad to run only once
 
   useEffect(() => {
     previousPathnameRef.current = pathname;
@@ -145,6 +182,7 @@ export function PageTransitionProvider({ children }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
+          // Hide content if isAnimating is true (during transition or initial load)
           style={{ display: isAnimating ? "none" : "block" }}
         >
           {children}
