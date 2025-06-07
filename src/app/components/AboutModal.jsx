@@ -247,7 +247,7 @@ export default function AboutModal({ isOpen, onClose }) {
           >
             <div
               ref={modalScrollRef}
-              className="w-full max-w-full md:w-full max-h-[97vh] md:max-h-[calc(100vh-6rem)] md:h-full
+              className="w-full max-w-full md:w-full max-h-[90vh] md:max-h-[calc(100vh-6rem)] md:h-full
                          overflow-y-auto overscroll-contain
                          rounded-lg md:rounded-xl bg-primaryBg border-border border-[1px]
                          touch-pan-y relative md:m-2"
@@ -322,9 +322,9 @@ export default function AboutModal({ isOpen, onClose }) {
                               }
                               onMouseLeave={handleItemMouseLeave}
                             >
-                              <div className="flex flex-row items-center justify-between gap-6 md:items-baseline">
+                              <div className="flex flex-row items-center justify-between gap-2 md:gap-6 md:items-baseline">
                                 <p
-                                  className={`flex-shrink-0 w-full md:w-auto text-nowrap overflow-hidden text-ellipsis ${
+                                  className={`flex-shrink-0 w-full md:w-auto md:text-base text-sm text-nowrap overflow-hidden text-ellipsis ${
                                     index === 0
                                       ? "text-highlightBlue font-semibold"
                                       : "text-primaryText"
