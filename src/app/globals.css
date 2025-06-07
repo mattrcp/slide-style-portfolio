@@ -263,3 +263,20 @@ body {
     content: "• "; /* Or whatever bullet you prefer */
   }
 }
+
+@keyframes blink-rotate {
+  0% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+
+.blink-emoji {
+  display: inline-block;
+  animation: blink-rotate 1s infinite;
+}

@@ -2,10 +2,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { personal } from "../../../public/assets";
+import React, { useState, useEffect } from "react";
 
 export default function HeroSingle() {
+  const emojiList = ["🏃", "🍵", "📱", "☕", "🖥", "🍛"];
+
   return (
-    <div className="flex flex-col justify-center items-center  pt-16 pb-10 w-full h-[90vh] md:h-screen md:pt-20 md:mt-0">
+    <div className="flex flex-col justify-center items-center  pt-16 pb-8 w-full h-[70vh] md:h-screen md:pt-20 md:mt-0">
       <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,12 +17,15 @@ export default function HeroSingle() {
           className="relative flex flex-col items-center justify-between w-full h-full"
         >
           <motion.div className="flex items-center justify-start w-full">
-            <h1 className="font-zodiak text-primaryText text-[clamp(30px,5vw,50px)]  leading-snug w-full md:w-2/3 ">
-              Matt designs mobile products that grow with your users, combining
-              strategic thinking with startup experience.
+            <h1 className="font-satoshi font-bold text-primaryText text-[clamp(30px,5vw,80px)] leading-snug w-full text-left tracking-tighter md:tracking-normal">
+              Matt designs mobile products that elevate user experiences through
+              <span className="underline decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal">
+                &nbsp;scalable systems, innovative thinking, and
+                cross-functional collaboration.
+              </span>
             </h1>
           </motion.div>
-          <motion.div className="flex items-center justify-center w-full h-full">
+          {/* <motion.div className="flex items-center justify-center w-full h-full">
             <div className="relative w-[136px] h-auto group">
               <Image
                 src={personal}
@@ -46,7 +52,7 @@ export default function HeroSingle() {
               </span>
               <Svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-20 h-[505px] w-[680px] ease-card duration-500 transition-all " />
             </div>
-          </motion.div>
+          </motion.div> */}
           {/* <motion.div className="flex items-center justify-end w-full">
             <p className="text-base md:text-xl md:w-1/3 text-secondaryText">
               Matt is a UX/UI Designer crafting a strategic, system-driven{" "}
@@ -62,6 +68,13 @@ export default function HeroSingle() {
               with past experience working in a startup.
             </p>
           </motion.div> */}
+          <motion.div className="flex items-center justify-between w-full overflow-hidden md:justify-end md:gap-16">
+            {emojiList.map((emoji, index) => (
+              <motion.span className="text-2xl md:text-4xl blink-emoji">
+                {emoji}
+              </motion.span>
+            ))}
+          </motion.div>
         </motion.div>
       </AnimatePresence>
     </div>

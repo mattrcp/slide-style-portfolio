@@ -333,7 +333,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       playsInline
                     ></video>
                     {layoutDirection != "row" && (
-                      <div className="absolute hidden p-6 duration-300 opacity-0 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bottom-6 left-6 rounded-3xl bg-primaryBg">
+                      <div className="absolute hidden p-6 duration-300 opacity-0 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bottom-4 left-4 rounded-3xl bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>
@@ -359,7 +359,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       priority={index < 2}
                     />
                     {layoutDirection != "row" && (
-                      <div className="absolute p-6 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bottom-6 left-6 rounded-3xl bg-primaryBg">
+                      <div className="absolute p-6 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bottom-4 left-4 rounded-3xl bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>

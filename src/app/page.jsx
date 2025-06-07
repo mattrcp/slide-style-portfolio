@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <AnimatePresence mode="wait">
       <Navigation />
-      <main className="flex flex-col items-start justify-center w-full px-2 md:px-4">
+      <main className="flex flex-col items-start justify-center w-full px-4">
         <HeroSingle />
         <ProjectSlider setHoveredProject={setHoveredProject} />
       </main>

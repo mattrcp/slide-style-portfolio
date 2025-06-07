@@ -59,7 +59,7 @@ const Final = () => {
     },
     {
       name: "Interactive Meal Flow",
-      header: "HMW help busy users stay consistent with their workout routine?",
+      header: "HMW help busy users stay consistent with their meal routine?",
       description:
         "Tapping a meal opens a dedicated page where users can complete meals, triggering a satisfying animation and auto-transition to the next. It simplifies nutrition tracking while making it feel rewarding and smooth.",
       url: "/upliftt/meal.mp4",
