@@ -147,7 +147,7 @@ export default function Navigation() {
       <header className="relative w-screen">
         {/* Desktop Navigation */}
         <motion.nav
-          className={`md:flex hidden flex-row gap-2 justify-center items-center py-4 w-full h-auto md:py-6 px-4 z-[1000] fixed
+          className={`md:flex hidden flex-row gap-2 justify-center items-center py-4 w-full h-auto md:py-6 px-4 z-[990] fixed
            `}
           //  ${
           //   pathname === "/" ? "fixed" : "block"
@@ -197,7 +197,7 @@ export default function Navigation() {
         {/* Mobile Navigation */}
         <div
           className="md:hidden w-screen py-2 px-4
-         fixed top-0 left-0 right-0 z-[1000] bg-transparent"
+         fixed top-0 left-0 right-0 z-[990] bg-transparent"
         >
           <div className="flex items-center justify-between w-full ">
             <TimeDisplay
@@ -210,7 +210,7 @@ export default function Navigation() {
             <button
               onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
-              className="relative flex flex-col items-start justify-center h-10 px-4 bg-black rounded-full w-14"
+              className="relative flex flex-col items-start justify-center h-10 px-4 bg-black z-[995] rounded-full w-14"
             >
               <motion.span
                 className="w-full h-0.5 bg-white mb-1.5 transform transition-all duration-300"
@@ -240,7 +240,7 @@ export default function Navigation() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="fixed w-screen h-screen inset-0 bg-black/95 backdrop-blur-sm z-[999] md:hidden"
+              className="fixed w-screen h-screen inset-0 bg-black/95 backdrop-blur-sm z-[985] md:hidden"
               variants={mobileMenuAnimation}
               initial="hidden"
               animate="visible"
