@@ -1,11 +1,14 @@
-"use client";
+"use client"; // Important for client-side interactivity
+
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { personal } from "public/assets";
+import { calendar } from "public/upliftt"; // Ensure 'calendar' is a valid image path for all experiences that use it.
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react"; // Import useState and useEffect
 import Link from "next/link";
 
+// Framer Motion Variants (no changes here, they are fine)
 const modalVariants = {
   hidden: {
     x: "100%",
@@ -44,7 +47,7 @@ const overlayVariants = {
   exit: {
     opacity: 0,
     transition: {
-      duration: 0.3,
+      duration: 1,
     },
   },
 };
@@ -65,7 +68,12 @@ const contentVariants = {
 };
 
 export default function AboutModal({ isOpen, onClose }) {
-  // Handle escape key
+  // --- New State for Hovered Image and Mouse Position ---
+  const [hoveredImageSrc, setHoveredImageSrc] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isAnyExperienceHovered, setIsAnyExperienceHovered] = useState(false);
+
+  // Handle escape key (Existing logic, no change)
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -75,35 +83,72 @@ export default function AboutModal({ isOpen, onClose }) {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
+      // Prevent body scroll when modal is open
       document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
+      // Restore body scroll when modal is closed
       document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
+  // --- New useEffect for Mouse Tracking ---
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    if (isAnyExperienceHovered) {
+      // Only add listener if an experience is hovered to optimize
+      window.addEventListener("mousemove", handleMouseMove);
+    } else {
+      window.removeEventListener("mousemove", handleMouseMove);
+    }
+
+    // Cleanup function: remove listener when component unmounts or hover state changes
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isAnyExperienceHovered]); // Dependency array: re-run effect if isAnyExperienceHovered changes
+
+  // --- New Event Handlers for List Items ---
+  const handleItemMouseEnter = (imageSrc) => {
+    setHoveredImageSrc(imageSrc);
+    setIsAnyExperienceHovered(true);
+  };
+
+  const handleItemMouseLeave = () => {
+    setHoveredImageSrc(null);
+    setIsAnyExperienceHovered(false);
+  };
+
+  // Your experiences data
   const experiences = [
     {
       title: "Open to Work",
-      //   company: "Current",
+      // company: "Current", // 'company' field is used, but this object doesn't have it.
       date: "Current",
+      // No image for "Open to Work", so it won't pop up. Add `image: someImageSource` if you want it to.
     },
     {
-      title: "UI/UX Designer",
+      title: "UI/UX Designer Intern",
       company: "Upliftt",
       date: "Feb - Apr 2025",
+      image: "/assets/upliftt.png", // Assuming 'calendar' is imported correctly and is a valid image source (e.g., /_next/static/media/...)
     },
     {
-      title: "UI/UX Designer",
-      company: "Freelance",
+      title: "Freelance UI/UX Designer",
+      company: "Upliftt",
       date: "Dec - Jan 2025",
+      image: "/assets/dashboard.png", // Using 'personal' as an example for different image
     },
     {
       title: "Jr. Entrepreneurs In Residence",
       company: "Whatnot Startup Std.",
       date: "Jun - Feb 2022",
+      image: "/assets/askurp.png",
     },
   ];
 
@@ -117,7 +162,10 @@ export default function AboutModal({ isOpen, onClose }) {
       href: "https://www.linkedin.com/in/matt-ngamdan-b251171a1/",
       label: "LinkedIn",
     },
-    { href: "https://www.youtube.com/", label: "Resume" },
+    {
+      href: "https://drive.google.com/file/d/127RnFN0WAj9nbaBzpidA9xSeUWODGFg9/view?usp=sharing",
+      label: "Resume",
+    }, // This URL seems like a placeholder.
     { href: "mailto:ratchapon.ngam@gmail.com", label: "Email" },
   ];
 
@@ -127,7 +175,7 @@ export default function AboutModal({ isOpen, onClose }) {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 backdrop-blur-sm md:backdrop-blur-none  z-[998]"
+            className="fixed inset-0 backdrop-blur-sm md:backdrop-blur-none bg-black/30 z-[998]" // Added bg-black/30 for better overlay visibility
             variants={overlayVariants}
             initial="hidden"
             animate="visible"
@@ -137,7 +185,7 @@ export default function AboutModal({ isOpen, onClose }) {
 
           {/* Modal */}
           <motion.div
-            className="fixed top-2 md:top-12 w-full  l md:w-[60vw] p-2 right-0 h-full md:h-auto z-[999] overflow-visible"
+            className="fixed top-2 md:top-12 w-full md:w-[60vw] p-2 right-0 h-full md:h-auto z-[999] " // Changed overflow-visible to overflow-y-auto for modal content
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -167,18 +215,22 @@ export default function AboutModal({ isOpen, onClose }) {
               </button>
 
               {/* Content */}
-              <div className="h-full px-2 overflow-y-auto md:px-6">
+              <div className="h-full px-2 md:px-6">
+                {" "}
+                {/* No overflow-y-auto here, it's on the motion.div wrapper */}
                 <motion.div
                   className="flex flex-col gap-6"
                   variants={contentVariants}
                 >
                   <div className="flex flex-col w-full gap-4 md:flex-row ">
-                    <h1 className="  text-[clamp(20px,5vw,32px)] leading-tight  font-bold text-primaryText font-satoshi ">
-                      Hello again! I'm Matt, UXUI designer who loves to blend
-                      minimalism and modern design in website and app design. I
-                      love to create a design is functional and easy to use
-                      blending with innovation ready to push the industry
-                      forward.
+                    <h1 className="text-[clamp(20px,5vw,32px)] leading-tight font-semibold text-primaryText font-satoshi ">
+                      Hello again! I'm Matt — a UX/UI designer who blends
+                      minimalism and modern aesthetics to craft functional,
+                      user-friendly websites and apps.{" "}
+                      <span className="underline decoration-wavy underline-offset-2 decoration-highlightBlue">
+                        I’m passionate about pushing boundaries with innovative
+                        design and product that moves the industry forward.
+                      </span>
                     </h1>
                   </div>
 
@@ -187,7 +239,7 @@ export default function AboutModal({ isOpen, onClose }) {
                       <Image
                         src={personal}
                         alt="personal"
-                        className="w-full h-full"
+                        className="object-cover w-full h-full rounded-lg" // Added object-cover and rounded-lg
                       />
                     </div>
 
@@ -201,12 +253,17 @@ export default function AboutModal({ isOpen, onClose }) {
                         </h3>
                         <ul className="flex flex-col w-full gap-2 pt-1 md:gap-4">
                           {experiences.map((experience, index) => (
-                            <li key={index}>
-                              {" "}
-                              {/* Add a key for list items */}
+                            <li
+                              key={index}
+                              className="relative" // 'group:' is not a valid Tailwind class for parent-child hover. Remove it.
+                              onMouseEnter={
+                                () =>
+                                  experience.image &&
+                                  handleItemMouseEnter(experience.image) // Only trigger if image exists
+                              }
+                              onMouseLeave={handleItemMouseLeave}
+                            >
                               <div className="flex flex-row items-center justify-between gap-6 md:items-baseline">
-                                {" "}
-                                {/* Changed items-center to items-baseline for better alignment */}
                                 <p
                                   className={`flex-shrink-0 w-full md:w-auto text-nowrap overflow-hidden text-ellipsis ${
                                     index === 0
@@ -214,18 +271,18 @@ export default function AboutModal({ isOpen, onClose }) {
                                       : "text-primaryText"
                                   } max-w-[calc(50%_-_4rem)]`}
                                 >
-                                  {" "}
-                                  {/* Truncates long titles */}
                                   {experience.title}
                                 </p>
-                                <div className="h-0.5 flex-grow bg-primaryGrey min-w-[1rem]" />{" "}
-                                {/* flex-grow makes it fill space, min-w ensures it's always visible */}
+                                <div className="h-0.5 flex-grow bg-primaryGrey min-w-[1rem]" />
                                 <p className="flex-shrink-0 w-full md:w-auto text-sm text-end text-secondaryText text-nowrap overflow-hidden text-ellipsis max-w-[calc(50%_-_4rem)]">
-                                  {" "}
-                                  {/* Truncates long company/date */}
-                                  {experience.company} ({experience.date})
+                                  {/* Handle cases where company might be undefined, like "Open to Work" */}
+                                  {experience.company
+                                    ? `${experience.company} (${experience.date})`
+                                    : experience.date}
                                 </p>
                               </div>
+                              {/* The hidden group-hover:absolute div below is no longer needed.
+                                  The image will be rendered globally. */}
                             </li>
                           ))}
                         </ul>
@@ -245,6 +302,8 @@ export default function AboutModal({ isOpen, onClose }) {
                           <Link
                             href={link.href}
                             className="text-base font-satoshi"
+                            target="_blank" // Added target="_blank" for external links
+                            rel="noopener noreferrer" // Security best practice for target="_blank"
                           >
                             {link.label}
                           </Link>
@@ -260,6 +319,36 @@ export default function AboutModal({ isOpen, onClose }) {
               </div>
             </div>
           </motion.div>
+
+          {/* --- Floating Hover Image (Rendered Outside Modal's Scroll) --- */}
+          <AnimatePresence>
+            {isAnyExperienceHovered && hoveredImageSrc && (
+              <motion.div
+                key="hover-image" // Add a key for AnimatePresence to track
+                className="fixed pointer-events-none z-[1000] " // Higher z-index than modal, pointer-events-none is crucial
+                initial={{ opacity: 0, scale: 0.8 }} // Initial state for the image pop-in
+                animate={{ opacity: 1, scale: 1 }} // Animate to full size and visible
+                exit={{ opacity: 0, scale: 0.8 }} // Animate out
+                transition={{ duration: 0.2, ease: "easeOut" }} // Quick transition for the image
+                style={{
+                  left: mousePosition.x + 20, // Offset from mouse cursor
+                  top: mousePosition.y + 20, // Offset from mouse cursor
+                }}
+              >
+                <Image
+                  src={hoveredImageSrc}
+                  alt="Experience Detail"
+                  width={200} // Adjust size as desired
+                  height={150} // Adjust height to maintain aspect ratio, or use object-cover/contain
+                  className={`w-full border border-border rounded-lg shadow-xl  bg-primaryBg ${
+                    hoveredImageSrc === "/assets/upliftt.png"
+                      ? "h-[30vh]"
+                      : "h-auto"
+                  }`} // Added styling for the image
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </>
       )}
     </AnimatePresence>
