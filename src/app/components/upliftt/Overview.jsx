@@ -71,7 +71,7 @@ const Summary = () => {
         <div className="flex flex-col w-full gap-8 md:flex-row">
           {projectDetails.map((category) => (
             <div key={category.header} className="w-full h-full ">
-              <h3 className="mb-2 md:mb-4 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+              <h3 className="mb-2 md:mb-4 font-sans uppercase font-satoshi text-secondaryText text-lg md:text-[18px] font-medium">
                 {category.header}
               </h3>
               <ul className="flex flex-col gap-2 font-satoshi text-primaryText">
@@ -131,7 +131,7 @@ const Contributions = () => {
             className="flex flex-col w-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border md:flex-1"
           >
             <div className="min-h-[60px] md:mb-6 flex items-start">
-              <h3 className="font-sans text-xl font-semibold leading-tight md:text-2xl text-primaryText">
+              <h3 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {feature.title}
               </h3>
             </div>
@@ -186,7 +186,7 @@ const Problem = () => {
               key={i}
               className="flex flex-col h-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border"
             >
-              <h3 className="mb-6 font-sans text-2xl font-medium uppercase text-ternaryText">
+              <h3 className="mb-6 text-2xl font-semibold uppercase font-satoshi text-ternaryText">
                 0{i + 1}
               </h3>
 
@@ -270,7 +270,7 @@ const Solution = () => {
             <div className="w-full text-center">
               <Link
                 href={`#${feature.id}`}
-                className="w-full text-[18px] text-center font-medium text-primaryText underline under-border underline-offset-4"
+                className="w-full text-[18px] font-satoshi text-center font-medium text-primaryText underline under-border underline-offset-4"
               >
                 {feature.description}
               </Link>

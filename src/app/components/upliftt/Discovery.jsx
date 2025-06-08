@@ -52,7 +52,7 @@ const MyGoal = () => {
           Trainees often lose motivation and fall off track with their fitness
           goals due to lack of structure, habit reinforcement, and engaging
           feedback.{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             My challenge was to design a mobile experience that feels
             motivating, habit-forming, and distinct from competitors blending
             simplicity with light gamification to keep users consistently
@@ -150,13 +150,13 @@ const Audience = () => {
               />
             </div>
             <div className="flex flex-col gap-6">
-              <h4 className="font-sans text-xl font-semibold leading-tight md:text-2xl text-primaryText">
+              <h4 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {user.header}
               </h4>
               <div className="flex flex-col gap-8 md:flex-row">
                 {user.list.map((section, sectionIndex) => (
                   <div key={sectionIndex} className="flex flex-col gap-2">
-                    <h5 className="mb-2 font-sans text-lg font-medium text-primaryText">
+                    <h5 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
                       {section.title}
                     </h5>
                     {/* Removed list-disc list-inside from ul */}
@@ -164,7 +164,7 @@ const Audience = () => {
                       {section.items.map((item, itemIndex) => (
                         <li
                           key={itemIndex}
-                          className="relative pl-5 before:content-['•'] before:absolute before:left-0 before:top-0" // The key classes
+                          className="relative pl-5 before:content-['•'] font-satoshi before:absolute before:left-0 before:top-0" // The key classes
                         >
                           {item}
                         </li>

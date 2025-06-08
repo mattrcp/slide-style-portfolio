@@ -31,6 +31,7 @@ const Summary = () => {
       details: [
         { id: 1, label: "Project Lead" },
         { id: 2, label: "UXUI Designer" },
+        { id: 2, label: "Fullstack Developer" },
       ],
     },
     {
@@ -71,7 +72,7 @@ const Summary = () => {
         <div className="flex flex-col w-full gap-8 md:flex-row">
           {projectDetails.map((category) => (
             <div key={category.header} className="w-full h-full ">
-              <h3 className="mb-2 md:mb-4 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+              <h3 className="mb-2 md:mb-4 font-satoshi uppercase text-secondaryText text-lg md:text-[18px] font-medium">
                 {category.header}
               </h3>
               <ul className="flex flex-col gap-2 font-satoshi text-primaryText">
@@ -97,7 +98,7 @@ const Contributions = () => {
       description: (
         <>
           Led a cross-functional team to deliver a user-centered MVP, applying{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             product thinking, UX strategy, and team leadership
           </span>{" "}
           throughout the process.
@@ -111,7 +112,7 @@ const Contributions = () => {
         <>
           Created a detailed PRD and Gantt chart to define scope and timelines,
           using{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             documentation, feature prioritization, and project planning
           </span>{" "}
           to guide execution.
@@ -125,7 +126,7 @@ const Contributions = () => {
         <>
           Hosted weekly meetings and async updates to maintain clarity and
           progress, leveraging{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             communication, team management, and agile workflows.
           </span>
         </>
@@ -137,9 +138,13 @@ const Contributions = () => {
       description: (
         <>
           I developed core features using{" "}
-          <span className="font-semibold">Next.js and MongoDB</span>,
-          contributing to both front and back end with{" "}
-          <span className="font-semibold">full-stack development skills.</span>
+          <span className="font-semibold font-satoshi">
+            Next.js and MongoDB
+          </span>
+          , contributing to both front and back end with{" "}
+          <span className="font-semibold font-satoshi">
+            full-stack development skills.
+          </span>
         </>
       ),
     },
@@ -159,7 +164,7 @@ const Contributions = () => {
             className="flex flex-col w-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border md:flex-1"
           >
             <div className="min-h-[60px] md:mb-6 flex items-start">
-              <h3 className="font-sans text-xl font-semibold leading-tight md:text-2xl text-primaryText">
+              <h3 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {feature.title}
               </h3>
             </div>
@@ -212,7 +217,7 @@ const Problem = () => {
               key={i}
               className="flex flex-col h-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border"
             >
-              <h3 className="mb-6 font-sans text-2xl font-medium uppercase text-ternaryText">
+              <h3 className="mb-6 text-2xl font-semibold uppercase font-satoshi text-ternaryText">
                 0{i + 1}
               </h3>
 
@@ -268,7 +273,7 @@ const Solution = () => {
         <p className="w-full text-lg text-primaryText md:text-[18px]">
           Teammie connects design students with engineers, designers, and
           businesses to collaborate on real-world projects.{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             The platform helps students to find a designer who wants them to
             design their products, and only for designers who want to build a
             portfolio, gain experience, and develop the skills needed to excel
@@ -299,7 +304,7 @@ const Solution = () => {
               />
             </div>
             <div className="w-full text-center">
-              <span className="w-full text-[18px] text-center font-medium text-primaryText ">
+              <span className="w-full font-satoshi text-[18px] text-center font-medium text-primaryText ">
                 {feature.description}
               </span>
             </div>

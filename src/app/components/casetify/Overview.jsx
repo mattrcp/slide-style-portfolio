@@ -62,7 +62,10 @@ const Summary = () => {
         <div className="flex flex-col w-full gap-8 md:flex-row">
           {projectDetails.map((category) => (
             <div key={category.header} className="w-full h-full ">
-              <h3 className="mb-2 md:mb-4 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+              <h3
+                className="mb-2 md:mb-4 font-satoshi
+               uppercase text-secondaryText text-lg md:text-[18px] font-medium"
+              >
                 {category.header}
               </h3>
               <ul className="flex flex-col gap-2 font-satoshi text-primaryText">
@@ -129,7 +132,7 @@ const Problem = () => {
               key={i}
               className="flex flex-col h-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border"
             >
-              <h3 className="mb-6 font-sans text-[20px] md:text-[24px] font-medium text-secondaryText">
+              <h3 className="mb-6 font-satoshi text-[20px] md:text-[24px] font-semibold text-secondaryText">
                 {feature.header}
               </h3>
 

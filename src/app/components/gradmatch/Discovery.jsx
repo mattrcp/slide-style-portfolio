@@ -59,7 +59,7 @@ const Research = () => {
             key={i}
             className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
           >
-            <h3 className="mb-6 font-sans text-3xl md:text-[40px]  font-medium text-primaryText">
+            <h3 className="mb-6 font-satoshi text-3xl md:text-[40px]  font-semibold text-primaryText">
               {result.header}
             </h3>
 

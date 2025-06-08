@@ -1,23 +1,88 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { personal } from "../../../public/assets";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // Removed unused imports
 
 export default function HeroSingle() {
   const emojiList = ["🏃", "🍵", "📱", "☕", "🖥", "🍛"];
 
+  // Variants for the overall content container.
+  // This motion.div wraps both the heading and the emoji section.
+  const containerVariants = {
+    initial: { opacity: 0, y: 50 }, // Start slightly below and invisible
+    inView: {
+      opacity: 1, // Fade in
+      y: 0, // Move to original position
+      transition: {
+        duration: 0.8, // Overall duration of this container's animation
+        ease: [0.83, -0.33, 0, 1.29], // Custom easing for a more dynamic feel
+        when: "beforeChildren", // Animate this container first, then its direct children
+        staggerChildren: 0.1, // Stagger delay for direct children (the heading and the emoji container)
+        delayChildren: 0.1, // Initial delay before the direct children start animating
+      },
+    },
+  };
+
+  // Variants for the main heading (h1).
+  // These will be picked up by the 'staggerChildren' from `containerVariants`.
+  const headingVariants = {
+    initial: { opacity: 0, y: 20 }, // Start slightly below and invisible
+    inView: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 10 },
+    }, // Spring animation for a smooth bounce
+  };
+
+  // Variants for the emoji *container* (the div that holds all emojis).
+  // This container itself will animate in, and then it will trigger a stagger for its own children (the individual emojis).
+  const emojiRowVariants = {
+    initial: { opacity: 0, y: 20 }, // Start slightly below and invisible
+    inView: {
+      opacity: 1, // Fade in
+      y: 0, // Move to original position
+      transition: {
+        type: "spring", // Use a spring animation
+        stiffness: 100,
+        damping: 10,
+        staggerChildren: 0.07, // Stagger delay for individual emojis within this row
+        delayChildren: 0.1, // Delay before individual emojis start animating
+      },
+    },
+  };
+
+  // Variants for individual emojis.
+  // These will be picked up by the 'staggerChildren' from `emojiRowVariants`.
+  const emojiItemVariants = {
+    initial: { opacity: 0, y: 20, scale: 0.8 }, // Start smaller, slightly below, and invisible
+    inView: {
+      opacity: 1, // Fade in
+      y: 0, // Move to original position
+      scale: 1, // Scale to full size
+      transition: {
+        type: "spring", // Spring animation for a lively effect
+        stiffness: 300,
+        damping: 20,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center  pt-16 pb-8 w-full h-[70vh] md:h-screen md:pt-20 md:mt-0">
+    <div className="flex flex-col justify-center items-center pt-16 pb-8 w-full h-[70vh] md:h-screen md:pt-20 md:mt-0">
       <AnimatePresence mode="wait">
+        {/* Main motion.div that controls the overall entrance and direct children stagger */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          variants={containerVariants} // Apply the main container animation variants
+          initial="initial" // Set the initial state
+          whileInView="inView" // Animate to 'inView' when in viewport
+          viewport={{ once: true, amount: 0.5 }} // Trigger animation when 50% of the component is in view, only once
           className="relative flex flex-col items-center justify-between w-full h-full"
         >
-          <motion.div className="flex items-center justify-start w-full">
-            <h1 className="font-satoshi font-bold text-primaryText text-[clamp(30px,5vw,80px)] leading-snug w-full text-left tracking-tighter md:tracking-normal">
+          {/* Heading section, animated as a direct child of the main container */}
+          <motion.div
+            variants={headingVariants} // Apply the heading specific animation variants
+            className="flex items-center justify-start w-full"
+          >
+            <h1 className="font-satoshi font-bold text-primaryText text-[clamp(30px,4vw,80px)] leading-snug w-full text-left tracking-tighter md:tracking-normal">
               Matt designs mobile products that elevate user experiences through
               <span className="underline decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal">
                 &nbsp;scalable systems, innovative thinking, and
@@ -25,52 +90,18 @@ export default function HeroSingle() {
               </span>
             </h1>
           </motion.div>
-          {/* <motion.div className="flex items-center justify-center w-full h-full">
-            <div className="relative w-[136px] h-auto group">
-              <Image
-                src={personal}
-                alt="Matt's portrait image with orange sunset."
-                className="z-50 transition-all duration-500 border border-white rounded-2xl grayscale ease-card group-hover:grayscale-0 group-hover:-rotate-6"
-              />
-              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 right-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-top-12 group-hover:-right-10">
-                🏃
-              </span>
-              <span className="absolute right-0 text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:top-20 group-hover:-right-20">
-                🍵
-              </span>
-              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:top-1/2 group-hover:-left-20">
-                📱
-              </span>
-              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 right-1/2 bottom-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-right-20">
-                ☕
-              </span>
-              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 top-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-top-10 group-hover:left-2">
-                🖥
-              </span>
-              <span className="absolute text-4xl transition-all duration-500 -translate-x-1/2 -translate-y-1/2 opacity-0 bottom-1/2 left-1/2 rotate-6 ease-card -z-10 group-hover:opacity-100 group-hover:-bottom-14 group-hover:-left-10">
-                🍛
-              </span>
-              <Svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-20 h-[505px] w-[680px] ease-card duration-500 transition-all " />
-            </div>
-          </motion.div> */}
-          {/* <motion.div className="flex items-center justify-end w-full">
-            <p className="text-base md:text-xl md:w-1/3 text-secondaryText">
-              Matt is a UX/UI Designer crafting a strategic, system-driven{" "}
-              <span className="italic font-bold font-zodiak">
-                mobile product
-              </span>{" "}
-              rooted in{" "}
-              <span className="italic font-bold font-zodiak">user needs</span>{" "}
-              and{" "}
-              <span className="italic font-bold font-zodiak">
-                built to scale
-              </span>{" "}
-              with past experience working in a startup.
-            </p>
-          </motion.div> */}
-          <motion.div className="flex items-center justify-between w-full overflow-hidden  md:justify-end md:gap-16">
-            {emojiList.map((emoji, index) => (
-              <motion.span className="text-2xl md:text-4xl blink-emoji">
+
+          {/* Emoji row container, animated as a direct child, and also responsible for staggering its own children (emojis) */}
+          <motion.div
+            variants={emojiRowVariants} // Apply the emoji row animation variants (which include staggerChildren)
+            className="flex items-center justify-between w-full overflow-hidden md:justify-end md:gap-16"
+          >
+            {emojiList.map((emoji) => (
+              <motion.span
+                key={emoji} // Using emoji as key, assuming they are unique. A stable unique ID is preferred for production.
+                variants={emojiItemVariants} // Apply the individual emoji animation variants
+                className="text-2xl md:text-4xl blink-emoji"
+              >
                 {emoji}
               </motion.span>
             ))}
@@ -80,7 +111,6 @@ export default function HeroSingle() {
     </div>
   );
 }
-
 export const Svg = ({ className }) => {
   return (
     <svg

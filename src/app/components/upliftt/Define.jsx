@@ -76,11 +76,11 @@ const Objectives = () => {
               key={i}
               className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
             >
-              <h3 className="mb-6 font-sans text-2xl font-medium text-primaryText">
+              <h3 className="mb-6 text-2xl font-semibold font-satoshi text-primaryText">
                 {feature.header}
               </h3>
 
-              <p className="w-full text-[18px] font-base md:text-[20px] text-primaryText flex-grow">
+              <p className="w-full text-[18px] font-base font-satoshi md:text-[20px] text-primaryText flex-grow">
                 {feature.description}
               </p>
             </div>

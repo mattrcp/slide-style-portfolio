@@ -102,7 +102,7 @@ const Research = () => {
             <span className="text-base font-medium font-satoshi text-secondaryText">
               {feature.name}
             </span>
-            <h3 className="font-sans text-2xl font-medium text-primaryText">
+            <h3 className="text-2xl font-semibold font-satoshi text-primaryText">
               {feature.header}
             </h3>
             <p className="w-full text-lg text-primaryText md:text-[18px]">
@@ -189,7 +189,7 @@ const Exploratory = () => {
             key={i}
             className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
           >
-            <h3 className="mb-6 font-sans text-3xl md:text-[40px]  font-medium text-primaryText">
+            <h3 className="mb-6 font-satoshi text-3xl md:text-[40px]  font-semibold text-primaryText">
               {result.header}
             </h3>
 

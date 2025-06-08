@@ -97,7 +97,7 @@ const Final = () => {
               />
             </div>
             <div className="w-full text-center">
-              <span className="w-full text-[18px] text-center font-medium text-primaryText ">
+              <span className="w-full font-satoshi text-[18px] text-center font-medium text-primaryText ">
                 {feature.alt}
               </span>
             </div>

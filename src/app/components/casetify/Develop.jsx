@@ -180,15 +180,10 @@ const UsabilityTest = () => {
       <div className="flex flex-col gap-8 md:flex-row md:gap-20">
         <div className="flex flex-col w-full md:w-1/2">
           <p className="w-full text-lg text-primaryText md:text-[18px] mb-2 md:mb-6">
-            I'm running an exploratory usability test to see how people use the
-            app to buy or customize their mobile phone cases. I want to
-            understand how they navigate, what they enjoy about the experience,
-            and where they might run into any challenges.
-          </p>
-          <p className="w-full text-lg text-primaryText md:text-[18px] font-semibold">
-            Interviewed with 3 participants: None of the participants had ever
-            used the app before. One participant knew the brand, but two others
-            just heard the name.
+            Three existing Casetify users tested the new design. While all
+            participants were able to complete the main task, there were some
+            minor usability issues affected the experience. Their feedback
+            highlighted both design improvements and feature expectations.
           </p>
         </div>
         <div className="relative grid w-full overflow-hidden md:w-1/2 place-items-center border-border">
@@ -207,7 +202,7 @@ const UsabilityTest = () => {
             key={i}
             className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
           >
-            <h3 className="mb-6 font-sans text-3xl md:text-[40px]  font-medium text-primaryText">
+            <h3 className="mb-6 font-satoshi text-3xl md:text-[40px]  font-semibold text-primaryText">
               {result.header}
             </h3>
 
@@ -278,7 +273,7 @@ const Feedback = () => {
             className="flex flex-col w-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border md:flex-1"
           >
             <div className="min-h-[50px]  flex items-start">
-              <h3 className="font-sans text-xl font-semibold leading-tight md:text-2xl text-primaryText">
+              <h3 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {feature.title}
               </h3>
             </div>
@@ -311,7 +306,7 @@ const Feedback = () => {
               />
             </div>
             <div className="w-full text-center">
-              <span className="w-full text-[18px] text-center font-medium text-primaryText ">
+              <span className="w-full font-satoshi text-[18px] text-center font-medium text-primaryText ">
                 {feature.alt}
               </span>
             </div>

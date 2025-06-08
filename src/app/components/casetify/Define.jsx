@@ -28,7 +28,7 @@ const Goal = () => {
           <span className="text-base font-medium font-satoshi text-highlightBlue">
             Business Goal
           </span>
-          <h3 className="font-sans text-2xl font-medium text-primaryText">
+          <h3 className="text-2xl font-semibold font-satoshi text-primaryText">
             To increase better user experience of the app.
           </h3>
           <p className="w-full text-lg text-primaryText md:text-[18px]">
@@ -45,7 +45,7 @@ const Goal = () => {
           <span className="text-base font-medium font-satoshi text-highlightBlue">
             Design Goal
           </span>
-          <h3 className="font-sans text-2xl font-medium text-primaryText">
+          <h3 className="text-2xl font-semibold font-satoshi text-primaryText">
             To improve better user experience of the app.
           </h3>
           <p className="w-full text-lg text-primaryText md:text-[18px]">
@@ -73,7 +73,7 @@ const Solution = () => {
       <div className="flex flex-col w-full ">
         <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
           To boost user adoption and improve the experience,{" "}
-          <span className="font-semibold">
+          <span className="font-semibold text-highlightBlue">
             I redesigned the app with AI-driven features like image generation
             and customizable templates to spark creativity and align with
             current trends.

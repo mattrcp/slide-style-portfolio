@@ -15,7 +15,7 @@ const Reflection = () => {
   return (
     <Wrapper id="learning">
       <div className="w-full py-4 border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText font-semibold">
           Learning
         </h2>
       </div>

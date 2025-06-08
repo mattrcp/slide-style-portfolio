@@ -95,12 +95,12 @@ const Audience = () => {
               />
             </div>
             <div className="flex flex-col gap-6">
-              <h4 className="font-sans text-xl font-semibold leading-tight md:text-2xl text-primaryText">
+              <h4 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {user.header}
               </h4>
               <div className="flex flex-col gap-8 ">
                 <div>
-                  <h3 className="mb-2 font-sans text-lg font-medium text-primaryText">
+                  <h3 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
                     Description
                   </h3>
                   <p className="text-base text-primaryText">
@@ -109,7 +109,7 @@ const Audience = () => {
                 </div>
                 {user.list.map((section, sectionIndex) => (
                   <div key={sectionIndex} className="flex flex-col gap-2">
-                    <h5 className="mb-2 font-sans text-lg font-medium text-primaryText">
+                    <h5 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
                       {section.title}
                     </h5>
                     {/* Removed list-disc list-inside from ul */}
@@ -117,7 +117,7 @@ const Audience = () => {
                       {section.items.map((item, itemIndex) => (
                         <li
                           key={itemIndex}
-                          className="relative pl-5 before:content-['•'] before:absolute before:left-0 before:top-0" // The key classes
+                          className="relative pl-5 before:content-['•'] font-satoshi before:absolute before:left-0 before:top-0" // The key classes
                         >
                           {item}
                         </li>
@@ -175,7 +175,7 @@ const Ideation = () => {
         <p className="w-full text-lg text-primaryText md:text-[18px]">
           I initiated a brainstorming session with the team using the How Might
           We (HMW) method. We began{" "}
-          <span className="font-semibold">
+          <span className="font-semibold font-satoshi">
             by breaking down the main goal into three core themes, each
             addressing a specific user challenge.
           </span>{" "}

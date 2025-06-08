@@ -140,7 +140,7 @@ const Final = () => {
             <span className="text-base font-medium font-satoshi text-highlightBlue">
               {feature.name}
             </span>
-            <h3 className="font-sans text-2xl font-medium text-primaryText">
+            <h3 className="text-2xl font-semibold font-satoshi text-primaryText">
               {feature.header}
             </h3>
             <p className="w-full text-lg text-primaryText md:text-[18px]">

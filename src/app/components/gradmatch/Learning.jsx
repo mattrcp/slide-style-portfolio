@@ -30,7 +30,7 @@ const Reflection = () => {
         {" "}
         <div className="flex flex-col">
           {" "}
-          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-semibold">
             Designing for Recruiter
           </h3>
           <p className="w-full text-lg text-primaryText md:text-[18px]">
@@ -45,7 +45,7 @@ const Reflection = () => {
         <div className="flex flex-col">
           {" "}
           {/* Removed w-full and grid-cols-2/1 as grid items handle width */}
-          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-semibold">
             Usability Test
           </h3>
           <p className="w-full text-lg text-primaryText md:text-[18px]">
@@ -57,7 +57,7 @@ const Reflection = () => {
         <div className="flex flex-col w-full md:col-span-2 md:w-1/2">
           {" "}
           {/* Made this section span 2 columns on medium screens and up */}
-          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-medium">
+          <h3 className="mb-2 font-sans uppercase text-secondaryText text-lg md:text-[18px] font-semibold">
             Design for Accessibility
           </h3>
           <p className="w-full text-lg text-primaryText md:text-[18px]">
