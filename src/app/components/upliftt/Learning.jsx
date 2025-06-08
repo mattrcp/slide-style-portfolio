@@ -25,11 +25,11 @@ const DesignFile = () => {
 
       <div className="flex flex-col w-full md:w-1/2">
         <p className="w-full text-lg text-primaryText md:text-[18px]">
-          To kick off the handoff, I provided a zoomed-out view of the entire
-          Figma workspace. This overview helps developers and stakeholders
-          understand the project structure at a glance without exposing the
-          detailed UI. It also shows how I categorized different flows (e.g.,
-          workouts, meals, tracking) and separated mobile components clearly.
+          I have organized the pages into a clear hierarchy, with each page
+          containing its own contents, which will help the team navigate through
+          each page easily. It also shows how I categorized different flows
+          (e.g., workouts, meals, tracking) and separated mobile components
+          clearly.
         </p>
       </div>
       <div className="w-full h-[400px] md:h-[700px] lg:h-[800px] grid place-items-center border-border overflow-hidden relative">
