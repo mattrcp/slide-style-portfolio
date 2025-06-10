@@ -92,14 +92,14 @@ const Final = () => {
       url: "/upliftt/Meal.mp4",
       id: "meal",
     },
-    {
-      name: "Workout Completion Flow",
-      header: "HMW help users stay consistent with the workout?",
-      description:
-        "Users can start a workout or preview it before beginning, keeping the flow simple and flexible. ",
-      url: "/upliftt/workout.mp4",
-      id: "workout",
-    },
+    // {
+    //   name: "Workout Completion Flow",
+    //   header: "HMW help users stay consistent with the workout?",
+    //   description:
+    //     "Users can start a workout or preview it before beginning, keeping the flow simple and flexible. ",
+    //   url: "/upliftt/workout.mp4",
+    //   id: "workout",
+    // },
   ];
 
   // Define the animation variants for each feature
