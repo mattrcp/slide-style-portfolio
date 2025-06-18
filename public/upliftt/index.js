@@ -1,4 +1,4 @@
-import thumbnail from "./thumbnail.png";
+import thumbnail from "./thumbnail2.png";
 import handoff from "./handoff.webp";
 import user1 from "./user1.webp";
 import user2 from "./user2.webp";
