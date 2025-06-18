@@ -95,13 +95,13 @@ const Contributions = () => {
       id: 1,
       title: "End-to-end iOS design",
       description:
-        "Design for trainee experience from wireframes to high-fidelity UI",
+        "Design for trainee experience from wireframes to high-fidelity UI.",
     },
     {
       id: 2,
       title: "User stories & Acceptance criteria",
       description:
-        "Created user stories to align design with business and dev needs",
+        "Created user stories to align design with business and dev needs.",
     },
     {
       id: 3,
