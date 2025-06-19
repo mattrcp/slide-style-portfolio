@@ -6,9 +6,9 @@ import Link from "next/link";
 
 const Define = () => {
   return (
-    <section className="w-full h-full overflow-visible">
-      <Audience />
+    <section className="overflow-visible w-full h-full">
       <UserJourney />
+      <Audience />
       <Ideation />
       <Hmw />
       <Solution />
@@ -69,14 +69,14 @@ const Audience = () => {
   return (
     <div
       id="user"
-      className="flex flex-col min-w-full gap-8 py-8 overflow-auto md:py-16"
+      className="flex overflow-auto flex-col gap-8 py-8 min-w-full md:py-16"
     >
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Our Target User
         </h2>
       </div>
-      <div className="flex flex-col w-full gap-4 md:flex-row text-primaryText">
+      <div className="flex flex-col gap-4 w-full md:flex-row text-primaryText">
         {userLists.map((user) => (
           <div
             key={user.id}
@@ -98,7 +98,7 @@ const Audience = () => {
               <h4 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
                 {user.header}
               </h4>
-              <div className="flex flex-col gap-8 ">
+              <div className="flex flex-col gap-8">
                 <div>
                   <h3 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
                     Description
@@ -137,7 +137,7 @@ const Audience = () => {
 const UserJourney = () => {
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           User Journey
         </h2>
@@ -150,7 +150,7 @@ const UserJourney = () => {
           picking projects on the internet made them unable to gain experience.
         </p>
       </div>
-      <div className="relative grid w-full h-full overflow-hidden place-items-center border-border">
+      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
         <Image
           src={userJourney}
           alt="an image of how the user journey looks like"
@@ -165,7 +165,7 @@ const UserJourney = () => {
 const Ideation = () => {
   return (
     <Wrapper id="ideation">
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Ideation
         </h2>
@@ -185,7 +185,7 @@ const Ideation = () => {
           reserved for the final product roadmap.
         </p>
       </div>
-      <div className="relative grid w-full h-full overflow-hidden place-items-center border-border">
+      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
         <Image
           src={hmw}
           alt="an image of how the How Might We process looks like"
@@ -200,13 +200,13 @@ const Ideation = () => {
 const Hmw = () => {
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Opportunity
         </h2>
       </div>
 
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         <h1 className="w-full  font-satoshi font-medium  text-[clamp(24px,5vw,32px)] text-primaryText">
           <span className="text-highlightBlue">How might we</span> help project
           owners build effective teams while making it easier for students to
@@ -221,13 +221,13 @@ const Hmw = () => {
 const Solution = () => {
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Solution
         </h2>
       </div>
 
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
           <span className="font-semibold text-highlightBlue">
             A platform where project owners (creators) can share their concept
