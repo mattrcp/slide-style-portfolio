@@ -15,7 +15,7 @@ import Link from "next/link";
 
 const Discovery = () => {
   return (
-    <section className="w-full h-full overflow-visible">
+    <section className="overflow-visible w-full h-full">
       <WhatsTeammie />
       <Planning />
       <Research />
@@ -28,13 +28,13 @@ export default Discovery;
 const WhatsTeammie = () => {
   return (
     <Wrapper id="problem">
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Why did we make Teammie?
         </h2>
       </div>
 
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full">
         <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
           Many students struggle to find meaningful, real-world projects that
           offer practical experience while managing personal growth. This
@@ -59,7 +59,7 @@ const Planning = () => {
 
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Project Planning
         </h2>
@@ -89,10 +89,10 @@ const Planning = () => {
             project goal.
           </p>
         </div>
-        <div className="flex flex-col items-start w-full gap-4 md:gap-0 md:items-center md:justify-between md:flex-row md:w-1/2">
+        <div className="flex flex-col gap-4 items-start w-full md:gap-0 md:items-center md:justify-between md:flex-row md:w-1/2">
           {teams.map((team, i) => {
             return (
-              <div className="flex flex-row items-center justify-center gap-4">
+              <div className="flex flex-row gap-4 justify-center items-center">
                 <Image
                   src={team.image}
                   alt="an image of the planning process from google excel"
@@ -108,7 +108,7 @@ const Planning = () => {
         </div>
       </div>
       <div className="flex flex-col w-full md:w-1/2"></div>
-      <div className="relative grid w-full h-full overflow-hidden place-items-center border-border">
+      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
         <Image
           src={timeline}
           alt="Figma workspace"
@@ -123,9 +123,9 @@ const Planning = () => {
 const Research = () => {
   const results = [
     {
-      header: "80%",
+      header: "100%",
       description:
-        "of students said they pursue UX/UI to solve real user problems, not just complete assignments.",
+        "of students initiate the project when they find the problem, searching on the internet or observing daily life.",
     },
     {
       header: "100%",
@@ -134,8 +134,7 @@ const Research = () => {
     },
     {
       header: "80%",
-      description:
-        "believe project success is measured by user satisfaction and impact.",
+      description: "of students said they want to solve real user problems.",
     },
     {
       header: "80%",
@@ -145,7 +144,7 @@ const Research = () => {
 
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           What have we found through User Interview?
         </h2>
@@ -166,7 +165,7 @@ const Research = () => {
             to support the project.
           </p>
         </div>
-        <div className="relative grid w-full overflow-hidden md:w-1/2 place-items-center border-border">
+        <div className="grid overflow-hidden relative place-items-center w-full md:w-1/2 border-border">
           <Image
             src={interview}
             alt="an image of the results after the interview"
@@ -176,7 +175,7 @@ const Research = () => {
         </div>
       </div>
 
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2">
         {results.map((result, i) => (
           <div
             key={i}
