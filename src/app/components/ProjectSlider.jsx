@@ -240,14 +240,14 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
 
   return (
     <motion.div
-      className="relative grid w-full h-auto pt-0 pb-4 place-items-center md:pt-20"
+      className="grid relative place-items-center pt-0 pb-4 w-full h-auto md:pt-20"
       id="work"
     >
       {/* Layout Toggle Button - Only render if isDesktop is true */}
       {/* {isDesktop && (
         <button
           onClick={toggleLayout}
-          className="absolute z-50 grid p-3 rounded-full shadow-sm right-2 top-4 place-items-center bg-secondaryBg text-primaryText"
+          className="grid absolute right-2 top-4 z-50 place-items-center p-3 rounded-full shadow-sm bg-secondaryBg text-primaryText"
         >
           {layoutDirection === "row" ? (
             <CgCarousel />
@@ -333,7 +333,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       playsInline
                     ></video>
                     {layoutDirection != "row" && (
-                      <div className="absolute hidden p-6 duration-300 opacity-0 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bottom-4 left-4 rounded-3xl bg-primaryBg">
+                      <div className="hidden absolute bottom-4 left-4 p-6 rounded-3xl opacity-0 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>
@@ -359,7 +359,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       priority={index < 2}
                     />
                     {layoutDirection != "row" && (
-                      <div className="absolute p-6 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bottom-4 left-4 rounded-3xl bg-primaryBg">
+                      <div className="absolute bottom-4 left-4 p-6 rounded-3xl duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>
@@ -383,10 +383,10 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                         : "w-full sm:w-1/2"
                     }`}
                   >
-                    <h3 className="text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                    <h3 className="w-full text-2xl font-medium text-start text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
-                    <p className="text-base font-medium text-secondaryText">
+                    <p className="text-base font-medium text-start text-secondaryText">
                       {project.description}
                     </p>
                   </div>
@@ -394,7 +394,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                 <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
                   {project.tags}
                 </div>
-                <span className="absolute grid p-2 rounded-full shadow-sm top-4 right-4 place-items-center bg-primaryBg text-primaryText">
+                <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
                   <IconArrowUpRight stroke={2} />
                 </span>
               </div>
