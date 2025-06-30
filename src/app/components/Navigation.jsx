@@ -89,6 +89,11 @@ export default function Navigation() {
   };
 
   const handleNavigation = async (e, href, isModal = false) => {
+    if (href.startsWith("mailto:")) {
+      // Let browser handle the mailto link normally
+      return;
+    }
+
     e.preventDefault();
 
     // Close mobile menu if open
@@ -102,36 +107,29 @@ export default function Navigation() {
       } else if (href === "/contact") {
         setIsContactModalOpen(true);
       }
-    } else if (href.startsWith("mailto:")) {
-      // Handle email links
-      window.location.href = href;
     } else if (href.includes("#") && href !== "/") {
-      // Handle anchor links like /#work
       if (!isAnimating) {
         const [path, anchor] = href.split("#");
         if (path === "" || path === "/") {
-          // Same page anchor - scroll to element
           if (pathname === "/") {
             const element = document.getElementById(anchor);
             if (element) {
               element.scrollIntoView({ behavior: "smooth" });
             }
           } else {
-            // Navigate to home page with anchor
             await triggerTransition("/");
             setTimeout(() => {
               const element = document.getElementById(anchor);
               if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
               }
-            }, 700); // Wait for page transition
+            }, 700);
           }
         } else {
           await triggerTransition(href);
         }
       }
     } else {
-      // Regular page navigation
       if (!isAnimating) {
         await triggerTransition(href);
       }
@@ -147,8 +145,7 @@ export default function Navigation() {
       <header className="relative w-screen">
         {/* Desktop Navigation */}
         <motion.nav
-          className={`md:flex hidden flex-row gap-2 justify-center items-center py-4 w-full h-auto md:py-6 px-4 z-[990] fixed
-           `}
+          className={`hidden fixed flex-row gap-2 justify-center items-center px-4 py-4 w-full h-auto md:flex md:py-6 z-[990]`}
           //  ${
           //   pathname === "/" ? "fixed" : "block"
           // }
@@ -169,21 +166,31 @@ export default function Navigation() {
               showPulse={true}
             />
           </span>
-          <div className="flex flex-col items-center justify-center w-full gap-4 md:flex-row">
-            {navLinks.map(({ href, label, isModal }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={(e) => handleNavigation(e, href, isModal)}
-                className={`text-left  font-zodiak italic font-medium capitalize text-sm pl-0   transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] w-auto hover:text-primaryText text-white ${
-                  isActive(href) ? "font-bold" : " font-medium"
-                } `}
-              >
-                {label}
-              </Link>
-            ))}
+          <div className="flex flex-col gap-4 justify-center items-center w-full md:flex-row">
+            {navLinks.map(({ href, label, isModal }) =>
+              href.startsWith("mailto:") ? (
+                <a
+                  key={href}
+                  href={href}
+                  className="text-left font-zodiak italic font-medium capitalize text-sm pl-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] w-auto hover:text-primaryText text-white"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={(e) => handleNavigation(e, href, isModal)}
+                  className={`text-left font-zodiak italic font-medium capitalize text-sm pl-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] w-auto hover:text-primaryText text-white ${
+                    isActive(href) ? "font-bold" : " font-medium"
+                  }`}
+                >
+                  {label}
+                </Link>
+              )
+            )}
           </div>{" "}
-          <div className="flex items-center justify-end w-full">
+          <div className="flex justify-end items-center w-full">
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme button"
@@ -199,7 +206,7 @@ export default function Navigation() {
           className="md:hidden w-screen py-2 px-4
          fixed top-0 left-0 right-0 z-[990] bg-transparent"
         >
-          <div className="flex items-center justify-between w-full ">
+          <div className="flex justify-between items-center w-full">
             <TimeDisplay
               className="text-sm"
               style={{ mixBlendMode: "exclusion" }}
@@ -246,24 +253,35 @@ export default function Navigation() {
               animate="visible"
               exit="exit"
             >
-              <div className="flex flex-col items-center justify-center h-full gap-8">
+              <div className="flex flex-col gap-8 justify-center items-center h-full">
                 {navLinks.map(({ href, label, isModal }) => (
                   <motion.div key={href} variants={mobileNavItemAnimation}>
-                    <Link
-                      href={href}
-                      onClick={(e) => handleNavigation(e, href, isModal)}
-                      className={`text-white font-zodiak italic text-3xl font-medium capitalize transition-all duration-300 hover:text-gray-300 ${
-                        isActive(href) ? "font-bold" : "font-medium"
-                      }`}
-                    >
-                      {label}
-                    </Link>
+                    {href.startsWith("mailto:") ? (
+                      <a
+                        href={href}
+                        className={`text-white font-zodiak italic text-3xl font-medium capitalize transition-all duration-300 hover:text-gray-300 ${
+                          isActive(href) ? "font-bold" : "font-medium"
+                        }`}
+                      >
+                        {label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={href}
+                        onClick={(e) => handleNavigation(e, href, isModal)}
+                        className={`text-white font-zodiak italic text-3xl font-medium capitalize transition-all duration-300 hover:text-gray-300 ${
+                          isActive(href) ? "font-bold" : "font-medium"
+                        }`}
+                      >
+                        {label}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
 
                 <motion.div
                   variants={mobileNavItemAnimation}
-                  className="flex items-center gap-4 mt-8"
+                  className="flex gap-4 items-center mt-8"
                 >
                   <button
                     onClick={toggleTheme}

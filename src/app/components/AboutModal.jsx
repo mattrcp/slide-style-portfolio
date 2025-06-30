@@ -352,18 +352,31 @@ export default function AboutModal({ isOpen, onClose }) {
                     <div className="flex flex-row flex-wrap items-start justify-between w-full gap-2 md:gap-8">
                       {links.map((link, index) => (
                         <div className="" key={index}>
-                          <Link
-                            href={link.href}
-                            className="flex flex-row items-center justify-center gap-2 text-base font-satoshi text-primaryText"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {link.label}
-                            <IconArrowUpRight
-                              stroke={2}
-                              className="w-4 h-4 md:w-5 md:h-5"
-                            />
-                          </Link>
+                          {link.href.startsWith("mailto:") ? (
+                            <a
+                              href={link.href}
+                              className="flex flex-row items-center justify-center gap-2 text-base font-satoshi text-primaryText"
+                            >
+                              {link.label}
+                              <IconArrowUpRight
+                                stroke={2}
+                                className="w-4 h-4 md:w-5 md:h-5"
+                              />
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.href}
+                              className="flex flex-row items-center justify-center gap-2 text-base font-satoshi text-primaryText"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {link.label}
+                              <IconArrowUpRight
+                                stroke={2}
+                                className="w-4 h-4 md:w-5 md:h-5"
+                              />
+                            </Link>
+                          )}
                         </div>
                       ))}
                     </div>

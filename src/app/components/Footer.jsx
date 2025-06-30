@@ -26,41 +26,50 @@ const links = [
 
 const Footer = () => {
   return (
-    <div className="flex flex-col justify-end h-auto gap-40 pt-40">
-      <div className="flex flex-col items-center justify-center h-full">
-        <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col gap-40 justify-end pt-40 h-auto">
+      <div className="flex flex-col justify-center items-center h-full">
+        <div className="flex flex-col gap-4 justify-center items-center">
           <p className="text-lg font-medium font-satoshi text-secondaryText">
             Let's connect ジ
           </p>
-          <div className="flex flex-row items-center justify-center gap-4 px-4 py-8 border rounded-2xl md:pr-8 md:pl-10 bg-secondaryBg border-border">
-            <Link
+          <div className="flex flex-row gap-4 justify-center items-center px-4 py-8 rounded-2xl border md:pr-8 md:pl-10 bg-secondaryBg border-border">
+            <a
               href="mailto:ratchapon.ngam@gmail.com"
               className="text-lg italic underline transition-all duration-300 md:text-2xl font-zodiak underline-offset-2 text-primaryText"
             >
               Ratchapon.ngam@gmail.com
-            </Link>
+            </a>
             <IconArrowUpRight stroke={2} className="w-7 h-7 text-primaryText" />
           </div>
         </div>
       </div>
-      <footer className="relative flex flex-col-reverse items-end justify-between w-full gap-0 px-4 py-4 md:gap-20 md:py-10 md:flex-row">
-        <div className="flex items-start justify-start w-full">
+      <footer className="flex relative flex-col-reverse gap-0 justify-between items-end px-4 py-4 w-full md:gap-20 md:py-10 md:flex-row">
+        <div className="flex justify-start items-start w-full">
           <Svg />
         </div>
-        <div className="flex flex-col items-center justify-center w-full h-full gap-8 pb-4 md:justify-end md:items-end">
-          <div className="flex flex-row items-end justify-center w-full gap-2 md:justify-end md:gap-8">
+        <div className="flex flex-col gap-8 justify-center items-center pb-4 w-full h-full md:justify-end md:items-end">
+          <div className="flex flex-row gap-2 justify-center items-end w-full md:justify-end md:gap-8">
             {links.map((link, index) => (
               <div
-                className="flex flex-row items-center justify-center gap-2 text-secondaryText"
+                className="flex flex-row gap-2 justify-center items-center text-secondaryText"
                 key={index}
               >
-                <Link
-                  href={link.href}
-                  target="_blank"
-                  className="text-sm italic md:text-lg font-satoshi"
-                >
-                  {link.label}
-                </Link>
+                {link.href.startsWith("mailto:") ? (
+                  <a
+                    href={link.href}
+                    className="text-sm italic md:text-lg font-satoshi"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    target="_blank"
+                    className="text-sm italic md:text-lg font-satoshi"
+                  >
+                    {link.label}
+                  </Link>
+                )}
                 <IconArrowUpRight
                   stroke={2}
                   className="w-4 h-4 md:w-5 md:h-5"
