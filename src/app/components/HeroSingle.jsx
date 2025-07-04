@@ -75,15 +75,16 @@ export default function HeroSingle() {
           initial="initial" // Set the initial state
           whileInView="inView" // Animate to 'inView' when in viewport
           viewport={{ once: true, amount: 0.5 }} // Trigger animation when 50% of the component is in view, only once
-          className="relative flex flex-col items-center justify-between w-full h-full"
+          className="flex relative flex-col justify-between items-center w-full h-full"
         >
           {/* Heading section, animated as a direct child of the main container */}
           <motion.div
             variants={headingVariants} // Apply the heading specific animation variants
-            className="flex items-center justify-start w-full"
+            className="flex justify-start items-center w-full"
           >
             <h1 className="font-satoshi font-bold text-primaryText text-[clamp(30px,4vw,80px)] leading-snug w-full text-left tracking-tighter md:tracking-normal">
-              Matt designs mobile products that elevate user experiences through
+              Matt designs digital products that elevate user experiences
+              through
               <span className="underline decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal">
                 &nbsp;scalable systems, innovative thinking, and
                 cross-functional collaboration.
@@ -94,7 +95,7 @@ export default function HeroSingle() {
           {/* Emoji row container, animated as a direct child, and also responsible for staggering its own children (emojis) */}
           <motion.div
             variants={emojiRowVariants} // Apply the emoji row animation variants (which include staggerChildren)
-            className="flex items-center justify-between w-full overflow-hidden md:justify-end md:gap-16"
+            className="flex overflow-hidden justify-between items-center w-full md:justify-end md:gap-16"
           >
             {emojiList.map((emoji) => (
               <motion.span
