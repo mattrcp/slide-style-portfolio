@@ -7,7 +7,7 @@ import { IconArrowUpRight } from "@tabler/icons-react";
 
 const Overview = () => {
   return (
-    <section className="w-full h-full overflow-visible">
+    <section className="overflow-visible w-full h-full">
       <Summary />
       <Contributions />
       <Problem />
@@ -42,13 +42,13 @@ const Summary = () => {
 
   return (
     <Wrapper id="overview">
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h1 className="text-[32px] md:text-[40px] leading-none text-secondaryText">
           Upliftt
         </h1>
       </div>
-      <div className="flex flex-col w-full gap-8 md:flex-row md:gap-20 text-primaryText">
-        <div className="flex flex-col w-full gap-8">
+      <div className="flex flex-col gap-8 w-full md:flex-row md:gap-20 text-primaryText">
+        <div className="flex flex-col gap-8 w-full">
           <p className="w-full text-lg text-primaryText md:text-[18px]">
             As a UX/UI Design Intern at Upliftt (Previous name Lightweight360),
             I designed the iOS app for trainees to follow personalized workout
@@ -57,9 +57,9 @@ const Summary = () => {
             with the CTO and stakeholders, and delivered a detailed dev handoff
             for implementation.
           </p>
-          <div className="flex items-center justify-start gap-2 pb-2 border-b border-border w-fit ">
+          <div className="flex gap-2 justify-start items-center pb-2 border-b border-border w-fit">
             <Link
-              href="https://lightweight360.com/"
+              href="https://www.upliftt.com/en/landingpage/home"
               target="_blank"
               className="font-satoshi"
             >
@@ -68,9 +68,9 @@ const Summary = () => {
             <IconArrowUpRight stroke={2} className="w-4 h-4" />
           </div>
         </div>
-        <div className="flex flex-col w-full gap-8 md:flex-row">
+        <div className="flex flex-col gap-8 w-full md:flex-row">
           {projectDetails.map((category) => (
-            <div key={category.header} className="w-full h-full ">
+            <div key={category.header} className="w-full h-full">
               <h3 className="mb-2 md:mb-4 font-sans uppercase font-satoshi text-secondaryText text-lg md:text-[18px] font-medium">
                 {category.header}
               </h3>
@@ -119,16 +119,16 @@ const Contributions = () => {
 
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           What I Contributed
         </h2>
       </div>
-      <div className="flex flex-col w-full gap-4 md:flex-row text-primaryText">
+      <div className="flex flex-col gap-4 w-full md:flex-row text-primaryText">
         {projectFeatures.map((feature) => (
           <div
             key={feature.id}
-            className="flex flex-col w-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border md:flex-1"
+            className="flex flex-col px-6 py-6 w-full rounded-2xl border bg-secondaryBg border-border md:flex-1"
           >
             <div className="min-h-[60px] md:mb-6 flex items-start">
               <h3 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
@@ -166,13 +166,13 @@ const Problem = () => {
 
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Problem
         </h2>
       </div>
 
-      <div className="flex flex-col w-full gap-8 md:flex-row md:gap-20 text-primaryText">
+      <div className="flex flex-col gap-8 w-full md:flex-row md:gap-20 text-primaryText">
         <div className="flex flex-col w-full md:w-1/2">
           <p className="w-full text-lg text-primaryText md:text-[18px]">
             Trainees often struggle to stay engaged due to unclear guidance and
@@ -180,11 +180,11 @@ const Problem = () => {
           </p>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:w-1/2">
+        <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2 md:w-1/2">
           {projectFeatures.map((feature, i) => (
             <div
               key={i}
-              className="flex flex-col h-full px-6 py-6 border bg-secondaryBg rounded-2xl border-border"
+              className="flex flex-col px-6 py-6 h-full rounded-2xl border bg-secondaryBg border-border"
             >
               <h3 className="mb-6 text-2xl font-semibold uppercase font-satoshi text-ternaryText">
                 0{i + 1}
@@ -231,7 +231,7 @@ const Solution = () => {
 
   return (
     <Wrapper>
-      <div className="w-full py-4 border-b border-border">
+      <div className="py-4 w-full border-b border-border">
         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
           Solution
         </h2>
@@ -246,7 +246,7 @@ const Solution = () => {
         </p>
       </div>
 
-      <div className="flex flex-row w-full gap-4 pb-6 overflow-x-auto">
+      <div className="flex overflow-x-auto flex-row gap-4 pb-6 w-full">
         {imageFeatures.map((feature, i) => (
           // Make sure each card explicitly does NOT shrink (flex-shrink-0)
           // and takes its defined w-screen width
