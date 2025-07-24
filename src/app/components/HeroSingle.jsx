@@ -1,6 +1,8 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react"; // Removed unused imports
+import { memoji } from "public/assets";
+import Image from "next/image";
 
 export default function HeroSingle() {
   const emojiList = ["🏃", "🍵", "📱", "☕", "🖥", "🍛"];
@@ -67,7 +69,7 @@ export default function HeroSingle() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center pt-16 pb-8 w-full h-[70vh] md:h-screen md:pt-20 md:mt-0">
+    <div className="flex flex-col justify-center items-center my-4 py-4 w-full h-[70vh] md:h-screen  md:mt-0 ">
       <AnimatePresence mode="wait">
         {/* Main motion.div that controls the overall entrance and direct children stagger */}
         <motion.div
@@ -75,25 +77,57 @@ export default function HeroSingle() {
           initial="initial" // Set the initial state
           whileInView="inView" // Animate to 'inView' when in viewport
           viewport={{ once: true, amount: 0.5 }} // Trigger animation when 50% of the component is in view, only once
-          className="flex relative flex-col justify-between items-center w-full h-full"
+          className="flex relative flex-col overflow-hidden px-2 justify-center items-center w-full h-screen  rounded-[24px] py-4 bg-opacity-5"
         >
+          {/* <div
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundImage: "url('/assets/background.svg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.1, // 👈 control background opacity here
+            }}
+          /> */}
           {/* Heading section, animated as a direct child of the main container */}
           <motion.div
             variants={headingVariants} // Apply the heading specific animation variants
-            className="flex justify-start items-center w-full"
+            className="flex justify-center items-center w-full md:w-[90vw] z-20 "
           >
-            <h1 className="font-satoshi font-bold text-primaryText text-[clamp(30px,4vw,80px)] leading-snug w-full text-left tracking-tighter md:tracking-normal">
-              Matt designs digital products that elevate user experiences
-              through
-              <span className="underline decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal">
-                &nbsp;scalable systems, innovative thinking, and
-                cross-functional collaboration.
+            {/* <h1 className="font-satoshi font-medium text-ternaryText text-center text-[clamp(30px,4vw,80px)] leading-snug w-full tracking-tighter md:tracking-normal">
+              <span className="text-primaryText">Matt</span> designs digital
+              products that elevate user experiences through
+              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
+                &nbsp;scalable systems,
+              </span>
+              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
+                &nbsp;innovative thinking,
+              </span>
+              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
+                &nbsp;and cross-functional collaboration.
+              </span>
+            </h1> */}
+            <h1 className="font-satoshi font-medium text-ternaryText group text-center text-[clamp(30px,3.5vw,80px)]  w-full ">
+              <span className="gap-2 items-center md:gap-4 text-primaryText bg-primaryBg">
+                Matt
+                <Image
+                  src={memoji}
+                  alt="Matt's memoji"
+                  className="inline-block h-[clamp(30px,5vw,80px)] w-auto  "
+                />
+              </span>{" "}
+              designs digital products, systems, and experiences through the
+              lens of
+              <span className="gap-1 items-center text-primaryText bg-primaryBg">
+                &nbsp;human behavior 👀,
+              </span>
+              <span className="gap-1 items-center text-primaryText bg-primaryBg">
+                &nbsp;and businesses 🧳.
               </span>
             </h1>
           </motion.div>
 
           {/* Emoji row container, animated as a direct child, and also responsible for staggering its own children (emojis) */}
-          <motion.div
+          {/* <motion.div
             variants={emojiRowVariants} // Apply the emoji row animation variants (which include staggerChildren)
             className="flex overflow-hidden justify-between items-center w-full md:justify-end md:gap-16"
           >
@@ -106,7 +140,7 @@ export default function HeroSingle() {
                 {emoji}
               </motion.span>
             ))}
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </AnimatePresence>
     </div>

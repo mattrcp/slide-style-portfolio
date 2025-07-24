@@ -6,14 +6,14 @@ export const projects = [
     tags: "Intern",
     description:
       "Upliftt is a digital CRM platform built to empower fitness professionals. In this project, I was assigned to design an IOS app design for the trainee.",
-    video: "/assets/test.mp4",
+    video: "/assets/Composition.mp4",
     href: "/upliftt",
     id: "todolist",
     // color: "#ACF12B",
   },
   {
     title: "Teammie",
-    tags: "Intern",
+    tags: "Side Project",
     description:
       "The platform aims to help design students connect with engineers, designers, and businesses and collaborate on projects to gain valuable experience.",
 
@@ -24,7 +24,7 @@ export const projects = [
   },
   {
     title: "Redesign Casetify",
-    tags: "Intern",
+    tags: "Side Project",
     description:
       "Redesigned the Casetify app to improve the overall experience. Added Generative AI to help users explore better design options. Made customizing and buying mobile cases more fun and seamless!",
     image: casetify,
@@ -34,7 +34,7 @@ export const projects = [
   },
   {
     title: "GradMatch",
-    tags: "Intern",
+    tags: "Side Project",
     description:
       "The job board application for students to showcase their skills through projects, experience, and education. The app provides a feature for users to swipe left to skip and right to apply.",
     image: gradmatch,

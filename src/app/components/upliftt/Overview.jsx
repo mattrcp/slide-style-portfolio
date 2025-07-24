@@ -50,14 +50,14 @@ const Summary = () => {
       <div className="flex flex-col gap-8 w-full md:flex-row md:gap-20 text-primaryText">
         <div className="flex flex-col gap-8 w-full">
           <p className="w-full text-lg text-primaryText md:text-[18px]">
-            As a UX/UI Design Intern at Upliftt (Previous name Lightweight360),
-            I designed the iOS app for trainees to follow personalized workout
-            and meal plans. I created the full design system, wireframes,
-            high-fidelity mockups, and interaction flows. I collaborated closely
-            with the CTO and stakeholders, and delivered a detailed dev handoff
-            for implementation.
+            As a UX/UI Design Intern at Upliftt, I designed the iOS app for
+            trainees to follow personalized workout and meal plans. I created
+            the full design system, wireframes, high-fidelity mockups, and
+            interaction flows. I collaborated closely with the CTO and
+            stakeholders, and delivered a detailed dev handoff for
+            implementation.
           </p>
-          <div className="flex gap-2 justify-start items-center pb-2 border-b border-border w-fit">
+          {/* <div className="flex gap-2 justify-start items-center pb-2 border-b border-border w-fit">
             <Link
               href="https://www.upliftt.com/en/landingpage/home"
               target="_blank"
@@ -66,7 +66,7 @@ const Summary = () => {
               View Company Website{" "}
             </Link>{" "}
             <IconArrowUpRight stroke={2} className="w-4 h-4" />
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col gap-8 w-full md:flex-row">
           {projectDetails.map((category) => (

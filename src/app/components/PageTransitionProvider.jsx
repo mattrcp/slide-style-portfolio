@@ -192,7 +192,7 @@ export function PageTransitionProvider({ children }) {
         <AnimatePresence>
           {isAnimating && (
             <motion.div
-              className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-primaryBg backdrop-blur-sm"
+              className="flex fixed inset-0 z-50 flex-col gap-6 justify-center items-center backdrop-blur-sm bg-primaryBg"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

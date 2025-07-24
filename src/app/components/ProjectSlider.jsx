@@ -240,7 +240,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
 
   return (
     <motion.div
-      className="grid relative place-items-center pt-0 pb-4 w-full h-auto md:pt-20"
+      className="grid relative place-items-center pt-0 pb-4 w-full h-auto"
       id="work"
     >
       {/* Layout Toggle Button - Only render if isDesktop is true */}
@@ -261,8 +261,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
       <div
         ref={sliderRef}
         className={`overflow-hidden relative w-full h-auto ${
-          shouldBeDraggable ? "cursor-drag-custom" : ""
-        }`}
+          shouldBeDraggable ? "cursor-drag-custom" : ""}`}
       >
         {/* The actual draggable content */}
         <motion.div
@@ -282,7 +281,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
           }
           onDragStart={shouldBeDraggable ? handleDragStart : undefined}
           onDragEnd={shouldBeDraggable ? handleDragEnd : undefined}
-          className={`flex gap-8  w-full h-full relative ${
+          className={`flex gap-6  w-full h-full relative ${
             layoutDirection === "row"
               ? // change to flex row if you want to see the card in row layout
                 "flex-col md:w-auto md:gap-8"
@@ -311,14 +310,13 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
             >
               <div
                 className={`relative flex flex-col w-full h-full gap-6 group cursor-pointer ${
-                  shouldBeDraggable ? "cursor-drag-custom" : ""
-                }`}
+                  shouldBeDraggable ? "cursor-drag-custom" : ""}`}
                 draggable="false"
                 onClick={(e) => handleClick(e, project.href)}
               >
                 {project.video ? (
                   <div
-                    className="overflow-hidden relative w-auto h-full rounded-[24px] bg-[#F9F9F9] border-border border-[1px] py-6"
+                    className="overflow-hidden relative w-auto h-full rounded-[24px] flex justify-center items-center bg-secondaryBg border-border border-[1px] py-6"
                     style={{
                       backgroundColor: project.color,
                       // backgroundImage: "url(/assets/noise.png)",
@@ -326,15 +324,15 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                   >
                     <video
                       src={project.video}
-                      className="w-full h-[300px] md:h-[60vh] duration-500 group-hover:scale-105 ease-card"
+                      className="w-auto h-[300px] md:h-[60vh] rounded-[24px] md:rounded-[48px]  duration-500 group-hover:scale-105 ease-card"
                       autoPlay
                       loop
                       muted
                       playsInline
                     ></video>
                     {layoutDirection != "row" && (
-                      <div className="hidden absolute bottom-4 left-4 p-6 rounded-3xl opacity-0 duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bg-primaryBg">
-                        <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                      <div className="hidden absolute bottom-4 left-4 p-6 rounded-3xl opacity-0 drop-shadow-sm duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bg-primaryBg">
+                        <h3 className="mb-2 text-2xl font-semibold text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>
                         <p className="text-base font-medium text-secondaryText">
@@ -345,7 +343,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                   </div>
                 ) : (
                   <div
-                    className="overflow-hidden relative w-full grid place-items-center rounded-[24px] bg-[#F9F9F9] border-border border-[1px] py-6"
+                    className="overflow-hidden relative w-full grid place-items-center rounded-[24px] bg-secondaryBg border-border border-[1px] py-6"
                     style={{
                       backgroundColor: project.color,
                       backgroundImage: "url(/assets/noise.png)",
@@ -359,8 +357,8 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       priority={index < 2}
                     />
                     {layoutDirection != "row" && (
-                      <div className="absolute bottom-4 left-4 p-6 rounded-3xl duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bg-primaryBg">
-                        <h3 className="mb-2 text-2xl font-medium text-primaryText font-satoshi group-hover:text-pinkBg">
+                      <div className="absolute bottom-4 left-4 p-6 rounded-3xl drop-shadow-sm duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bg-primaryBg">
+                        <h3 className="mb-2 text-2xl font-semibold text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
                         </h3>
                         <p className="text-base font-medium text-secondaryText">
@@ -373,7 +371,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
 
                 <div
                   className={`flex flex-col items-center justify-center duration-300 ease-card ${
-                    layoutDirection != "row" ? "sm:hidden " : ""
+                    layoutDirection != "row" ? "sm:hidden " : "hidden"
                   }`}
                 >
                   <div
