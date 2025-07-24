@@ -30,7 +30,7 @@ const page = () => {
         <Learning />
         <Delivery />
       </main>
-      <div className="fixed z-50 items-center justify-center hidden w-screen gap-6 px-2 py-2 md:flex bottom-2">
+      <div className="hidden fixed bottom-2 z-50 gap-6 justify-center items-center px-2 py-2 w-screen md:flex">
         <TableOfContents items={tocItems} />
         {/* <ProjectsShowcase /> */}
       </div>
@@ -44,8 +44,8 @@ export default page;
 
 const ImageThumbnail = () => {
   return (
-    <Wrapper className="w-full py-4 h-[50vh] md:h-screen md:w-screen md:pt-20 md:pb-4">
-      <div className="w-full h-full pl-2 pr-2 md:pl-4 md:pr-6">
+    <Wrapper className="w-full py-4 h-[50vh] md:h-screen md:w-screen md:pt-24 md:pb-4">
+      <div className="pr-2 pl-2 w-full h-full md:pl-4 md:pr-6">
         <div className="w-full h-full bg-secondaryBg border-border rounded-2xl md:rounded-[32px] overflow-hidden relative">
           <Image
             src={thumbnail}
