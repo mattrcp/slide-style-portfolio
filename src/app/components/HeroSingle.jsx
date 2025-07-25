@@ -107,7 +107,7 @@ export default function HeroSingle() {
               </span>
             </h1> */}
             <h1 className="font-satoshi font-medium text-ternaryText group text-center text-[clamp(30px,3.5vw,80px)]  w-full ">
-              <span className="gap-2 items-center md:gap-4 text-primaryText bg-primaryBg">
+              <span className="gap-2 items-center md:gap-4 text-primaryText">
                 Matt
                 <Image
                   src={memoji}
@@ -117,10 +117,10 @@ export default function HeroSingle() {
               </span>{" "}
               designs digital products, systems, and experiences through the
               lens of
-              <span className="gap-1 items-center text-primaryText bg-primaryBg">
+              <span className="gap-1 items-center text-primaryText">
                 &nbsp;human behavior 👀,
               </span>
-              <span className="gap-1 items-center text-primaryText bg-primaryBg">
+              <span className="gap-1 items-center text-primaryText">
                 &nbsp;and businesses 🧳.
               </span>
             </h1>
