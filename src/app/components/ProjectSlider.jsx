@@ -261,7 +261,8 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
       <div
         ref={sliderRef}
         className={`overflow-hidden relative w-full h-auto ${
-          shouldBeDraggable ? "cursor-drag-custom" : ""}`}
+          shouldBeDraggable ? "cursor-drag-custom" : ""
+        }`}
       >
         {/* The actual draggable content */}
         <motion.div
@@ -295,7 +296,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
           {projects.map((project, index) => (
             <motion.div
               key={project.id || index}
-              className={`flex relative flex-col justify-center items-center h-full duration-300 ease-in-out project-card-item group
+              className={`flex relative flex-col justify-center items-center h-full duration-300 ease-in-out project-card-item  group
                           ${
                             layoutDirection === "row"
                               ? "min-w-full  md:min-w-[900px]"
@@ -310,13 +311,14 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
             >
               <div
                 className={`relative flex flex-col w-full h-full gap-6 group cursor-pointer ${
-                  shouldBeDraggable ? "cursor-drag-custom" : ""}`}
+                  shouldBeDraggable ? "cursor-drag-custom" : ""
+                }`}
                 draggable="false"
                 onClick={(e) => handleClick(e, project.href)}
               >
                 {project.video ? (
                   <div
-                    className="overflow-hidden relative w-auto h-full rounded-[24px] flex justify-center items-center bg-secondaryBg border-border border-[1px] py-6"
+                    className="overflow-hidden relative w-auto h-full rounded-[24px] flex justify-center items-center bg-secondaryBg border-border border-[1px]   py-6"
                     style={{
                       backgroundColor: project.color,
                       // backgroundImage: "url(/assets/noise.png)",
@@ -330,7 +332,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       muted
                       playsInline
                     ></video>
-                    {layoutDirection != "row" && (
+                    {/* {layoutDirection != "row" && (
                       <div className="hidden absolute bottom-4 left-4 p-6 rounded-3xl opacity-0 drop-shadow-sm duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:block group-hover:opacity-100 bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-semibold text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
@@ -339,7 +341,13 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                           {project.description}
                         </p>
                       </div>
-                    )}
+                    )} */}
+                    <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
+                      {project.tags}
+                    </div>
+                    <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
+                      <IconArrowUpRight stroke={2} />
+                    </span>
                   </div>
                 ) : (
                   <div
@@ -356,7 +364,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                       className="object-center object-contain duration-500 group-hover:scale-105 ease-card h-[300px] md:h-[60vh]"
                       priority={index < 2}
                     />
-                    {layoutDirection != "row" && (
+                    {/* {layoutDirection != "row" && (
                       <div className="absolute bottom-4 left-4 p-6 rounded-3xl drop-shadow-sm duration-300 sm:w-1/2 md:1/2 lg:w-1/4 ease-card sm:hidden group-hover:block bg-primaryBg">
                         <h3 className="mb-2 text-2xl font-semibold text-primaryText font-satoshi group-hover:text-pinkBg">
                           {project.title}
@@ -365,36 +373,32 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
                           {project.description}
                         </p>
                       </div>
-                    )}
+                    )} */}
+                    <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
+                      {project.tags}
+                    </div>
+                    <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
+                      <IconArrowUpRight stroke={2} />
+                    </span>
                   </div>
                 )}
 
                 <div
-                  className={`flex flex-col items-center justify-center duration-300 ease-card ${
-                    layoutDirection != "row" ? "sm:hidden " : "hidden"
+                  className={`flex flex-col items-center justify-center w-full overflow-hidden max-h-0 -translate-y-6 group-hover:max-h-[600px] group-hover:translate-y-0 transition-all duration-500 ease-[0.76, 0, 0.24, 1] ${
+                    layoutDirection !== "row" ? "sm:block" : "hidden"
                   }`}
                 >
                   <div
-                    className={`flex flex-col items-center justify-center gap-2 text-center ${
-                      layoutDirection === "row"
-                        ? "w-full sm:w-2/3"
-                        : "w-full sm:w-1/2"
-                    }`}
+                    className={`flex flex-col gap-2 justify-between items-start px-4 w-full text-center sm:flex-row`}
                   >
-                    <h3 className="w-full text-2xl font-medium text-start text-primaryText font-satoshi group-hover:text-pinkBg">
+                    <h3 className=" text-[clamp(18px,3.5vw,40px)] w-1/2 font-semibold text-start text-primaryText font-satoshi group-hover:text-pinkBg">
                       {project.title}
                     </h3>
-                    <p className="text-base font-medium text-start text-secondaryText">
+                    <p className="text-[clamp(14px,3vw,28px)] w-2/3  font-medium text-start text-secondaryText">
                       {project.description}
                     </p>
                   </div>
                 </div>
-                <div className="grid absolute top-4 left-4 place-items-center px-6 py-2 text-sm leading-none rounded-full bg-primaryBg text-primaryText h-[40px] shadow-sm font-medium font-satoshi">
-                  {project.tags}
-                </div>
-                <span className="grid absolute top-4 right-4 place-items-center p-2 rounded-full shadow-sm bg-primaryBg text-primaryText">
-                  <IconArrowUpRight stroke={2} />
-                </span>
               </div>
             </motion.div>
           ))}
