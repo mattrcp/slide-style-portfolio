@@ -6,5 +6,17 @@ import gradmatch from "./gradmatch.png";
 import personal from "./personal.jpg";
 import logo from "./logo.svg";
 import memoji from "./memoji.png";
+import threeD from "./3d.png";
+import dot from "./dot.png";
 
-export { casetify, teammie, gradmatch, footerGradient, personal, logo, memoji };
+export {
+  casetify,
+  teammie,
+  gradmatch,
+  footerGradient,
+  personal,
+  logo,
+  memoji,
+  threeD,
+  dot,
+};
