@@ -46,7 +46,7 @@ export default function Home() {
     <>
       <Navigation />
 
-      <motion.main className="flex overflow-hidden relative z-40 flex-col justify-center items-start rounded-t-3xl w-full border-t-[1px] border-t-border h-auto">
+      <motion.main className="flex overflow-hidden relative z-40 flex-col justify-center items-start w-full h-auto">
         {/* Hero reveal: scale + blur */}
 
         <HeroSingle />
