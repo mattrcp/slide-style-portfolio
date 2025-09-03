@@ -13,7 +13,7 @@
   --swap-text: 255, 255, 255;
   --primary-grey: 229, 229, 229;
   --secondary-grey: 204, 204, 204;
-  --highlight-blue: 59, 130, 246;
+  --highlight-blue: 36, 112, 245;
   --border: 237, 237, 237;
 }
 
@@ -28,7 +28,7 @@
   --swap-text: 17, 17, 17;
   --primary-grey: 64, 64, 64;
   --secondary-grey: 82, 82, 82;
-  --highlight-blue: 96, 165, 250;
+  --highlight-blue: 82, 157, 255;
   --border: 64, 64, 64;
 }
 
@@ -36,6 +36,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  cursor: none;
 }
 
 html,
@@ -48,75 +49,191 @@ body {
   background-color: rgb(var(--primary-bg));
   color: rgb(var(--primary-text));
   transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: none;
 }
 
-/* Custom Drag Cursors */
-.cursor-my-drag {
-  cursor: grab;
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
+.custom-cursor {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: rgba(var(--highlight-blue));
+  border-radius: 50%;
+  transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease,
+    background-color 0.3s ease, transform 0.1s ease-out;
 }
 
-.cursor-my-drag:active {
-  cursor: grabbing;
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
+.cursor-inner {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: inherit;
+  transition: all 0.3s ease;
 }
 
-.cursor-my-drag:hover {
-  cursor: grab;
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
+.cursor-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
 }
 
-/* Custom drag cursor with your custom SVG */
-.cursor-drag-custom {
-  cursor: url("/drag-me.svg") 12 12, grab;
+.cursor-text {
+  position: absolute;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: "Satoshi", sans-serif;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 
-.cursor-drag-custom:active {
-  cursor: url("/drag-me.svg") 12 12, grabbing;
-}
-
-/* Alternative custom cursor with hand icon */
-.cursor-drag-hand {
-  cursor: ("/drag-me.svg") 10 10, grab;
-}
-
-/* If you want different cursor for dark mode, you can add a separate SVG file */
-/* 
-.dark .cursor-drag-custom {
-  cursor: url("/drag-me-dark.svg") 12 12, grab;
-}
-
-.dark .cursor-drag-custom:active {
-  cursor: url("/drag-me-dark.svg") 12 12, grabbing;
-}
-*/
-
-/* Smooth cursor transition */
-.cursor-drag-custom,
-.cursor-my-drag {
-  transition: cursor 0.2s ease;
-}
-
-/* Custom cursor for non draggable state (mobile/column view) */
-.cursor-scroll-hint {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M12 5v14M19 12l-7 7-7-7'/%3E%3C/svg%3E")
-      10 10,
-    auto;
-}
-
-.dark .cursor-scroll-hint {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='M12 5v14M19 12l-7 7-7-7'/%3E%3C/svg%3E")
-      10 10,
-    auto;
+.cursor-trigger {
+  /* cursor: none !important; */
 }
 
 @layer utilities {
   .ease-card {
     transition-timing-function: cubic-bezier(0.83, -0.33, 0, 1.29);
   }
+}
+
+/* CanelaText Black */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Black-Trial.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Black Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-BlackItalic-Trial.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Bold */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Bold-Trial.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Bold Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-BoldItalic-Trial.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Medium */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Medium-Trial.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Medium Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-MediumItalic-Trial.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Regular */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Regular-Trial.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Regular Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-RegularItalic-Trial.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Regular No2 */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-RegularNo2-Trial.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Regular No2 Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-RegularNo2Italic-Trial.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Light */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Light-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Light Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-LightItalic-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CanelaText Thin */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-Thin-Trial.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CanelaText Thin Italic */
+@font-face {
+  font-family: "CanelaText";
+  src: url("/fonts/fonts/CanelaText-ThinItalic-Trial.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* Zodiak Font Family */
@@ -208,7 +325,8 @@ body {
   h2,
   h3,
   h4 {
-    @apply font-zodiak;
+    @apply font-canela;
+    font-weight: 300;
   }
   p {
     @apply font-satoshi;
@@ -283,4 +401,15 @@ body {
 
 .parent-div-with-inner-shadow {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}
+
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  /* Restore native cursor/touch */
+  * {
+    cursor: auto !important;
+  }
 }
