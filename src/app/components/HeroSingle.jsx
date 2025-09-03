@@ -59,8 +59,7 @@ export default function HeroSingle() {
         </div>
 
         <h1 className="font-canela font-light text-primaryText text-center text-[clamp(32px,4vw,96px)] leading-tight w-full  md:w-1/2">
-          Designs digital products for{" "}
-          <span className="text-primaryText">&nbsp;everyday use!</span>
+          Designs digital products for everyday use!
         </h1>
 
         <p className="w-auto text-center md:w-1/3 text-primaryText">
