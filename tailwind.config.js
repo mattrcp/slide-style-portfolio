@@ -20,6 +20,7 @@ module.exports = {
       fontFamily: {
         satoshi: ["Satoshi", "sans-serif"],
         zodiak: ["Zodiak", "serif"],
+        canela: ["CanelaText", "serif"],
       },
       fontWeight: {
         light: 300,
