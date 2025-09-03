@@ -50,7 +50,7 @@ export default function HeroSingle() {
   };
 
   return (
-    <motion.div className="relative z-0 pt-24 h-[50vh] md:h-auto w-full md:pt-0 overflow-clip">
+    <motion.div className="relative w-full overflow-hidden min-h-[50vh] md:h-[90vh]">
       {/* Spacer to create scroll room */}
       <div
         id="hero-section"

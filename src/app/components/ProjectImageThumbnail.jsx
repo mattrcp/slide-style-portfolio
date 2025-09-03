@@ -23,15 +23,17 @@ const UplifttThumbnail = ({ project, index, hover }) => {
         )}
         {video && (
           <div
-            className="flex overflow-hidden justify-center items-center flex-[2] h-full rounded-2xl "
+            className="flex overflow-hidden justify-center items-center flex-[2] h-full rounded-2xl py-2 md:py-6"
             style={{
               backgroundImage: `url(${project.background.src})`,
             }}
           >
-            <div className="relative z-20 h-auto">
+            <div
+              className={`overflow-hidden relative z-20 w-auto h-full rounded-3xl duration-500 md:rounded-[40px] ${hover} ease-card`}
+            >
               <video
                 src={video}
-                className={`object-cover z-20 w-full rounded-2xl duration-500 h-[25vh] sm:h-[30vh] md:h-[40vh] xl:h-[60vh] md:rounded-[40px] ${hover} ease-card`}
+                className={`object-contain z-20 w-full h-full`}
                 autoPlay
                 loop
                 muted
