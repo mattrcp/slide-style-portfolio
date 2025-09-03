@@ -98,7 +98,7 @@ const Footer = () => {
             {" "}
           </div>
 
-          <span className="text-base font-medium uppercase text-secondaryText text-start font-satoshi">
+          <span className="text-sm font-medium uppercase text-secondaryText text-start font-satoshi">
             I'm available for new opportunities ジ{" "}
           </span>
         </div>
@@ -144,8 +144,8 @@ const Footer = () => {
       <Image
         src={dot}
         alt="Dot backdrop"
-        draggable="false"
-        className="absolute top-0 z-0 w-screen h-screen opacity-80 brightness-200"
+        draggable={false}
+        className="absolute top-0 w-screen h-screen opacity-80 brightness-200 pointer-events-none"
       />
     </footer>
   );
