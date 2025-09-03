@@ -18,9 +18,14 @@ import userJourney from "./userjourney.png";
 import thumbnail from "./thumbnail.png";
 import faqPage from "./faq.png";
 import interview from "./interview.png";
+import mobile from "./mobile.png";
+import desktop from "./desktop.png";
+import universityGreen from "./universityGreen.jpg";
 
 export {
   projectOwner,
+  mobile,
+  desktop,
   designStudent,
   formPage,
   hmw,
@@ -40,4 +45,5 @@ export {
   thumbnail,
   faqPage,
   interview,
+  universityGreen,
 };
