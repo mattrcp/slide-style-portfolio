@@ -60,10 +60,13 @@ export default function HeroSingle() {
       {/* Sticky Hero with reveal animation */}
       <motion.div
         className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-[50vh] md:h-[90vh] z-0"
-        style={{ y: translateY, scale }}
-        initial="hidden"
-        animate="visible"
-        variants={heroReveal}
+        initial={{ opacity: 0, filter: "blur(20px)", scale: 0.8 }}
+        animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        style={{
+          y: translateY, // scroll offset
+          scale: scale, // scroll scale
+        }}
       >
         <div className="flex gap-2 justify-center items-center text-secondaryText">
           Hello there! I'm Matt.{" "}
