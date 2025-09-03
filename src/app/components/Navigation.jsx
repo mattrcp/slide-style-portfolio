@@ -6,9 +6,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { usePageTransition } from "./PageTransitionProvider";
 import { useTheme } from "../context/ThemeContext";
-import TimeDisplay from "./TimeDisplay"; // Keep if used elsewhere, otherwise can be removed
 import AboutModal from "./AboutModal";
-// Removed ContactModal import as it's no longer needed
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import Image from "next/image";
 
@@ -41,8 +39,11 @@ const mobileMenuAnimation = {
   },
   exit: {
     opacity: 0,
-    y: "-100%",
-    transition: { duration: 0.3, ease: [0.25, 1, 0.5, 1] },
+    // y: "-100%",
+    transition: {
+      duration: 0.9,
+      ease: [0.25, 1, 0.5, 1],
+    },
   },
 };
 
@@ -145,7 +146,7 @@ export default function Navigation() {
           animate="visible"
         >
           {/* Links container */}
-          <div className="flex overflow-hidden relative gap-0 items-center p-2 rounded-full drop-shadow-sm bg-secondaryBg parent-div-with-inner-shadow">
+          <div className="flex overflow-hidden relative gap-0 items-center p-2 rounded-full border-[1px] drop-shadow-sm bg-primaryBg parent-div-with-inner-shadow border-border">
             <div className="flex relative gap-0 items-center">
               {/* Logo link - first */}
               <div
@@ -156,7 +157,7 @@ export default function Navigation() {
                 {currentHighlight === "/" && (
                   <motion.div
                     layoutId="nav-highlight"
-                    className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-primaryBg"
+                    className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
                     transition={{
                       type: "spring",
                       stiffness: 500,
@@ -188,7 +189,7 @@ export default function Navigation() {
                       {currentHighlight === href && (
                         <motion.div
                           layoutId="nav-highlight"
-                          className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-primaryBg"
+                          className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
                           transition={{
                             type: "spring",
                             stiffness: 500,
@@ -218,7 +219,7 @@ export default function Navigation() {
                     {currentHighlight === href && (
                       <motion.div
                         layoutId="nav-highlight"
-                        className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-primaryBg"
+                        className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
                         transition={{
                           type: "spring",
                           stiffness: 500,
@@ -265,7 +266,7 @@ export default function Navigation() {
         {/* Mobile Nav Toggle */}
         <div className="md:hidden fixed top-2 left-0 right-0 z-[990] px-4 py-2">
           <div className="flex justify-center items-center w-full">
-            <div className="flex gap-4 justify-between items-center px-2 py-2 rounded-full drop-shadow-sm w-fit bg-secondaryBg parent-div-with-inner-shadow">
+            <div className="flex gap-4 justify-between items-center px-2 py-2 rounded-full drop-shadow-sm w-fit bg-secondaryBg border-border border-[1px] parent-div-with-inner-shadow">
               <Link
                 href="/"
                 onClick={(e) => handleNavigation(e, "/")}
@@ -282,7 +283,7 @@ export default function Navigation() {
 
               <button
                 onClick={toggleMobileMenu}
-                className="relative flex flex-col items-start justify-center h-10 px-4 bg-primaryBg z-[995] rounded-full w-14"
+                className="relative flex flex-col items-start justify-center h-10 px-4 bg-secondaryBg z-[995] rounded-full w-14 "
               >
                 <motion.span
                   className="w-full h-0.5 bg-swapBg mb-1.5"
@@ -311,7 +312,7 @@ export default function Navigation() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="fixed w-screen h-screen  inset-0 bg-primaryBg backdrop-blur-sm z-[985] md:hidden"
+              className="fixed w-screen h-screen  inset-0 bg-secondaryBg backdrop-blur-sm z-[985] md:hidden"
               variants={mobileMenuAnimation}
               initial="hidden"
               animate="visible"
@@ -340,18 +341,18 @@ export default function Navigation() {
                   </motion.div>
                 ))}
 
-                <motion.div variants={mobileNavItemAnimation} className="mt-8">
+                <motion.div variants={mobileNavItemAnimation} className="py-2">
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.button
                       key={theme}
                       onClick={toggleTheme}
-                      className="flex justify-center items-center w-6 h-6"
+                      className="flex justify-center items-center w-8 h-8"
                       transition={{ duration: 0.3 }}
                     >
                       {theme === "dark" ? (
-                        <IconMoon className="w-6 h-6 text-secondaryText" />
+                        <IconMoon className="w-8 h-8 text-secondaryText" />
                       ) : (
-                        <IconSun className="w-6 h-6 text-secondaryText" />
+                        <IconSun className="w-8 h-8 text-secondaryText" />
                       )}
                     </motion.button>
                   </AnimatePresence>

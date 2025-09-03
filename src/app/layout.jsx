@@ -2,17 +2,20 @@ import "./globals.css";
 import { PageTransitionProvider } from "./components/PageTransitionProvider";
 import { ThemeProvider } from "./context/ThemeContext";
 import ScrollToTop from "./components/ScrollToTop";
+import CustomCursor from "./components/CustomCursor";
 import { Analytics } from "@vercel/analytics/react";
+import React from "react";
+import { LenisProvider } from "./context/Lenis";
 
 export const metadata = {
-  title: "Matt's Space 🚀",
+  title: "Matt Ngamdan",
   description:
     "Welcome to my workspace. Where I put everything from designing to developing.",
   metadataBase: new URL("https://www.ratchapon.com"),
   openGraph: {
     type: "website",
     url: "https://www.ratchapon.com",
-    title: "Matt's Space 🚀",
+    title: "Matt Ngamdan",
     description:
       "Welcome to my workspace. Where I put everything from designing to developing.",
     images: [
@@ -54,14 +57,17 @@ export default function RootLayout({ children }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="antialiased bg-primaryBg">
-        <ThemeProvider>
-          <PageTransitionProvider>
-            {children}
-            {/* <ScrollToTop /> */}
-          </PageTransitionProvider>
-        </ThemeProvider>
-        <Analytics />
+      <body className="antialiased bg-gradient-to-b from-secondaryBg to-primaryBg">
+        <LenisProvider>
+          <ThemeProvider>
+            <PageTransitionProvider>
+              <CustomCursor />
+              {children}
+              <ScrollToTop />
+            </PageTransitionProvider>
+          </ThemeProvider>
+          <Analytics />
+        </LenisProvider>
       </body>
     </html>
   );

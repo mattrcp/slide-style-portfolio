@@ -1,45 +1,59 @@
-import { casetify, gradmatch, teammie } from "../../../public/assets";
+import { component, gymbackground } from "public/upliftt";
+import { mobile, desktop, universityGreen } from "public/teammie";
+import { gradmatch2, gradmatch3, universityBackground } from "public/gradmatch";
+import { casetify, gradmatch, teammie } from "public/assets";
+import { IconMobiledata } from "@tabler/icons-react";
+import { casetifyBackground, casetifyComponent } from "public/casetify";
 
 export const projects = [
   {
     title: "Upliftt",
-    tags: "Intern",
     description:
       "Upliftt is a digital CRM platform built to empower fitness professionals. In this project, I was assigned to design an IOS app design for the trainee.",
+    // You can mix video and image for Upliftt
     video: "/assets/Composition.mp4",
+    image: component, // Optional: can be used for fallback or overlay
+    background: gymbackground,
     href: "/upliftt",
-    id: "todolist",
-    // color: "#ACF12B",
+    id: "upliftt",
+    year: 2025,
+    // color: "#F5F5F5",
+    tag: ["Intern", "UI/UX", "Mobile App Design", "Design System"],
   },
   {
     title: "Teammie",
-    tags: "Side Project",
     description:
       "The platform aims to help design students connect with engineers, designers, and businesses and collaborate on projects to gain valuable experience.",
+    image: [desktop, mobile],
+    background: universityGreen,
 
-    image: teammie,
     href: "/teammie",
-    id: "globespecs",
-    // color: "#B6F0F1",
+    id: "teammie",
+    year: 2024,
+    tag: ["Website Design", "UX/UI", "Responsive Design"],
   },
   {
     title: "Redesign Casetify",
-    tags: "Side Project",
     description:
       "Redesigned the Casetify app to improve the overall experience. Added Generative AI to help users explore better design options. Made customizing and buying mobile cases more fun and seamless!",
-    image: casetify,
+    image: [casetify, casetifyComponent],
+    background: casetifyBackground,
+
     href: "/casetify",
-    id: "luma",
-    // color: "#FC516B",
+    id: "casetify",
+    year: 2024,
+    tag: ["Mobile App Design", "UX/UI", "AI Implementation"],
   },
   {
     title: "GradMatch",
-    tags: "Side Project",
     description:
       "The job board application for students to showcase their skills through projects, experience, and education. The app provides a feature for users to swipe left to skip and right to apply.",
-    image: gradmatch,
+    image: [gradmatch3, gradmatch2],
+    background: universityBackground,
+
     href: "/gradmatch",
-    id: "globespecs2",
-    // color: "#5176FC",
+    id: "gradmatch",
+    year: 2023,
+    tag: ["Mobile App Design", "UX/UI"],
   },
 ];

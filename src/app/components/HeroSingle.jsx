@@ -1,253 +1,97 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useState, useEffect } from "react"; // Removed unused imports
-import { memoji } from "public/assets";
+import { motion } from "framer-motion";
+import { dot } from "public/assets";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function HeroSingle() {
-  const emojiList = ["🏃", "🍵", "📱", "☕", "🖥", "🍛"];
+  const [scrollY, setScrollY] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(Infinity);
 
-  // Variants for the overall content container.
-  // This motion.div wraps both the heading and the emoji section.
-  const containerVariants = {
-    initial: { opacity: 0, y: 50 }, // Start slightly below and invisible
-    inView: {
-      opacity: 1, // Fade in
-      y: 0, // Move to original position
-      transition: {
-        duration: 0.8, // Overall duration of this container's animation
-        ease: [0.83, -0.33, 0, 1.29], // Custom easing for a more dynamic feel
-        when: "beforeChildren", // Animate this container first, then its direct children
-        staggerChildren: 0.1, // Stagger delay for direct children (the heading and the emoji container)
-        delayChildren: 0.1, // Initial delay before the direct children start animating
-      },
-    },
-  };
+  useEffect(() => {
+    const calculateMaxScroll = () => {
+      const footer = document.body.lastElementChild;
+      if (footer) {
+        const footerTop = footer.offsetTop;
+        const viewportHeight = window.innerHeight;
+        setMaxScroll(Math.max(0, footerTop - viewportHeight));
+      } else {
+        const documentHeight = document.documentElement.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        setMaxScroll(Math.max(0, documentHeight - viewportHeight * 1.5));
+      }
+    };
 
-  // Variants for the main heading (h1).
-  // These will be picked up by the 'staggerChildren' from `containerVariants`.
-  const headingVariants = {
-    initial: { opacity: 0, y: 20 }, // Start slightly below and invisible
-    inView: {
+    const handleScroll = () => setScrollY(window.scrollY);
+
+    calculateMaxScroll();
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", calculateMaxScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", calculateMaxScroll);
+    };
+  }, []);
+
+  const effectiveScrollY = Math.min(scrollY, maxScroll);
+  const translateY = Math.min(-10, -(effectiveScrollY * 0.05));
+  const scale = Math.max(0.9, 1 - effectiveScrollY * 0.0005);
+
+  // Hero reveal animation
+  const heroReveal = {
+    hidden: { opacity: 0, filter: "blur(20px)", scale: 0.8 },
+    visible: {
       opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 10 },
-    }, // Spring animation for a smooth bounce
-  };
-
-  // Variants for the emoji *container* (the div that holds all emojis).
-  // This container itself will animate in, and then it will trigger a stagger for its own children (the individual emojis).
-  const emojiRowVariants = {
-    initial: { opacity: 0, y: 20 }, // Start slightly below and invisible
-    inView: {
-      opacity: 1, // Fade in
-      y: 0, // Move to original position
-      transition: {
-        type: "spring", // Use a spring animation
-        stiffness: 100,
-        damping: 10,
-        staggerChildren: 0.07, // Stagger delay for individual emojis within this row
-        delayChildren: 0.1, // Delay before individual emojis start animating
-      },
-    },
-  };
-
-  // Variants for individual emojis.
-  // These will be picked up by the 'staggerChildren' from `emojiRowVariants`.
-  const emojiItemVariants = {
-    initial: { opacity: 0, y: 20, scale: 0.8 }, // Start smaller, slightly below, and invisible
-    inView: {
-      opacity: 1, // Fade in
-      y: 0, // Move to original position
-      scale: 1, // Scale to full size
-      transition: {
-        type: "spring", // Spring animation for a lively effect
-        stiffness: 300,
-        damping: 20,
-      },
+      filter: "blur(0px)",
+      scale: 1,
+      transition: { duration: 1, ease: "easeOut" },
     },
   };
 
   return (
-    <div className="flex flex-col justify-center items-center my-4 py-4 w-full h-[70vh] md:h-screen  md:mt-0 ">
-      <AnimatePresence mode="wait">
-        {/* Main motion.div that controls the overall entrance and direct children stagger */}
-        <motion.div
-          variants={containerVariants} // Apply the main container animation variants
-          initial="initial" // Set the initial state
-          whileInView="inView" // Animate to 'inView' when in viewport
-          viewport={{ once: true, amount: 0.5 }} // Trigger animation when 50% of the component is in view, only once
-          className="flex relative flex-col overflow-hidden px-2 justify-center items-center w-full h-screen  rounded-[24px] py-4 bg-opacity-5"
-        >
-          {/* <div
-            className="absolute inset-0 -z-10"
-            style={{
-              backgroundImage: "url('/assets/background.svg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.1, // 👈 control background opacity here
-            }}
-          /> */}
-          {/* Heading section, animated as a direct child of the main container */}
-          <motion.div
-            variants={headingVariants} // Apply the heading specific animation variants
-            className="flex justify-center items-center w-full md:w-[90vw] z-20 "
-          >
-            {/* <h1 className="font-satoshi font-medium text-ternaryText text-center text-[clamp(30px,4vw,80px)] leading-snug w-full tracking-tighter md:tracking-normal">
-              <span className="text-primaryText">Matt</span> designs digital
-              products that elevate user experiences through
-              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
-                &nbsp;scalable systems,
-              </span>
-              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
-                &nbsp;innovative thinking,
-              </span>
-              <span className=" decoration-wavy underline-[1px] underline-offset-4 decoration-highlightBlue text-left tracking-tighter md:tracking-normal text-primaryText hover:underline duration-300 ease-in-out">
-                &nbsp;and cross-functional collaboration.
-              </span>
-            </h1> */}
-            <h1 className="font-satoshi font-medium text-ternaryText group text-center text-[clamp(30px,3.5vw,80px)]  w-full ">
-              <span className="gap-2 items-center md:gap-4 text-primaryText">
-                Matt
-                <Image
-                  src={memoji}
-                  alt="Matt's memoji"
-                  className="inline-block h-[clamp(30px,5vw,80px)] w-auto  "
-                />
-              </span>{" "}
-              designs digital products, systems, and experiences through the
-              lens of
-              <span className="gap-1 items-center text-primaryText">
-                &nbsp;human behavior 👀,
-              </span>
-              <span className="gap-1 items-center text-primaryText">
-                &nbsp;and businesses 🧳.
-              </span>
-            </h1>
-          </motion.div>
+    <motion.div className="relative z-0">
+      {/* Spacer to create scroll room */}
+      <div
+        id="hero-section"
+        className="relative w-full h-[40vh] md:h-[90vh]"
+      ></div>
 
-          {/* Emoji row container, animated as a direct child, and also responsible for staggering its own children (emojis) */}
-          {/* <motion.div
-            variants={emojiRowVariants} // Apply the emoji row animation variants (which include staggerChildren)
-            className="flex overflow-hidden justify-between items-center w-full md:justify-end md:gap-16"
-          >
-            {emojiList.map((emoji) => (
-              <motion.span
-                key={emoji} // Using emoji as key, assuming they are unique. A stable unique ID is preferred for production.
-                variants={emojiItemVariants} // Apply the individual emoji animation variants
-                className="text-2xl md:text-4xl blink-emoji"
-              >
-                {emoji}
-              </motion.span>
-            ))}
-          </motion.div> */}
-        </motion.div>
-      </AnimatePresence>
-    </div>
+      {/* Sticky Hero with reveal animation */}
+      <motion.div
+        className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-[50vh] md:h-[90vh] z-0"
+        style={{ y: translateY, scale }}
+        initial="hidden"
+        animate="visible"
+        variants={heroReveal}
+      >
+        <div className="flex gap-2 justify-center items-center text-secondaryText">
+          Hello there! I'm Matt.{" "}
+          <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+        </div>
+
+        <h1 className="font-canela font-light text-primaryText text-center text-[clamp(32px,4vw,96px)] tracking-wide leading-tight w-full md:w-[70vw] ">
+          Designs digital products for
+          <span className="gap-1 items-center text-primaryText">
+            &nbsp;everyday use!
+          </span>
+        </h1>
+
+        <p className="w-auto text-center md:w-1/3 text-primaryText">
+          UX & UI Designer based in Toronto, creating user-centric mobile and
+          web experiences that blend product thinking with human touch.
+        </p>
+      </motion.div>
+
+      <div className="fixed top-0 left-0 w-screen h-screen -z-50">
+        <Image
+          src={dot}
+          alt="Dot backdrop"
+          draggable={false}
+          fill
+          className="object-cover opacity-80"
+        />
+      </div>
+    </motion.div>
   );
 }
-export const Svg = ({ className }) => {
-  return (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 680 505"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid meet"
-      className={className}
-    >
-      <g clip-path="url(#clip0_2393_4260)">
-        <g filter="url(#filter0_f_2393_4260)">
-          <path
-            d="M408.5 424C503.217 424 580 347.217 580 252.5C580 157.783 503.217 81 408.5 81C313.783 81 237 157.783 237 252.5C237 347.217 313.783 424 408.5 424Z"
-            fill="#FFFEB5"
-            fill-opacity="0.2"
-          />
-        </g>
-        <g filter="url(#filter1_f_2393_4260)">
-          <path
-            d="M354.5 424C449.217 424 526 347.217 526 252.5C526 157.783 449.217 81 354.5 81C259.783 81 183 157.783 183 252.5C183 347.217 259.783 424 354.5 424Z"
-            fill="#17AFFB"
-            fill-opacity="0.1"
-          />
-        </g>
-        <g filter="url(#filter2_f_2393_4260)">
-          <path
-            d="M271.5 424C366.217 424 443 347.217 443 252.5C443 157.783 366.217 81 271.5 81C176.783 81 100 157.783 100 252.5C100 347.217 176.783 424 271.5 424Z"
-            fill="#FF93EB"
-            fill-opacity="0.1"
-          />
-        </g>
-      </g>
-      <defs>
-        <filter
-          id="filter0_f_2393_4260"
-          x="137"
-          y="-19"
-          width="543"
-          height="543"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feGaussianBlur
-            stdDeviation="50"
-            result="effect1_foregroundBlur_2393_4260"
-          />
-        </filter>
-        <filter
-          id="filter1_f_2393_4260"
-          x="83"
-          y="-19"
-          width="543"
-          height="543"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feGaussianBlur
-            stdDeviation="50"
-            result="effect1_foregroundBlur_2393_4260"
-          />
-        </filter>
-        <filter
-          id="filter2_f_2393_4260"
-          x="0"
-          y="-19"
-          width="543"
-          height="543"
-          filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
-        >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feGaussianBlur
-            stdDeviation="50"
-            result="effect1_foregroundBlur_2393_4260"
-          />
-        </filter>
-        <clipPath id="clip0_2393_4260">
-          <rect width="680" height="505" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-};

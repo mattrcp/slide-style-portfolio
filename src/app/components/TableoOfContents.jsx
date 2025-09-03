@@ -43,14 +43,15 @@ const TableOfContents = ({ items }) => {
           initial={{ opacity: 0, y: 20 }} // Initial state (hidden, slightly below)
           animate={{ opacity: 1, y: 0 }} // Animate to visible state
           exit={{ opacity: 0, y: 20 }} // Animate out when not visible
-          className=" z-[998] hidden gap-6 px-6 py-4 rounded-full shadow-lg md:flex bg-swapBg" // Added fixed position and z-index
+          className=" z-[999] hidden gap-6 px-6 py-4 rounded-full shadow-lg md:flex bg-swapBg" // Added fixed position and z-index
         >
           {items.map((item) => (
             <Link
               key={item.id}
               href={item.href}
               onClick={(e) => handleClick(e, item.href)}
-              className="text-sm font-medium duration-200 ease-in-out text-swapText font-satoshi hover:font-semibold"
+              className="text-sm font-medium duration-200 ease-in-out text-swapText font-satoshi hover:font-semibold cursor-trigger"
+              data-cursor-text={item.label.toUpperCase()}
             >
               {item.label}
             </Link>
