@@ -50,16 +50,16 @@ export default function HeroSingle() {
   };
 
   return (
-    <motion.div className="relative z-0 pt-24 h-[50vh] md:h-auto w-full md:pt-0">
+    <motion.div className="relative z-0 pt-24 h-[50vh] md:h-auto w-full md:pt-0 overflow-clip">
       {/* Spacer to create scroll room */}
       <div
         id="hero-section"
-        className="relative w-full h-[40vh] md:h-[90vh]"
+        className="relative w-full h-[40vh] md:h-[90vh] overflow-clip"
       ></div>
 
       {/* Sticky Hero with reveal animation */}
       <motion.div
-        className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-[50vh] md:h-[90vh] z-0"
+        className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-[50vh] md:h-[90vh] z-0 overflow-clip"
         initial={{ opacity: 0, filter: "blur(20px)", scale: 0.8 }}
         animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
