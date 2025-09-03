@@ -43,10 +43,10 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="bg-gradient-to-b from-secondaryBg to-primaryBg">
       <Navigation />
 
-      <motion.main className="flex overflow-hidden relative z-40 flex-col justify-center items-start w-full h-auto">
+      <motion.main className="flex relative z-40 flex-col justify-center items-start w-full h-auto">
         {/* Hero reveal: scale + blur */}
 
         <HeroSingle />
@@ -63,6 +63,6 @@ export default function Home() {
       </motion.main>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -325,7 +325,7 @@ export default function Navigation() {
                       <a
                         href={href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-3xl capitalize transition duration-300 font-regular text-ternaryText font-satoshi"
+                        className="text-lg font-semibold capitalize transition duration-300 font-regular text-ternaryText font-satoshi"
                       >
                         {label}
                       </a>
@@ -333,7 +333,7 @@ export default function Navigation() {
                       <Link
                         href={href}
                         onClick={(e) => handleNavigation(e, href, isModal)}
-                        className={`text-3xl capitalize transition duration-300 text-ternaryText font-satoshi`}
+                        className={`text-lg font-semibold capitalize transition duration-300 text-ternaryText font-satoshi`}
                       >
                         {label}
                       </Link>
@@ -346,13 +346,13 @@ export default function Navigation() {
                     <motion.button
                       key={theme}
                       onClick={toggleTheme}
-                      className="flex justify-center items-center w-8 h-8"
+                      className="flex justify-center items-center w-6 h-6"
                       transition={{ duration: 0.3 }}
                     >
                       {theme === "dark" ? (
-                        <IconMoon className="w-8 h-8 text-secondaryText" />
+                        <IconMoon className="w-6 h-6 text-secondaryText" />
                       ) : (
-                        <IconSun className="w-8 h-8 text-secondaryText" />
+                        <IconSun className="w-6 h-6 text-secondaryText" />
                       )}
                     </motion.button>
                   </AnimatePresence>
