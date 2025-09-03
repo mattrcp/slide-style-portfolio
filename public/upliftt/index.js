@@ -7,6 +7,8 @@ import meal from "./meal.png";
 import document from "./document.png";
 import calendar from "./calendar.png";
 import workout from "./workout.png";
+import component from "./upliftt-component.png";
+import gymbackground from "./background.jpg";
 
 export {
   thumbnail,
@@ -18,4 +20,6 @@ export {
   document,
   calendar,
   workout,
+  component,
+  gymbackground,
 };
