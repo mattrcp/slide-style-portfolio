@@ -46,10 +46,9 @@ export default function Home() {
     <div className="bg-gradient-to-b from-secondaryBg to-primaryBg">
       <Navigation />
 
+      <HeroSingle />
       <motion.main className="flex relative z-40 flex-col justify-center items-start w-full h-auto">
         {/* Hero reveal: scale + blur */}
-
-        <HeroSingle />
 
         {/* ProjectSlider slides up after hero */}
         <motion.div

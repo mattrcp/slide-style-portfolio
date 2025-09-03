@@ -33,7 +33,7 @@ export default function HeroSingle() {
   return (
     <div className="relative w-full overflow-hidden min-h-[90vh] md:h-[90vh]">
       {/* Dot Background */}
-      <div className="fixed top-0 left-0 w-screen h-screen -z-50">
+      <div className="fixed top-0 left-0 w-screen h-screen -z-00">
         <Image
           src={dot}
           alt="Dot backdrop"
