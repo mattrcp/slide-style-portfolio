@@ -11,7 +11,7 @@ const UplifttThumbnail = ({ project, index, hover }) => {
     >
       <div className="flex justify-between items-center w-full h-[30vh] sm:h-[40vh] md:h-[60vh] xl:h-[70vh] gap-4 ">
         {image && (
-          <div className="flex flex-1 justify-center items-center h-full rounded-2xl bg-[#648947]">
+          <div className="hidden md:flex flex-1 justify-center items-center h-full rounded-2xl bg-[#648947]">
             <Image
               src={image}
               alt={project.title}
@@ -71,7 +71,7 @@ const TeammieThumbnail = ({ project, index, hover }) => {
               />
 
               <div
-                className={`overflow-hidden absolute top-0 left-0 justify-center items-center w-full h-full backdrop-blur-md`}
+                className={`overflow-hidden absolute top-0 left-0 justify-center items-center w-full h-full`}
                 style={{
                   backgroundImage: `url(${project.background.src})`,
                   backgroundSize: "cover",
@@ -80,7 +80,7 @@ const TeammieThumbnail = ({ project, index, hover }) => {
             </div>
 
             {/* Second image - square style */}
-            <div className=" flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#205e59]">
+            <div className=" hidden  flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#205e59]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -113,7 +113,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
         {image && (
           <>
             {/* Main image - full expansion */}
-            <div className=" justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#f6c335]">
+            <div className=" hidden justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#f6c335]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -180,7 +180,7 @@ const GradMatchThumbnail = ({ project, index, hover }) => {
             </div>
 
             {/* Second image - square style */}
-            <div className=" overflow-hidden justify-center items-center flex-1 h-full rounded-2xl md:flex bg-[#ABDDFE]">
+            <div className="  hidden overflow-hidden justify-center items-center flex-1 h-full rounded-2xl md:flex bg-[#ABDDFE]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
