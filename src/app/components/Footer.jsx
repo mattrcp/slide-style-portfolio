@@ -114,7 +114,7 @@ const Footer = () => {
         </button>
       </div>
       <div className="flex z-[20]  gap-4 justify-center items-center h-full md:h-auto md:flex-row flex-col md:px-8 py-0 md:py-4 w-full md:gap-8 border-border border-y-[1px]">
-        <p className="hidden w-full text-base font-medium uppercase md:block text-secondaryText">
+        <p className="hidden w-full text-sm font-medium uppercase md:block text-secondaryText">
           Connect
         </p>
         <div className="flex flex-col justify-center items-center w-full h-full md:justify-end md:gap-20 md:flex-row md:h-auto">
