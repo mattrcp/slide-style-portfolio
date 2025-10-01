@@ -20,7 +20,7 @@ import faqPage from "./faq.png";
 import interview from "./interview.png";
 import mobile from "./mobile.png";
 import desktop from "./desktop.png";
-import universityGreen from "./universityGreen.jpg";
+import background from "./background.jpg";
 
 export {
   projectOwner,
@@ -45,5 +45,5 @@ export {
   thumbnail,
   faqPage,
   interview,
-  universityGreen,
+  background,
 };

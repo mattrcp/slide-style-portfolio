@@ -11,7 +11,7 @@ const UplifttThumbnail = ({ project, index, hover }) => {
     >
       <div className="flex justify-between items-center w-full h-[30vh] sm:h-[40vh] md:h-[60vh] xl:h-[70vh] gap-4 ">
         {image && (
-          <div className="hidden md:flex flex-1 justify-center items-center h-full rounded-2xl bg-[#648947]">
+          <div className="hidden md:flex flex-1 justify-center items-center h-full rounded-2xl bg-[#D5D0BD]">
             <Image
               src={image}
               alt={project.title}
@@ -26,6 +26,8 @@ const UplifttThumbnail = ({ project, index, hover }) => {
             className="flex overflow-hidden justify-center items-center flex-[2] h-full rounded-2xl py-2 md:py-6"
             style={{
               backgroundImage: `url(${project.background.src})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           >
             <div
@@ -75,12 +77,13 @@ const TeammieThumbnail = ({ project, index, hover }) => {
                 style={{
                   backgroundImage: `url(${project.background.src})`,
                   backgroundSize: "cover",
+                  backgroundPosition: "center",
                 }}
               ></div>
             </div>
 
             {/* Second image - square style */}
-            <div className=" hidden  flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#205e59]">
+            <div className=" hidden  flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#DBE0CA]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -113,7 +116,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
         {image && (
           <>
             {/* Main image - full expansion */}
-            <div className=" hidden justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#f6c335]">
+            <div className=" hidden justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#ECC89B]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -139,6 +142,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
                 style={{
                   backgroundImage: `url(${project.background.src})`,
                   backgroundSize: "cover",
+                  backgroundPosition: "center",
                 }}
               ></div>
             </div>
@@ -168,6 +172,7 @@ const GradMatchThumbnail = ({ project, index, hover }) => {
               style={{
                 backgroundImage: `url(${project.background.src})`,
                 backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             >
               <Image

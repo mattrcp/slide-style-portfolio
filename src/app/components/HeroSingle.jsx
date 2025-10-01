@@ -47,22 +47,22 @@ export default function HeroSingle() {
 
       {/* Hero Content */}
       <motion.div
-        className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-screen md:h-[90vh] z-0"
+        className="flex fixed top-0 left-0 flex-col gap-4 justify-center items-center px-6 py-4 w-full h-screen md:h-[90vh] z-0 "
         initial="hidden"
         animate="visible"
         variants={revealVariants}
         style={{ y: translateY, scale }}
       >
-        <div className="flex gap-2 justify-center items-center text-secondaryText">
+        <div className="flex gap-2 justify-center items-center rounded-full backdrop-blur-md text-secondaryText">
           Hello there! I'm Matt.{" "}
           <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
         </div>
 
-        <h1 className="font-canela font-light text-primaryText text-center text-[clamp(32px,4vw,96px)] leading-tight w-full  md:w-1/2">
+        <h1 className="font-canela font-light text-primaryText text-center text-[clamp(32px,4vw,96px)] leading-tight w-full  md:w-1/2    rounded-full backdrop-blur-md">
           Designs digital products for everyday use!
         </h1>
 
-        <p className="w-auto text-center md:w-1/3 text-primaryText">
+        <p className="w-auto text-center rounded-full backdrop-blur-md md:w-1/3 text-primaryText">
           UX & UI Designer based in Toronto, creating user-centric mobile and
           web experiences that blend product thinking with human touch.
         </p>

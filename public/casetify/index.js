@@ -19,7 +19,7 @@ import fCommu from "./fCommu.png";
 import fReview from "./fReview.png";
 import designSystem from "./designSystem.png";
 import casetifyComponent from "./casetifyComponent.png";
-import casetifyBackground from "./casetfiyBackground.jpg";
+import casetifyBackground from "./casetifyBackground.jpg";
 
 export {
   exploreUsability,

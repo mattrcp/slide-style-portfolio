@@ -1,5 +1,5 @@
 import { component, gymbackground } from "public/upliftt";
-import { mobile, desktop, universityGreen } from "public/teammie";
+import { mobile, desktop, universityGreen, background } from "public/teammie";
 import { gradmatch2, gradmatch3, universityBackground } from "public/gradmatch";
 import { casetify, gradmatch, teammie } from "public/assets";
 import { IconMobiledata } from "@tabler/icons-react";
@@ -25,7 +25,7 @@ export const projects = [
     description:
       "The platform aims to help design students connect with engineers, designers, and businesses and collaborate on projects to gain valuable experience.",
     image: [desktop, mobile],
-    background: universityGreen,
+    background: background,
 
     href: "/teammie",
     id: "teammie",
