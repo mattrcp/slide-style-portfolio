@@ -7,9 +7,14 @@ const UplifttThumbnail = ({ project, index, hover }) => {
 
   return (
     <div
-      className={`flex overflow-hidden relative justify-center items-center w-full h-full`}
+      className={`flex overflow-hidden relative justify-center items-center w-full h-full rounded-2xl`}
+      style={{
+        backgroundImage: `url(${project.background.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="flex justify-between items-center w-full h-[30vh] sm:h-[40vh] md:h-[60vh] xl:h-[70vh] gap-4 ">
+      <div className="flex justify-between w-full items-center gap-4 h-[30vh] sm:h-[40vh] md:h-[60vh] xl:h-[70vh] ">
         {/* {image && (
           <div className="hidden md:flex flex-1 justify-center items-center h-full rounded-2xl bg-[#D5D0BD]">
             <Image
@@ -22,16 +27,9 @@ const UplifttThumbnail = ({ project, index, hover }) => {
           </div>
         )} */}
         {video && (
-          <div
-            className="flex overflow-hidden justify-center items-center flex-[2] h-full rounded-2xl py-2 md:py-6"
-            style={{
-              backgroundImage: `url(${project.background.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
+          <div className="flex flex-[2] relative justify-center items-center w-full h-full overflow-hidden  rounded-2xl ">
             <div
-              className={`overflow-hidden relative z-20 w-auto h-full rounded-3xl duration-500 md:rounded-[40px] ${hover} ease-card`}
+              className={`overflow-hidden relative z-20 w-auto h-[80%] rounded-3xl duration-500 md:rounded-[40px] ${hover} ease-card`}
             >
               <video
                 src={video}
@@ -41,6 +39,14 @@ const UplifttThumbnail = ({ project, index, hover }) => {
                 muted
                 playsInline
               />
+              {/* <div
+                className={`overflow-hidden absolute top-0 left-0 justify-center items-center w-full h-full`}
+                style={{
+                  backgroundImage: `url(${project.background.src})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div> */}
             </div>
           </div>
         )}
@@ -111,7 +117,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
       {/* Main image - full expansion */}
       <div
         className="flex justify-center items-center h-[30vh] sm:h-[40vh] gap-4
-       md:h-[60vh] xl:h-[70vh] w-full rounded-2xl "
+      md:h-[60vh] xl:h-[70vh] w-full rounded-2xl "
       >
         {image && (
           <>

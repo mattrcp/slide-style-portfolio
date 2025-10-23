@@ -55,11 +55,9 @@ const ProjectCard = ({
         layoutDirection === "row"
           ? "min-w-full md:min-w-[900px]"
           : "min-h-[400px] w-full mx-auto md:min-h-auto"
-      }  ${
-        index === totalProjects - 1
-          ? "border-b-0"
-          : "border-b-0 md:border-b-[1px]"
-      }`}
+      }  
+      
+      `}
       data-cursor-text="READ CASE STUDY"
       variants={cardVariants}
       initial="initial"
@@ -68,7 +66,8 @@ const ProjectCard = ({
     >
       <Link
         className={`relative flex flex-col w-full h-full gap-2 md:gap-6 group cursor-pointer ${
-          shouldBeDraggable ? "cursor-drag-custom" : ""}`}
+          shouldBeDraggable ? "cursor-drag-custom" : ""
+        }`}
         href={project.href}
         draggable="false"
         // onClick={(e) => {
@@ -111,7 +110,7 @@ const ProjectCard = ({
             </div>
           </div>
           <div className="hidden w-full md:block">
-            <p className="text-[clamp(14px,3vw,18px)] w-full md:w-auto 2xl:w-1/3 font-medium text-start text-secondaryText font-satoshi">
+            <p className="text-[clamp(14px,3vw,18px)] w-full md:w-4/5 font-medium text-start text-secondaryText font-satoshi">
               {project.description}
             </p>
           </div>
