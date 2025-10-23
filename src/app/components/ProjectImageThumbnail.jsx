@@ -10,7 +10,7 @@ const UplifttThumbnail = ({ project, index, hover }) => {
       className={`flex overflow-hidden relative justify-center items-center w-full h-full`}
     >
       <div className="flex justify-between items-center w-full h-[30vh] sm:h-[40vh] md:h-[60vh] xl:h-[70vh] gap-4 ">
-        {image && (
+        {/* {image && (
           <div className="hidden md:flex flex-1 justify-center items-center h-full rounded-2xl bg-[#D5D0BD]">
             <Image
               src={image}
@@ -20,7 +20,7 @@ const UplifttThumbnail = ({ project, index, hover }) => {
               priority={index < 2}
             />
           </div>
-        )}
+        )} */}
         {video && (
           <div
             className="flex overflow-hidden justify-center items-center flex-[2] h-full rounded-2xl py-2 md:py-6"
@@ -83,7 +83,7 @@ const TeammieThumbnail = ({ project, index, hover }) => {
             </div>
 
             {/* Second image - square style */}
-            <div className=" hidden  flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#DBE0CA]">
+            {/* <div className=" hidden  flex-1  justify-center items-center h-full rounded-2xl md:flex md:flex-1 bg-[#DBE0CA]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -91,7 +91,7 @@ const TeammieThumbnail = ({ project, index, hover }) => {
                 className={`object-contain object-center w-full h-full duration-500 ${hover} ease-card`}
                 priority={index < 2}
               />
-            </div>
+            </div> */}
           </>
         )}
       </div>
@@ -116,7 +116,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
         {image && (
           <>
             {/* Main image - full expansion */}
-            <div className=" hidden justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#ECC89B]">
+            {/* <div className=" hidden justify-center items-center h-full rounded-2xl md:flex flex-1 bg-[#ECC89B]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -124,7 +124,7 @@ const CasetifyThumbnail = ({ project, index, hover }) => {
                 className={`object-contain object-center w-full h-full duration-500 ${hover} ease-card`}
                 priority={index < 2}
               />
-            </div>
+            </div> */}
 
             {/* Second image - square style */}
 
@@ -185,7 +185,7 @@ const GradMatchThumbnail = ({ project, index, hover }) => {
             </div>
 
             {/* Second image - square style */}
-            <div className="  hidden overflow-hidden justify-center items-center flex-1 h-full rounded-2xl md:flex bg-[#ABDDFE]">
+            {/* <div className="  hidden overflow-hidden justify-center items-center flex-1 h-full rounded-2xl md:flex bg-[#ABDDFE]">
               <Image
                 src={image[1]}
                 alt={`${project.title} - mobile`}
@@ -193,7 +193,7 @@ const GradMatchThumbnail = ({ project, index, hover }) => {
                 className={`object-contain object-center w-full h-full duration-500 ${hover} ease-card`}
                 priority={index < 2}
               />
-            </div>
+            </div> */}
           </>
         )}
       </div>

@@ -192,8 +192,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
       <div
         ref={sliderRef}
         className={`overflow-hidden relative w-full h-auto ${
-          shouldBeDraggable ? "cursor-drag-custom" : ""
-        }`}
+          shouldBeDraggable ? "cursor-drag-custom" : ""}`}
       >
         <motion.div
           style={layoutDirection === "row" ? { x } : { y }}
