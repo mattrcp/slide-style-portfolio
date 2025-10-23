@@ -68,8 +68,7 @@ const ProjectCard = ({
     >
       <Link
         className={`relative flex flex-col w-full h-full gap-2 md:gap-6 group cursor-pointer ${
-          shouldBeDraggable ? "cursor-drag-custom" : ""
-        }`}
+          shouldBeDraggable ? "cursor-drag-custom" : ""}`}
         href={project.href}
         draggable="false"
         // onClick={(e) => {
@@ -90,8 +89,8 @@ const ProjectCard = ({
         <div
           className={`flex flex-col gap-4 justify-start items-start px-4 w-full h-auto`}
         >
-          <div className="flex flex-row gap-2 justify-between items-start w-full text-center">
-            <div className="flex flex-row gap-4 justify-center items-center w-full md:justify-start md:w-auto">
+          <div className="flex flex-col gap-4 justify-between items-start w-full text-center">
+            <div className="flex flex-row gap-4 justify-center items-center w-full md:justify-start md:w-full">
               <h3 className="w-auto font-semibold text-[clamp(16px,3vw,24px)] leading-none text-start text-primaryText font-satoshi group-hover:text-pinkBg">
                 {project.title}
               </h3>
@@ -112,7 +111,7 @@ const ProjectCard = ({
             </div>
           </div>
           <div className="hidden w-full md:block">
-            <p className="text-[clamp(14px,3vw,18px)] w-full md:w-1/2 2xl:w-1/3 font-medium text-start text-secondaryText font-satoshi">
+            <p className="text-[clamp(14px,3vw,18px)] w-full md:w-auto 2xl:w-1/3 font-medium text-start text-secondaryText font-satoshi">
               {project.description}
             </p>
           </div>

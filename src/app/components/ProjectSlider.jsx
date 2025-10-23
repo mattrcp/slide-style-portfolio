@@ -211,11 +211,7 @@ export default function ProjectSlider({ setHoveredProject = () => {} }) {
           }
           onDragStart={shouldBeDraggable ? handleDragStart : undefined}
           onDragEnd={shouldBeDraggable ? handleDragEnd : undefined}
-          className={`flex  w-full h-full relative gap-8 ${
-            layoutDirection === "row"
-              ? "flex-col md:w-auto gap-2 md:gap-8 "
-              : "flex-col"
-          } pb-4`}
+          className={`grid relative grid-cols-1 auto-rows-auto gap-8 pb-4 w-full h-full  sm:grid-cols-2`}
         >
           {projects.map((project, index) => (
             <ProjectCard
