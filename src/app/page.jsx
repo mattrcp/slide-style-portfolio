@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <main
       id="main-scroll-container"
-      className="py-36 md:py-44 snap-container bg-secondaryBg"
+      className="pt-36 pb-20 md:py-44 snap-container bg-secondaryBg"
     >
       {/* Navigation now tracks total segments for the progress bar */}
       <Navigation totalSegments={totalSegments} />
