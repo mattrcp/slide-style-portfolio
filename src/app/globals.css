@@ -89,6 +89,7 @@ body.has-snap-container {
   overscroll-behavior-y: none; /* Critical for Mac Trackpads */
   scrollbar-width: none; /* Firefox */
 
+
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera inside container */
@@ -103,7 +104,7 @@ body.has-snap-container {
   scroll-snap-stop: always; /* Forces browser to stop at EVERY slide */
   position: relative;
   margin-inline: auto; 
-
+  margin-bottom: 40px;
   overflow: visible;
 }
 /* --- SCROLL SNAP ARCHITECTURE END --- */

@@ -70,7 +70,7 @@ export default function Home() {
       <Navigation totalSegments={totalSegments} />
 
       {/* --- SLIDE 1: HERO --- */}
-      <section className="flex relative z-40 justify-center items-center snap-section">
+      <section className="flex relative z-40 justify-center items-center pb-8 snap-section">
         <motion.div
           variants={heroVariants}
           initial="hidden"
@@ -95,7 +95,7 @@ export default function Home() {
             initial={isFirst ? "hidden" : "visible"}
             animate="visible"
             // CRITICAL: snap-section must be on the direct child of snap-container
-            className="pt-8 h-full snap-section"
+            className="h-full snap-section"
           >
             <ProjectSlide project={project} />
           </motion.section>
@@ -104,7 +104,7 @@ export default function Home() {
 
       {/* --- FINAL SLIDE: FOOTER --- */}
       {/* We wrap the footer in a snap-section so it snaps cleanly at the bottom */}
-      <section className="flex justify-center items-end pt-8 snap-section">
+      <section className="flex justify-center items-end snap-section">
         <div className="flex flex-col justify-end w-full h-full">
           <FooterSection />
         </div>

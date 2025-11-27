@@ -32,7 +32,7 @@ const page = () => {
     <div className="flex relative flex-col justify-center items-center py-36 md:py-36 bg-secondaryBg">
       <Navigation />
       <motion.main
-        className="flex flex-col gap-8"
+        className="flex flex-col"
         variants={heroVariants}
         initial="hidden"
         animate="visible"

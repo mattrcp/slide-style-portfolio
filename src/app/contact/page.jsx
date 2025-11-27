@@ -80,7 +80,7 @@ export default page;
 
 const FirstSection = () => {
   return (
-    <section className="flex flex-col justify-between items-start p-6 bg-primaryBg snap-section">
+    <section className="flex flex-col justify-between items-start p-6 bg-primaryBg h-[70vh] md:h-[65vh] w-[90vw] sm:w-[70vw] md:w-[65vw]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
