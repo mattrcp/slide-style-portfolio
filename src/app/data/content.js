@@ -1,7 +1,4 @@
-import { component, gymbackground } from "public/upliftt";
-import { mobile, desktop, universityGreen, background } from "public/teammie";
-import { gradmatch2, gradmatch3, universityBackground } from "public/gradmatch";
-import { casetify, gradmatch, teammie } from "public/assets";
+import { casetify, gradmatch, teammie, upliftt } from "public/assets";
 import { IconMobiledata } from "@tabler/icons-react";
 import { casetifyBackground, casetifyComponent } from "public/casetify";
 
@@ -10,10 +7,10 @@ export const projects = [
     title: "Upliftt",
     description:
       "Upliftt is a digital CRM platform built to empower fitness professionals. In this project, I was assigned to design an IOS app design for the trainee.",
-    // You can mix video and image for Upliftt
+
     video: "/assets/Composition.mp4",
-    image: component, // Optional: can be used for fallback or overlay
-    background: gymbackground,
+    image: upliftt, // Optional: can be used for fallback or overlay
+    // background: gymbackground,
     href: "/upliftt",
     id: "upliftt",
     year: 2025,
@@ -24,20 +21,20 @@ export const projects = [
     title: "Teammie",
     description:
       "The platform aims to help design students connect with engineers, designers, and businesses and collaborate on projects to gain valuable experience.",
-    image: [desktop, mobile],
-    background: background,
+    image: teammie,
+    // background: background,
 
     href: "/teammie",
     id: "teammie",
     year: 2024,
-    tag: ["Website Design", "UX/UI", "Responsive Design"],
+    tag: ["Website Design", "UI/UX", "Responsive Design"],
   },
   {
     title: "Redesign Casetify",
     description:
       "Redesigned the Casetify app to improve the overall experience. Added Generative AI to help users explore better design options. Made customizing and buying mobile cases more fun and seamless!",
-    image: [casetify, casetifyComponent],
-    background: casetifyBackground,
+    image: casetify,
+    // background: casetifyBackground,
 
     href: "/casetify",
     id: "casetify",
@@ -48,8 +45,8 @@ export const projects = [
     title: "GradMatch",
     description:
       "The job board application for students to showcase their skills through projects, experience, and education. The app provides a feature for users to swipe left to skip and right to apply.",
-    image: [gradmatch3, gradmatch2],
-    background: universityBackground,
+    image: gradmatch,
+    // background: universityBackground,
 
     href: "/gradmatch",
     id: "gradmatch",

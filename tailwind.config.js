@@ -16,11 +16,13 @@ module.exports = {
         secondaryGrey: "rgb(var(--secondary-grey))",
         highlightBlue: "rgb(var(--highlight-blue))",
         border: "rgb(var(--border))",
+        hoverSwap: "rgb(var(--hover-swap))",
+        bw: "rgb(var(--bw))",
+        wb: "rgb(var(--wb))",
       },
       fontFamily: {
         satoshi: ["Satoshi", "sans-serif"],
-        zodiak: ["Zodiak", "serif"],
-        canela: ["CanelaText", "serif"],
+        instrument: ["var(--font-instrument-serif)", "serif"],
       },
       fontWeight: {
         light: 300,
