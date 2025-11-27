@@ -16,8 +16,8 @@
   --highlight-blue: 36, 112, 245;
   --border: 237, 237, 237;
   --hover-swap: 27, 29, 42;
-  --bw: 1,1,1
-  --wb: 255,255,255
+  --bw: 1,1,1,
+  --wb: 255,255,255,
 }
 
 .dark {
@@ -34,8 +34,8 @@
   --highlight-blue: 82, 157, 255;
   --border: 64, 64, 64;
   --hover-swap: 237, 237, 237;
-  --bw: 255,255,255
-  --wb: 1,1,1
+  --bw: 255,255,255,
+  --wb: 1,1,1,
 }
 
 * {
@@ -88,7 +88,7 @@ body.has-snap-container {
   scroll-behavior: smooth;
   overscroll-behavior-y: none; /* Critical for Mac Trackpads */
   scrollbar-width: none; /* Firefox */
-  justify-items: center;
+
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera inside container */
@@ -102,6 +102,8 @@ body.has-snap-container {
   scroll-snap-align: center;
   scroll-snap-stop: always; /* Forces browser to stop at EVERY slide */
   position: relative;
+  margin-inline: auto; 
+
   overflow: visible;
 }
 /* --- SCROLL SNAP ARCHITECTURE END --- */

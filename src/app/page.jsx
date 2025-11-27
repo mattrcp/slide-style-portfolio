@@ -95,7 +95,7 @@ export default function Home() {
             initial={isFirst ? "hidden" : "visible"}
             animate="visible"
             // CRITICAL: snap-section must be on the direct child of snap-container
-            className="pt-8 w-full h-full snap-section"
+            className="pt-8 h-full snap-section"
           >
             <ProjectSlide project={project} />
           </motion.section>
