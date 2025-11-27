@@ -54,7 +54,7 @@ export default function TimeDisplay({
 
   return (
     <div
-      className={`flex flex-row gap-2 justify-start items-center w-full italic font-zodiak ${className}`}
+      className={`flex flex-row gap-2 justify-start items-center italic w-fit font-instrument ${className}`}
     >
       {showDate && <span className="mr-2">{time.date}</span>}
       <span>

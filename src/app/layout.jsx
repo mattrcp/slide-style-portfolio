@@ -1,11 +1,11 @@
 import "./globals.css";
 import { PageTransitionProvider } from "./components/PageTransitionProvider";
 import { ThemeProvider } from "./context/ThemeContext";
-import ScrollToTop from "./components/ScrollToTop";
-import CustomCursor from "./components/CustomCursor";
+
 import { Analytics } from "@vercel/analytics/react";
 import React from "react";
 import { LenisProvider } from "./context/Lenis";
+import { Instrument_Serif } from "next/font/google";
 
 export const metadata = {
   title: "Matt Ngamdan",
@@ -50,6 +50,14 @@ export const metadata = {
   },
 };
 
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
+  weight: "400",
+  style: "normal",
+  display: "swap",
+});
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -57,14 +65,12 @@ export default function RootLayout({ children }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="antialiased bg-gradient-to-b from-secondaryBg to-primaryBg">
+      <body
+        className={`${instrumentSerif.variable} antialiased bg-gradient-to-b from-secondaryBg to-primaryBg`}
+      >
         <LenisProvider>
           <ThemeProvider>
-            <PageTransitionProvider>
-              <CustomCursor />
-              {children}
-              <ScrollToTop />
-            </PageTransitionProvider>
+            <PageTransitionProvider>{children}</PageTransitionProvider>
           </ThemeProvider>
           <Analytics />
         </LenisProvider>

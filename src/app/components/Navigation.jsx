@@ -3,371 +3,468 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-import { usePageTransition } from "./PageTransitionProvider";
-import { useTheme } from "../context/ThemeContext";
-import AboutModal from "./AboutModal";
+import { useState, useEffect, useRef } from "react";
 import { IconSun, IconMoon } from "@tabler/icons-react";
-import Image from "next/image";
+import ProgressBar from "./ProgressBar";
+import { useTheme } from "../context/ThemeContext";
 
-const navLinks = [
-  { href: "/#work", label: "Work" },
-  { href: "/about", label: "About", isModal: true },
-  { href: "mailto:ratchapon.ngam@gmail.com", label: "Contact" }, // Direct mailto link
-];
+import {
+  IconBrandLinkedin,
+  IconBrandDribbble,
+  IconBrandInstagram,
+  IconBrandTwitter,
+} from "@tabler/icons-react";
 
+// Animation Variants
 const navAnimation = {
-  hidden: { opacity: 0, y: -100 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: [0.25, 1, 0.5, 1] },
-  },
-};
-
-const mobileMenuAnimation = {
-  hidden: { opacity: 0, y: "-100%" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 1, 0.5, 1],
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-  exit: {
+  hidden: {
     opacity: 0,
-    // y: "-100%",
+    y: -20, // Reduced from -100 to avoid "heavy" falling feeling
+    filter: "blur(5px)", // Adds a soft optical entrance
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
     transition: {
-      duration: 0.9,
-      ease: [0.25, 1, 0.5, 1],
+      duration: 0.8,
+      ease: [0.25, 1, 0.5, 1], // Softer "easeOut"
+      delay: 0.6, // Nav enters first to "set the stage"
     },
   },
 };
 
-const mobileNavItemAnimation = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
+const sectionVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: [0.25, 1, 0.5, 1] },
-  },
+    transition: {
+      opacity: { duration: 0.6, delay },
+      y: {
+        type: "spring",
+        stiffness: 300,
+        damping: 20,
+        delay,
+      },
+    },
+  }),
+  exit: (delay = 0) => ({
+    opacity: 0,
+    y: -20,
+    transition: {
+      opacity: { duration: 0.4, delay },
+      y: {
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+        duration: 0.4,
+        delay,
+      },
+    },
+  }),
 };
 
-export default function Navigation() {
+export default function Navbar({ totalSegments }) {
   const pathname = usePathname();
-  const { triggerTransition, isAnimating } = usePageTransition();
+  const navRef = useRef(null); // Ref for click-outside detection
+
+  // Local state
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
-
-  // State to track which item should be highlighted
-  const [highlightedItem, setHighlightedItem] = useState("/");
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [ready, setReady] = useState(false);
+  const [showProgress, setShowProgress] = useState(true);
 
-  // Helper to determine if a link is active
+  useEffect(() => {
+    const updateWidth = () => {
+      setWindowWidth(window.innerWidth);
+      setReady(true);
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  // Compute responsive width for animation
+  const computedWidth = (() => {
+    if (isMobileMenuOpen) return "90vw";
+
+    if (windowWidth < 768) return "90vw";
+    if (windowWidth < 1024) return "50vw";
+    if (windowWidth < 1440) return "40vw";
+    return "30vw";
+  })();
+
+  // Click Outside to Close Logic
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileMenuOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Delay progress bar reappearance after menu closes
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      const timer = setTimeout(() => setShowProgress(true), 400);
+      return () => clearTimeout(timer);
+    } else {
+      setShowProgress(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  // Track scroll position
+  useEffect(() => {
+    const mainContainer = document.getElementById("main-scroll-container");
+    if (!mainContainer) return;
+
+    const handleScroll = () => {
+      const scrollTop = mainContainer.scrollTop;
+      setIsExpanded(scrollTop > 50);
+    };
+
+    mainContainer.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      mainContainer.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const isActive = (path) => {
     if (path === "/" && pathname === "/") return true;
     if (path !== "/" && pathname.startsWith(path)) return true;
-    if (path === "/#work" && pathname === "/") return true; // Handle anchor links
     return false;
   };
 
-  const handleNavigation = async (e, href, isModal = false) => {
-    // If it's a mailto link, let the browser handle it directly
-    if (href.startsWith("mailto:")) {
-      return;
-    }
+  const menuItems = [
+    { label: "Home", href: "/#hero" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+  ];
 
-    e.preventDefault();
-    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+  const projects = [
+    { label: "Upliftt", href: "/upliftt" },
+    { label: "Teammie", href: "/teammie" },
+    { label: "Casetify", href: "/casetify" },
+    { label: "GradMatch", href: "/gradmatch" },
+  ];
 
-    if (isModal) {
-      if (href === "/about") setIsAboutModalOpen(true);
-    } else if (href.includes("#") && href !== "/") {
-      if (!isAnimating) {
-        const [path, anchor] = href.split("#");
-        if (path === "" || path === "/") {
-          if (pathname === "/") {
-            const element = document.getElementById(anchor);
-            if (element) element.scrollIntoView({ behavior: "smooth" });
-          } else {
-            await triggerTransition("/");
-            setTimeout(() => {
-              const element = document.getElementById(anchor);
-              if (element) element.scrollIntoView({ behavior: "smooth" });
-            }, 700);
-          }
-        } else {
-          await triggerTransition(href);
-        }
-      }
-    } else {
-      if (!isAnimating) await triggerTransition(href);
-    }
-  };
-
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
-  // Get the current item to highlight (hovered item takes priority, then active item)
-  const currentHighlight = hoveredItem || highlightedItem;
-
-  // Effect to set the initial highlight position on mount or when pathname changes
-  useEffect(() => {
-    // Always default to logo unless there's a specific active page
-    let currentActiveHref = "/"; // Always default to logo
-
-    // Only override if we're specifically on a page that matches a nav link (not just any route)
-    for (const link of navLinks) {
-      if (isActive(link.href) && pathname !== "/") {
-        currentActiveHref = link.href;
-        break;
-      }
-    }
-
-    setHighlightedItem(currentActiveHref);
-  }, [pathname]);
-
-  // Handle window resize to recalculate highlight position
-  useEffect(() => {
-    // No longer needed since we're not calculating positions
-  }, []);
+  const links = [
+    {
+      href: "https://dribbble.com/ratchapon",
+      label: "Dribble",
+      logo: <IconBrandDribbble stroke={1} className="w-8 h-8" />,
+    },
+    {
+      href: "https://www.instagram.com/justmatt.studio/",
+      label: "Instagram",
+      logo: <IconBrandInstagram stroke={1} className="w-8 h-8" />,
+    },
+    {
+      href: "https://www.linkedin.com/in/matt-ngamdan-b251171a1/",
+      label: "LinkedIn",
+      logo: <IconBrandLinkedin stroke={1} className="w-8 h-8" />,
+    },
+    {
+      href: "https://x.com/mattjustbored",
+      label: "Twitter",
+      logo: <IconBrandTwitter stroke={1} className="w-8 h-8" />,
+    },
+  ];
 
   return (
     <>
-      <header className="relative w-screen">
-        {/* Desktop Nav */}
+      {/* Background Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[980] bg-black/10 backdrop-blur-[1px]"
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
+      <header className="relative w-screen pointer-events-none z-[990]">
         <motion.nav
-          className="hidden md:flex fixed z-[990] top-6 w-full items-center justify-center"
+          className="flex fixed z-[990] top-6 w-full items-center justify-center flex-col pointer-events-auto"
           variants={navAnimation}
           initial="hidden"
           animate="visible"
         >
-          {/* Links container */}
-          <div className="flex overflow-hidden relative gap-0 items-center p-2 rounded-full border-[1px] drop-shadow-sm bg-primaryBg parent-div-with-inner-shadow border-border">
-            <div className="flex relative gap-0 items-center">
-              {/* Logo link - first */}
-              <div
-                onMouseEnter={() => setHoveredItem("/")}
-                onMouseLeave={() => setHoveredItem(null)}
-                className="relative"
-              >
-                {currentHighlight === "/" && (
-                  <motion.div
-                    layoutId="nav-highlight"
-                    className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 35,
-                      duration: 0.3,
-                    }}
-                  />
-                )}
-                <Link
-                  href="/"
-                  onClick={(e) => handleNavigation(e, "/")}
-                  className="block relative z-20 px-5 py-3 w-full h-full"
-                >
-                  <Svg className={`w-auto h-4 text-highlightBlue`} />
-                </Link>
-              </div>
-
-              {/* Navigation links */}
-              {navLinks.map(({ href, label, isModal }) => {
-                // Handle mailto links
-                if (href.startsWith("mailto:")) {
-                  return (
-                    <div
-                      key={href}
-                      onMouseEnter={() => setHoveredItem(href)}
-                      onMouseLeave={() => setHoveredItem(null)}
-                      className="relative"
-                    >
-                      {currentHighlight === href && (
-                        <motion.div
-                          layoutId="nav-highlight"
-                          className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
-                          transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 35,
-                            duration: 0.3,
-                          }}
-                        />
-                      )}
-                      <a
-                        href={href}
-                        className="block relative z-20 px-5 py-2 text-sm font-medium capitalize font-satoshi text-ternaryText hover:text-primaryText"
-                      >
-                        {label}
-                      </a>
-                    </div>
-                  );
-                }
-
-                const active = isActive(href);
-                return (
-                  <div
-                    key={href}
-                    onMouseEnter={() => setHoveredItem(href)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    className="relative"
-                  >
-                    {currentHighlight === href && (
-                      <motion.div
-                        layoutId="nav-highlight"
-                        className="absolute inset-0 z-10 rounded-full drop-shadow-sm bg-secondaryBg"
-                        transition={{
-                          type: "spring",
-                          stiffness: 500,
-                          damping: 35,
-                          duration: 0.3,
-                        }}
-                      />
-                    )}
-                    <Link
-                      href={href}
-                      onClick={(e) => handleNavigation(e, href, isModal)}
-                      className={`block relative z-20 px-5 py-2 text-sm font-medium capitalize font-satoshi text-ternaryText hover:text-primaryText`}
-                    >
-                      {label}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Theme Toggle */}
-            <AnimatePresence mode="wait" initial={false}>
-              <div className="px-1">
-                <motion.button
-                  key={theme}
+          {/* Main Container - Added ref={navRef} for click detection */}
+          <motion.div
+            ref={navRef}
+            className="flex overflow-visible relative flex-col gap-0 justify-start items-start bg-black rounded-lg"
+            animate={{
+              width: computedWidth,
+              height: isMobileMenuOpen
+                ? "500px"
+                : isExpanded
+                ? "110px"
+                : "56px",
+              padding: isExpanded ? "0 8px 0 8px" : "0 8px 0 8px",
+            }}
+            transition={{
+              width: {
+                delay: isMobileMenuOpen ? 0.2 : 0.4,
+              },
+              height: {
+                delay: isMobileMenuOpen ? 0.3 : 0.3,
+              },
+              padding: {
+                delay: isMobileMenuOpen ? 0.4 : 0.2,
+              },
+            }}
+          >
+            {/* Nav Controls */}
+            <div className="flex overflow-hidden relative flex-shrink-0 gap-0 justify-between items-center w-full h-[56px]">
+              {/* THEME TOGGLE */}
+              <div className="relative z-20 w-full h-10">
+                <button
                   onClick={toggleTheme}
-                  className="flex overflow-hidden relative z-30 justify-center items-center w-8 h-8"
-                  // initial={{ y: theme === "dark" ? -20 : 20 }}
-                  // animate={{ y: 0 }}
-                  // exit={{ y: theme === "dark" ? 20 : -20 }}
-                  transition={{ duration: 0.3 }}
+                  className="flex justify-center items-center w-14 h-full rounded-md transition-colors bg-[#2471F5] hover:opacity-95 duration-150 ease-in-out"
                 >
                   {theme === "dark" ? (
-                    <IconMoon className="w-5 h-5 text-ternaryText hover:text-primaryText" />
+                    <IconMoon size={18} className="text-white" />
                   ) : (
-                    <IconSun className="w-5 h-5 text-ternaryText hover:text-primaryText" />
+                    <IconSun size={18} className="text-white" />
                   )}
-                </motion.button>
+                </button>
               </div>
-            </AnimatePresence>
-          </div>
-        </motion.nav>
 
-        {/* Mobile Nav Toggle */}
-        <div className="md:hidden fixed top-2 left-0 right-0 z-[990] px-4 py-2">
-          <div className="flex justify-center items-center w-full">
-            <div className="flex gap-4 justify-between items-center px-2 py-2 rounded-full drop-shadow-sm w-fit bg-secondaryBg border-border border-[1px] parent-div-with-inner-shadow">
+              {/* LOGO */}
               <Link
-                href="/"
-                onClick={(e) => handleNavigation(e, "/")}
-                className="block relative z-20 px-3 py-2"
+                href="/#hero"
+                onMouseEnter={() => setHoveredItem("/")}
+                onMouseLeave={() => setHoveredItem(null)}
+                className="flex relative justify-center items-center w-full h-10 group"
               >
-                <Image
-                  src="/assets/logo.svg"
-                  alt="logo"
-                  width={24}
-                  height={24}
-                  className="object-contain w-auto h-5"
-                />
+                <div className="overflow-hidden relative z-20">
+                  <Svg className="w-auto h-4 text-white" />
+                </div>
               </Link>
 
-              <button
-                onClick={toggleMobileMenu}
-                className="relative flex flex-col items-start justify-center h-10 px-4 bg-secondaryBg z-[995] rounded-full w-14 "
-              >
-                <motion.span
-                  className="w-full h-0.5 bg-swapBg mb-1.5"
-                  animate={{
-                    rotate: isMobileMenuOpen ? 45 : 0,
-                    y: isMobileMenuOpen ? 8 : 0,
-                  }}
-                />
-                <motion.span
-                  className="w-1/2 h-0.5 bg-swapBg mb-1.5"
-                  animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
-                />
-                <motion.span
-                  className="w-full h-0.5 bg-swapBg"
-                  animate={{
-                    rotate: isMobileMenuOpen ? -45 : 0,
-                    y: isMobileMenuOpen ? -8 : 0,
-                  }}
-                />
-              </button>
-            </div>
-          </div>
-        </div>
+              {/* MENU TOGGLE */}
+              <div className="flex justify-end w-full h-10">
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="flex relative z-20 flex-row gap-2 justify-end items-center pl-2 h-10 rounded-lg duration-150 ease-in-out cursor-pointer w-fit group hover:bg-gray-900"
+                >
+                  <span className="font-medium text-white font-satoshi h-fit w-fit">
+                    Menu
+                  </span>
 
-        {/* Mobile Nav Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="fixed w-screen h-screen  inset-0 bg-secondaryBg backdrop-blur-sm z-[985] md:hidden"
-              variants={mobileMenuAnimation}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <div className="flex flex-col gap-8 justify-center items-center h-full">
-                {navLinks.map(({ href, label, isModal }) => (
-                  <motion.div key={href} variants={mobileNavItemAnimation}>
-                    {href.startsWith("mailto:") ? (
-                      <a
-                        href={href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-lg font-semibold capitalize transition duration-300 font-regular text-ternaryText font-satoshi"
-                      >
-                        {label}
-                      </a>
-                    ) : (
-                      <Link
-                        href={href}
-                        onClick={(e) => handleNavigation(e, href, isModal)}
-                        className={`text-lg font-semibold capitalize transition duration-300 text-ternaryText font-satoshi`}
-                      >
-                        {label}
-                      </Link>
-                    )}
-                  </motion.div>
-                ))}
-
-                <motion.div variants={mobileNavItemAnimation} className="py-2">
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.button
-                      key={theme}
-                      onClick={toggleTheme}
-                      className="flex justify-center items-center w-6 h-6"
-                      transition={{ duration: 0.3 }}
-                    >
-                      {theme === "dark" ? (
-                        <IconMoon className="w-6 h-6 text-secondaryText" />
-                      ) : (
-                        <IconSun className="w-6 h-6 text-secondaryText" />
-                      )}
-                    </motion.button>
-                  </AnimatePresence>
-                </motion.div>
+                  <div className="relative z-20 flex flex-col items-center overflow-visible justify-center w-10 h-10 space-y-1.5">
+                    <motion.span
+                      className="w-6 h-0.5 bg-white"
+                      animate={{
+                        rotate: isMobileMenuOpen ? 45 : 0,
+                        y: isMobileMenuOpen ? 6 : 0,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
+                    />
+                    <motion.span
+                      className="w-6 h-0.5 bg-white"
+                      animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                    <motion.span
+                      className="w-6 h-0.5 bg-white"
+                      animate={{
+                        rotate: isMobileMenuOpen ? -45 : 0,
+                        y: isMobileMenuOpen ? -10 : 0,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 25,
+                      }}
+                    />
+                  </div>
+                </button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+            </div>
 
-      {/* Modals */}
-      <AboutModal
-        isOpen={isAboutModalOpen}
-        onClose={() => setIsAboutModalOpen(false)}
-      />
+            {/* === PROGRESS BAR === */}
+            <AnimatePresence mode="wait">
+              {showProgress && isActive("/") && (
+                <motion.div
+                  key="progress-bar"
+                  className="w-full h-[40px] z-[5]"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -20,
+                    transition: {
+                      opacity: { duration: 0.2 },
+                      y: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      },
+                    },
+                  }}
+                  transition={{
+                    opacity: { duration: 0.3, delay: 1.0 },
+                    y: {
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 30,
+                      delay: 1.0,
+                    },
+                  }}
+                >
+                  <ProgressBar
+                    totalSegments={totalSegments}
+                    isExpanded={isExpanded}
+                    className=""
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* === MENU CONTENT === */}
+            <AnimatePresence mode="wait">
+              {isMobileMenuOpen && (
+                <motion.div
+                  className="flex overflow-x-hidden overflow-y-hidden flex-col flex-1 gap-4 justify-start items-start p-2 pb-4 w-full h-full md:gap-8 md:flex-row"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: {
+                      opacity: { duration: 1, delay: 0.5 },
+                    },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: {
+                      opacity: { duration: 0.5, delay: 0.2 },
+                    },
+                  }}
+                >
+                  {/* Page Section */}
+                  <motion.div
+                    className="flex flex-col gap-4 md:gap-8 w-full bg-[#151515] rounded-lg h-full p-4 sm:p-8"
+                    variants={sectionVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    custom={0.2}
+                  >
+                    <span className="text-sm text-white font-satoshi">
+                      Pages
+                    </span>
+                    {menuItems.map((item, i) => (
+                      <motion.div key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block cursor-pointer group"
+                        >
+                          <div className="overflow-hidden h-8 md:h-10">
+                            <div className=" text-[clamp(24px,4.5vw,32px)] md:text-[36px] font-regular text-gray-200 whitespace-nowrap group-hover:-translate-y-1/2 transition-transform duration-300 ease-out ">
+                              <span className="block leading-none">
+                                {item.label}
+                              </span>
+                              <span className="hidden pb-2 leading-none md:block text-highlightBlue">
+                                {item.label}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Project Section */}
+                  <motion.div
+                    className="hidden flex-col gap-4 p-8 w-full md:gap-8 sm:flex"
+                    variants={sectionVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    custom={0.3}
+                  >
+                    <span className="text-sm text-white font-satoshi">
+                      Case Studies
+                    </span>
+                    {projects.map((item, i) => (
+                      <div key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block cursor-pointer group"
+                        >
+                          <div className="overflow-hidden h-8 md:h-10">
+                            <div className=" text-[clamp(24px,4.5vw,32px)] md:text-[36px] font-regular text-gray-200 whitespace-nowrap group-hover:-translate-y-1/2 transition-transform duration-300 ease-out ">
+                              <span className="block leading-none">
+                                {item.label}
+                              </span>
+                              <span className="hidden pb-2 leading-none md:block text-highlightBlue">
+                                {item.label}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </motion.div>
+
+                  {/* Links Section */}
+                  <motion.div
+                    className="flex gap-4 justify-end items-center w-full h-full"
+                    variants={sectionVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    custom={0.4}
+                  >
+                    <div className="grid grid-cols-2 gap-2 items-end w-full h-full">
+                      {links.map((link, index) => (
+                        <Link
+                          href={link.href}
+                          target="_blank"
+                          className="flex flex-row gap-4 justify-end cursor-pointer items-start p-4 w-full h-full text-white bg-[#151515] rounded-lg transition-all duration-150 ease-out hover:bg-gray-900 hover:text-white"
+                          key={index}
+                        >
+                          <span className="">{link.logo}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </motion.nav>
+      </header>
     </>
   );
 }

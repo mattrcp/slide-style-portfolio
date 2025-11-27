@@ -1,6 +1,5 @@
 import React from "react";
 import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
 import { thumbnail } from "/public/teammie";
 import Image from "next/image";
 import Wrapper from "../components/Wrapper";
@@ -11,7 +10,7 @@ import Develop from "../components/teammie/Develop";
 import Delivery from "../components/teammie/Delivery";
 import Learning from "../components/teammie/Learning";
 import TableOfContents from "../components/TableoOfContents";
-import ProjectsShowcase from "../components/ProjectsShowcase";
+import FooterSection from "../components/FooterSection";
 
 const tocItems = [
   { id: "overview", label: "Overview", href: "#overview" },
@@ -26,7 +25,7 @@ const tocItems = [
 
 const page = () => {
   return (
-    <div className="relative">
+    <div className="relative bg-primaryBg">
       <Navigation />
       <ImageThumbnail />
       <main className="w-full px-4 md:px-6 lg:px-8 xl:px-10 mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-[1300px] 2xl:max-w-[1440px]">
@@ -39,9 +38,8 @@ const page = () => {
       </main>
       <div className="hidden fixed bottom-2 z-50 gap-6 justify-center items-center px-2 py-2 w-screen md:flex">
         <TableOfContents items={tocItems} />
-        {/* <ProjectsShowcase /> */}
       </div>
-      <Footer />
+      <FooterSection />
     </div>
   );
 };
