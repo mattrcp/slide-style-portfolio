@@ -81,7 +81,7 @@ body.has-snap-container {
 
 /* --- SCROLL SNAP ARCHITECTURE START --- */
 .snap-container {
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
   overflow-y: scroll;
   scroll-snap-type: y mandatory; /* Forces stop at sections */
@@ -98,7 +98,7 @@ body.has-snap-container {
 }
 
 .snap-section {
-  height: 65vh;
+  height: 65dvh;
   width: 60vw;
   scroll-snap-align: center;
   scroll-snap-stop: always; /* Forces browser to stop at EVERY slide */
@@ -179,7 +179,7 @@ body.has-snap-container {
 
   .snap-section {
     width: 90vw;
-    height: 50vh;
+    height: 50dvh;
   }
 }
 
