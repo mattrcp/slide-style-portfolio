@@ -1,16 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useEffect } from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
 import { navigation, meal, calendar, workout } from "/public/upliftt";
 import Link from "next/link";
 import { IconArrowUpRight } from "@tabler/icons-react";
+import { hifi } from "public/upliftt";
 
 const Overview = () => {
   return (
-    <section className="overflow-visible w-full h-full">
+    <section className="flex flex-col gap-8 justify-start items-center mb-8 w-full h-full md:gap-16 md:mb-16">
       <Summary />
-      <Contributions />
-      <Problem />
       <Solution />
     </section>
   );
@@ -19,264 +20,184 @@ const Overview = () => {
 export default Overview;
 
 const Summary = () => {
-  const projectDetails = [
-    {
-      header: "Role",
-      details: [
-        { id: 1, label: "UXUI Designer" },
-        { id: 2, label: "Interaction Designer" },
-      ],
-    },
-    {
-      header: "Team",
-      details: [
-        { id: 1, label: "1 UXUI Designer" },
-        { id: 2, label: "1 Product Manager/CTO" },
-      ],
-    },
-    {
-      header: "Duration",
-      details: [{ id: 1, label: "14 Weeks" }],
-    },
-  ];
-
   return (
-    <Wrapper id="overview">
-      <div className="py-4 w-full border-b border-border">
-        <h1 className="text-[32px] md:text-[40px] leading-none text-secondaryText">
-          Upliftt
-        </h1>
-      </div>
-      <div className="flex flex-col gap-8 w-full md:flex-row md:gap-20 text-primaryText">
-        <div className="flex flex-col gap-8 w-full">
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            As a UX/UI Design Intern at Upliftt, I designed the iOS app for
-            trainees to follow personalized workout and meal plans. I created
-            the full design system, wireframes, high-fidelity mockups, and
-            interaction flows. I collaborated closely with the CTO and
-            stakeholders, and delivered a detailed dev handoff for
-            implementation.
-          </p>
-          {/* <div className="flex gap-2 justify-start items-center pb-2 border-b border-border w-fit">
-            <Link
-              href="https://www.upliftt.com/en/landingpage/home"
-              target="_blank"
-              className="font-satoshi"
-            >
-              View Company Website{" "}
-            </Link>{" "}
-            <IconArrowUpRight stroke={2} className="w-4 h-4" />
-          </div> */}
-        </div>
+    <Wrapper className="flex flex-col gap-8 items-center md:gap-16">
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          Summary
+        </h2>
         <div className="flex flex-col gap-8 w-full md:flex-row">
-          {projectDetails.map((category) => (
-            <div key={category.header} className="w-full h-full">
-              <h3 className="mb-2 md:mb-4 font-sans uppercase font-satoshi text-secondaryText text-lg md:text-[18px] font-medium">
-                {category.header}
-              </h3>
-              <ul className="flex flex-col gap-2 font-satoshi text-primaryText">
-                {category.details.map((item) => (
-                  <li key={item.id} className="md:text-[18px] text-base">
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Wrapper>
-  );
-};
-
-const Contributions = () => {
-  const projectFeatures = [
-    {
-      id: 1,
-      title: "End-to-end iOS design",
-      description:
-        "Design for trainee experience from wireframes to high-fidelity UI.",
-    },
-    {
-      id: 2,
-      title: "User stories & Acceptance criteria",
-      description:
-        "Created user stories to align design with business and dev needs.",
-    },
-    {
-      id: 3,
-      title: "Dark & Light theme",
-      description:
-        "Created both dark and light theme for better accessibility using design system.",
-    },
-    {
-      id: 4,
-      title: "Document Handoff",
-      description:
-        "Created detailed documentation for developers, including instructions and animations.",
-    },
-  ];
-
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          What I Contributed
-        </h2>
-      </div>
-      <div className="flex flex-col gap-4 w-full md:flex-row text-primaryText">
-        {projectFeatures.map((feature) => (
-          <div
-            key={feature.id}
-            className="flex flex-col px-6 py-6 w-full rounded-2xl border bg-secondaryBg border-border md:flex-1"
-          >
-            <div className="min-h-[60px] md:mb-6 flex items-start">
-              <h3 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
-                {feature.title}
-              </h3>
-            </div>
-
-            <p className="w-full text-base md:text-[18px] text-primaryText flex-grow">
-              {feature.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Wrapper>
-  );
-};
-
-const Problem = () => {
-  const projectFeatures = [
-    {
-      description: "Low motivation caused by no clear path or milestones",
-    },
-    {
-      description:
-        "No real-time progress tracking, making it hard to see improvements",
-    },
-    {
-      description: "Scattered communication across tools and platforms",
-    },
-    {
-      description:
-        "Unclear trainer guidance, leading to confusion and hesitation",
-    },
-  ];
-
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Problem
-        </h2>
-      </div>
-
-      <div className="flex flex-col gap-8 w-full md:flex-row md:gap-20 text-primaryText">
-        <div className="flex flex-col w-full md:w-1/2">
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            Trainees often struggle to stay engaged due to unclear guidance and
-            a lack of structure. Here's what we uncovered:
+          {" "}
+          <p className="text-lg">
+            Upliftt is a CRM platform empowering fitness professionals to manage
+            their business. However, the ecosystem had a critical gap: while
+            trainers had powerful tools to create plans, clients lacked a
+            dedicated interface to execute them. <br /> <br /> I led the
+            end-to-end design of the Upliftt Client App, an iOS experience
+            designed to translate complex trainer data into a simple,
+            habit-forming user journey from 0 → 1. I delivered a fully scalable
+            design system (Light/Dark mode) and high-fidelity dev-ready
+            specifications.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2 md:w-1/2">
-          {projectFeatures.map((feature, i) => (
-            <div
-              key={i}
-              className="flex flex-col px-6 py-6 h-full rounded-2xl border bg-secondaryBg border-border"
-            >
-              <h3 className="mb-6 text-2xl font-semibold uppercase font-satoshi text-ternaryText">
-                0{i + 1}
-              </h3>
-
-              <p className="w-full text-[18px] font-semibold md:text-[20px] text-primaryText flex-grow">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
+      </div>
+      <div className="cs-image-container">
+        {" "}
+        {/* Added relative */}
+        <Image
+          src={hifi}
+          alt="Final design of Upliftt's application"
+          fill
+          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+        />
       </div>
     </Wrapper>
+  );
+};
+
+const VideoCard = ({ feature }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch((err) => {
+              console.log("Video autoplay prevented:", err);
+            });
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="flex flex-col flex-shrink-0 gap-6 snap-center bg-[#1B1B1B] rounded-lg p-6 py-8">
+      {/* Dark Card Container */}
+      <div className="relative w-[85vw] md:w-[600px] aspect-square flex-col gap-8 flex items-center justify-center overflow-hidden ">
+        <div className="overflow-hidden relative w-full h-full rounded-lg">
+          <video
+            ref={videoRef}
+            src={feature.url}
+            loop
+            muted
+            playsInline
+            className="object-contain w-full h-full rounded-xl"
+          />
+        </div>
+        <div className="w-full text-center">
+          <Link
+            href={`#${feature.id}`}
+            className="text-[18px]  font-satoshi font-bold text-white "
+          >
+            {feature.name}
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const Solution = () => {
-  const imageFeatures = [
+  const finalFeatures = [
     {
-      alt: "Navigation feature",
-      src: navigation,
-      description: "Progress Tab & Stats Summary",
-      id: "navigation",
-    },
-    {
-      alt: "Calendar feature",
-      src: calendar,
-      description: "Smart Calendar View",
+      name: "Smart Calendar View",
+      header: "HMW make fitness tracking simple and engaging?",
+      description:
+        "The calendar uses icons in the weekly view and color-coded dates in the monthly view to show the user's workout, cardio, rest days, and progress. It gives a quick, visual summary that helps users stay on track without needing to tap around.",
+      url: "/upliftt/Calendar.mp4",
       id: "calendar",
     },
     {
-      alt: "Meal feature",
-      src: meal,
-      description: "Interactive Meal Flow",
-      id: "meal",
-    },
-    {
-      alt: "Workout feature",
-      src: workout,
-      description: "Workout Completion Flow",
+      name: "Workout Carousel Navigation",
+      header: "HMW help busy users stay consistent with their workout routine?",
+      description:
+        "The swipeable carousel syncs with the calendar and lets users preview or start workouts for each day. It adds structure and routine, making it easy to focus on just today's plan.",
+      url: "/upliftt/Carousel.mp4",
       id: "workout",
     },
+    {
+      name: "Progress Tab & Stats Summary",
+      header: "HMW track progress in an engaging way?",
+      description:
+        "The tab bar includes key data like weight lost, weight left, and total workout time with an expandable dropdown for a full progress breakdown. This encourages habit-building by showing results without overwhelming the user.",
+      url: "/upliftt/Navigation.mp4",
+      id: "navigation",
+    },
+    {
+      name: "Interactive Meal Flow",
+      header: "HMW help busy users stay consistent with their meal routine?",
+      description:
+        "Tapping a meal opens a dedicated page where users can complete meals, triggering a satisfying animation and auto-transition to the next. It simplifies nutrition tracking while making it feel rewarding and smooth.",
+      url: "/upliftt/Meal.mp4",
+      id: "meal",
+    },
   ];
-
   return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="solution"
+    >
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
           Solution
         </h2>
-      </div>
-
-      <div className="flex flex-col w-full md:w-1/2">
-        <p className="w-full text-lg text-primaryText md:text-[18px]">
-          I designed an iOS app that helps trainees follow custom workout and
-          meal plans with ease. The design emphasizes clarity, habit-building,
-          and seamless interaction—crafted in collaboration with the CTO and
-          stakeholders to align with both user and business goals.
-        </p>
-      </div>
-
-      <div className="flex overflow-x-auto flex-row gap-4 pb-6 w-full">
-        {imageFeatures.map((feature, i) => (
-          // Make sure each card explicitly does NOT shrink (flex-shrink-0)
-          // and takes its defined w-screen width
-          <div
-            key={i}
-            className="flex flex-col flex-shrink-0 w-[80vw] gap-6 md:w-auto"
-          >
-            {" "}
-            {/* Added flex-shrink-0 */}
-            {/* Image container: must be relative for Next.js Image fill prop */}
-            <div className="relative md:w-[639px] w-full h-auto md:h-[639px] bg-secondaryBg border rounded-2xl border-border aspect-square ">
-              {" "}
-              {/* Added relative */}
-              <Image
-                src={feature.src}
-                alt={feature.alt}
-                fill
-                className="object-cover rounded-2xl"
-              />
-            </div>
-            <div className="w-full text-center">
-              <Link
-                href={`#${feature.id}`}
-                className="w-full text-[18px] font-satoshi text-center font-medium text-primaryText underline under-border underline-offset-4"
-              >
-                {feature.description}
-              </Link>
-            </div>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+              The "Smart Calendar" Dashboard:{" "}
+            </h3>
+            <p>
+              A toggle-based view that simplifies a client's weekly schedule
+              into clear, color-coded actionable days.
+            </p>
           </div>
-        ))}
+          <div className="w-full">
+            <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+              The Linear Workout Flow:{" "}
+            </h3>
+            <p>
+              We replaced complex spreadsheets with a focused, carousel-based
+              interaction that guides users one exercise at a time.
+            </p>
+          </div>
+          <div className="w-full">
+            <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+              Interactive Meal Tracking:
+            </h3>
+            <p>
+              A gamified checklist that uses satisfying micro-interactions to
+              encourage diet adherence.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Video Carousel Section */}
+      <div className="overflow-x-auto w-full scrollbar-hide">
+        {/* PADDING TRICK: 
+            px-[5vw] for Mobile (aligns with 90vw width)
+            md:px-[20vw] for Desktop (aligns with 60vw width: (100-60)/2 = 20)
+            This aligns the first card with your text but allows scrolling off-screen. 
+        */}
+        <div className="flex flex-row gap-6 px-[5vw] md:px-[15vw] min-w-max snap-x snap-mandatory">
+          {finalFeatures.map((feature) => (
+            <VideoCard key={feature.id} feature={feature} />
+          ))}
+        </div>
       </div>
     </Wrapper>
   );

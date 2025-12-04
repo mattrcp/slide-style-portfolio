@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   IconBrandLinkedin,
@@ -25,11 +26,6 @@ const links = [
     label: "LinkedIn",
     logo: <IconBrandLinkedin stroke={2} />,
   },
-  // {
-  //   href: "https://drive.google.com/file/d/127RnFN0WAj9nbaBzpidA9xSeUWODGFg9/view?usp=sharing",
-  //   label: "Resume",
-  //   logo: <IconFileCv stroke={2} />,
-  // },
   {
     href: "https://x.com/mattjustbored",
     label: "Twitter",
@@ -38,13 +34,25 @@ const links = [
 ];
 
 export default function FooterSection() {
+  const pathname = usePathname();
+
+  // Define pages that use scroll snap
+  const snapPaths = ["/", "/about", "/contact"];
+  const isSnapPage = snapPaths.includes(pathname);
+
+  // Determine container class based on path
+  const containerClass = isSnapPage ? "snap-section" : "cs-content-container";
+
   return (
-    <section className="flex flex-col justify-between items-start p-6 bg-primaryBg snap-section">
+    <section
+      className={`flex flex-col justify-between items-start p-6 bg-primaryBg ${containerClass}`}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }} // Changed to whileInView for better trigger on scroll
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="flex   text-[clamp(40px,4.5vw,96px)]"
+        className="flex text-[clamp(40px,4.5vw,96px)]"
       >
         <h1 className={"leading-none w-fit text-primaryText"}>
           Matt <br></br> Ngamdan
@@ -52,7 +60,8 @@ export default function FooterSection() {
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
         className="flex flex-col gap-4 justify-between items-start w-full md:items-end md:flex-row"
       >

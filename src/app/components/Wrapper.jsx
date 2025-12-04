@@ -5,22 +5,35 @@ import { motion } from "framer-motion";
 
 const Wrapper = ({ children, className, id }) => {
   const cardVariants = {
-    initial: { opacity: 0, y: 50 }, // Start yd down and invisible
+    initial: {
+      opacity: 0,
+      y: 20,
+      filter: "blur(10px)",
+    },
     inView: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    }, // y to original size and fade in
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 1, 0.5, 1],
+        delay: 0.3,
+      },
+    },
   };
 
   return (
     <motion.div
-      className={`flex flex-col  min-w-full gap-8 py-8 md:py-16  ${className} overflow-auto`}
+      // FIX 1: Removed 'overflow-auto' to prevent layout conflicts.
+      // FIX 2: Uses 'w-full' instead of min-w-full to respect parent bounds.
+      className={`flex flex-col gap-8  w-full ${className || ""}`}
       id={id}
-      variants={cardVariants} // Apply the defined variants
-      initial="initial" // Set the initial state
-      whileInView="inView" // Animate to 'inView' when in viewport
-      viewport={{ once: true, amount: 0.5 }} // Configure viewport behavior
+      variants={cardVariants}
+      initial="initial"
+      whileInView="inView"
+      // FIX 3: Reduced amount to 0.25.
+      // Animation triggers when top 25% is visible, not waiting for 50%.
+      viewport={{ once: true, amount: 0.25 }}
     >
       {children}
     </motion.div>

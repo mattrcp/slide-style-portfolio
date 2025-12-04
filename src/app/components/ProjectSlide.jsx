@@ -77,10 +77,10 @@ export default function ProjectSlide({ project }) {
                 {project.year}
               </p>
             </div>
-            <div className="hidden justify-start w-full md:flex md:justify-end">
+            <div className="hidden gap-2 justify-start w-full md:flex md:justify-end">
               {project.tag.map((tag, i) => (
                 <span key={i} className="w-auto text-base text-secondaryText">
-                  &nbsp;{tag} {i < project.tag.length - 1 ? "/ " : ""}
+                  &nbsp;{tag} {i < project.tag.length - 1 ? " " : ""}
                 </span>
               ))}
             </div>

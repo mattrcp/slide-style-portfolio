@@ -44,7 +44,7 @@ const page = () => {
         <FourthSection />
         <FifthSection />
       </motion.main>
-      <footer className="pt-8">
+      <footer className="pt-2">
         <FooterSection />
       </footer>
     </div>

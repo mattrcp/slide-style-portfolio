@@ -2,74 +2,127 @@ import React from "react";
 import Wrapper from "../Wrapper";
 import { document, handoff } from "/public/upliftt";
 import Image from "next/image";
+import { handoff1, handoff2 } from "public/upliftt";
 
 const Learning = () => {
   return (
-    <section className="w-full h-full overflow-visible">
-      <DesignFile />
-      <DesignDocument />
+    <section className="flex flex-col gap-8 justify-start items-center mb-8 w-full h-full md:gap-16 md:mb-16">
+      <Handoff />
+      <Retrospective />
     </section>
   );
 };
 
 export default Learning;
 
-const DesignFile = () => {
+const Handoff = () => {
   return (
-    <Wrapper id="handoff">
-      <div className="w-full py-4 border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          My Design File
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="handoff"
+    >
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          The Handoff
         </h2>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <p>
+              To support development, I worked closely with the CTO to define a
+              clear, readable documentation format. The handoff page breaks down
+              the rationale and flow of each design section so that both
+              developers and non-technical stakeholders can understand the
+              intention behind every feature.
+            </p>
+          </div>
+        </div>
       </div>
-
-      <div className="flex flex-col w-full md:w-1/2">
-        <p className="w-full text-lg text-primaryText md:text-[18px]">
-          I have organized the pages into a clear hierarchy, with each page
-          containing its own contents, which will help the team navigate through
-          each page easily. It also shows how I categorized different flows
-          (e.g., workouts, meals, tracking) and separated mobile components
-          clearly.
-        </p>
-      </div>
-      <div className="w-full h-[400px] md:h-[700px] lg:h-[800px] grid place-items-center border-border overflow-hidden relative">
+      <div className="cs-image-container">
+        {" "}
         <Image
-          src={document}
-          alt="Figma workspace"
-          className=" rounded-2xl"
-          quality={100}
+          src={handoff1}
+          alt="Final design of Upliftt's application"
+          fill
+          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+        />
+      </div>
+      <div className="cs-image-container">
+        {" "}
+        <Image
+          src={handoff2}
+          alt="Final design of Upliftt's application"
+          fill
+          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
         />
       </div>
     </Wrapper>
   );
 };
 
-const DesignDocument = () => {
+const Retrospective = () => {
   return (
-    <Wrapper>
-      <div className="w-full py-4 border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Design Documentation & Interaction Guidelines
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="impact"
+    >
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          Retrospective & Impact
         </h2>
-      </div>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+            <div className="w-full">
+              <p>
+                While the app is pre-launch, the design successfully solved the
+                "Delivery Gap" in Upliftt's ecosystem.
+              </p>
+            </div>
+            <div className="w-full">
+              <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+                Key Outcomes:
+              </h3>
+              <ul className="pl-6 mt-4 w-full text-lg list-disc font-satoshi">
+                {/* Item 1 */}
+                <li className="pl-2 mb-4">
+                  <span>
+                    <span className="italic font-bold">System Readiness: </span>
+                    &nbsp;Delivered a 100% reusable component library, reducing
+                    future design debt.
+                  </span>
+                </li>
 
-      <div className="flex flex-col gap-8 md:flex-row md:gap-20">
-        <div className="flex flex-col w-full md:w-1/2">
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            To support development, I worked closely with the CTO to define a
-            clear, readable documentation format. The handoff page breaks down
-            the rationale and flow of each design section so that both
-            developers and non-technical stakeholders can understand the
-            intention behind every feature.
-          </p>
-        </div>
-        <div className="relative grid w-full overflow-hidden md:w-1/2 place-items-center border-border">
-          <Image
-            src={handoff}
-            alt="Figma workspace"
-            className=" rounded-2xl"
-            quality={100}
-          />
+                {/* Item 2 */}
+                <li className="pl-2 mb-4">
+                  <span>
+                    <span className="italic font-bold">
+                      Stakeholder Alignment:
+                    </span>
+                    &nbsp;The high-fidelity prototypes were used by the founders
+                    to pitch the platform to early investors.
+                  </span>
+                </li>
+
+                <li className="pl-2 mb-4">
+                  <span>
+                    <span className="italic font-bold">Accessibility:</span>
+                    &nbsp;Full compliance with contrast ratios across both Light
+                    and Dark themes.
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full">
+              <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+                What I would do differently:
+              </h3>
+              <p>
+                If I had more time, I would focus on "Social Accountability"
+                designing features for trainers to send real-time "kudos" or
+                feedback directly into the client's workout stream to further
+                increase retention.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Wrapper>

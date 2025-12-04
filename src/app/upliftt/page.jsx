@@ -13,17 +13,19 @@ import FooterSection from "../components/FooterSection";
 
 const tocItems = [
   { id: "overview", label: "Overview", href: "#overview" },
-  { id: "goal", label: "Goal", href: "#goal" },
-  { id: "research", label: "Research", href: "#research" },
-  { id: "deliverable", label: "Deliverable", href: "#deliverable" },
+  { id: "problem", label: "Problem", href: "#problem" },
+  { id: "strategy", label: "Strategy", href: "#strategy" },
+  { id: "execution", label: "Execution", href: "#execution" },
+  { id: "system", label: "System", href: "#system" },
   { id: "handoff", label: "Handoff", href: "#handoff" },
+  { id: "impact", label: "impact", href: "#impact" },
 ];
 const page = () => {
   return (
     <div className="relative bg-primaryBg">
       <Navigation />
       <ImageThumbnail />
-      <main className="w-full px-4 md:px-6 lg:px-8 xl:px-10 mx-auto max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-[1300px] 2xl:max-w-[1440px]">
+      <main className="w-full">
         <Overview />
         <Discovery />
         <Define />
@@ -35,7 +37,9 @@ const page = () => {
         {/* <ProjectsShowcase /> */}
       </div>
 
-      <FooterSection />
+      <footer className="flex justify-center items-center w-full">
+        <FooterSection />
+      </footer>
     </div>
   );
 };
@@ -43,17 +47,61 @@ const page = () => {
 export default page;
 
 const ImageThumbnail = () => {
+  const projectDetails = [
+    {
+      header: "Role:",
+      details: [{ id: 1, label: "Product Designer Intern" }],
+    },
+    {
+      header: "Team:",
+      details: [{ id: 1, label: "1 Designer (Me), 1 CTO/PM" }],
+    },
+    {
+      header: "Timeline:",
+      details: [{ id: 1, label: "14 Weeks" }],
+    },
+    {
+      header: "Platform:",
+      details: [{ id: 1, label: "iOS Native" }],
+    },
+  ];
   return (
-    <Wrapper className="w-full py-4 h-[50vh] md:h-screen md:w-screen md:pt-24 md:pb-4">
-      <div className="pr-2 pl-2 w-full h-full md:pl-4 md:pr-6">
-        <div className="w-full h-full bg-secondaryBg border-border rounded-2xl md:rounded-[32px] overflow-hidden relative">
-          <Image
-            src={thumbnail}
-            alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
-            fill // <-- Use the fill prop
-            className="object-cover w-full h-full md:object-contain"
-            priority
-          />
+    <Wrapper
+      className="flex gap-8 justify-start items-center pt-24 mb-0 w-full h-auto md:pt-28 md:mb-16"
+      id="overview"
+    >
+      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
+        <Image
+          src={thumbnail}
+          alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
+          fill // <-- Use the fill prop
+          className="object-cover object-center overflow-visible w-auto h-auto"
+          priority
+        />
+      </div>
+      <div className="flex flex-col gap-4 justify-center items-start px-0 md:gap-8 cs-content-container md:px-4">
+        <h1 className="text-[clamp(40px,4.5vw,96px)] text-primaryText leading-[1.1] mb-4 md:w-3/4 2xl:w-4/5 w-full">
+          <span className="italic text-highlightRed">Upliftt:</span> Closing the
+          Loop Between Trainers and Clients
+        </h1>
+        <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2">
+          {projectDetails.map((category) => (
+            <div
+              key={category.header}
+              className="flex flex-row gap-6 justify-start items-start w-full h-auto"
+            >
+              <p className="uppercase font-satoshi text-secondaryText text-lg md:text-[18px] h-fit font-normal">
+                {category.header}
+              </p>
+              <ul className="flex flex-col gap-2 font-satoshi text-primaryText h-fit">
+                {category.details.map((item) => (
+                  <li key={item.id} className="md:text-[18px] text-base">
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </Wrapper>

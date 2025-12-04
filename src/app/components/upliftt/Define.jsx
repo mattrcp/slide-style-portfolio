@@ -1,91 +1,211 @@
 import React from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
+import { evolution, lowfi } from "public/upliftt";
 
 const Discovery = () => {
   return (
-    <section className="w-full h-full overflow-visible">
-      <Opportunities />
-      <Objectives />
+    <section className="flex flex-col gap-8 justify-start items-center mb-8 w-full h-full md:gap-16 md:mb-16">
+      <DesignFramework />
+      <DesignEvolution />
     </section>
   );
 };
 
 export default Discovery;
 
-const Opportunities = () => {
+const DesignFramework = () => {
   return (
-    <Wrapper>
-      <div className="w-full py-4 border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Opportunities
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="strategy"
+    >
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          The Design Frameworks
         </h2>
-      </div>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <p>
+              The founders provided a clear feature roadmap, but my role was to
+              structure these features into a cohesive experience. I established
+              three core principles to guide every decision:
+            </p>
+          </div>
 
-      <div className="flex flex-col w-full ">
-        <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
-          <span className="text-highlightBlue">How might we</span> help busy
-          users stay consistent by making fitness and meal tracking effortless,
-          engaging, and progress-driven?
-        </h1>
+          <div className="p-4 w-full bg-highlightYellow">
+            <div className="flex flex-col gap-2 md:flex-row">
+              <span className="w-6">🔍</span>
+              <div className="flex flex-col gap-4">
+                <span className="italic font-bold">
+                  1. Clarity over Complexity:
+                </span>
+                <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+                  {/* Item 1 */}
+                  <li className="pl-2 mb-4">
+                    <span>
+                      <span className="italic font-bold">The Challenge:</span>
+                      &nbsp;The app needed to display complex data (Reps, Sets,
+                      RPE) without looking like a spreadsheet.
+                    </span>
+                  </li>
+
+                  {/* Item 2 */}
+                  <li className="pl-2">
+                    <span>
+                      <span className="italic font-bold">The Execution:</span>
+                      &nbsp;I utilized "Progressive Disclosure" in the Carousel
+                      View, showing only today's workout and hiding future
+                      complexity.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 w-full bg-highlightYellow">
+            <div className="flex flex-col gap-2 md:flex-row">
+              <span className="w-6">🔍</span>
+              <div className="flex flex-col gap-4">
+                <span className="italic font-bold">
+                  2. Human-Centered Guidance
+                </span>
+                <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+                  {/* Item 1 */}
+                  <li className="pl-2 mb-4">
+                    <span>
+                      <span className="italic font-bold">The Challenge:</span>
+                      &nbsp;If tracking is hard, users stop doing it.
+                    </span>
+                  </li>
+
+                  {/* Item 2 */}
+                  <li className="pl-2">
+                    <span>
+                      <span className="italic font-bold">The Execution:</span>
+                      &nbsp;I prioritized Low-Fidelity Prototyping to test input
+                      speeds early. I skipped paper sketches and moved straight
+                      to Lo-Fi flows to validate that the "Meal Completion" flow
+                      needed to be a single tap.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 w-full bg-highlightYellow">
+            <div className="flex flex-col gap-2 md:flex-row">
+              <span className="w-6">🔍</span>
+              <div className="flex flex-col gap-4">
+                <span className="italic font-bold">
+                  2. Human-Centered Guidance
+                </span>
+                <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+                  {/* Item 1 */}
+                  <li className="pl-2 mb-4">
+                    <span>
+                      <span className="italic font-bold">The Challenge:</span>
+                      &nbsp;Beginners often freeze when they don't know "what's
+                      next."
+                    </span>
+                  </li>
+
+                  {/* Item 2 */}
+                  <li className="pl-2">
+                    <span>
+                      <span className="italic font-bold">The Execution:</span>
+                      &nbsp;I connected the Smart Calendar directly to the
+                      workout feed, acting as a "Map" for their fitness journey.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="cs-image-container">
+        {" "}
+        <Image
+          src={lowfi}
+          alt="Final design of Upliftt's application"
+          fill
+          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+        />
       </div>
     </Wrapper>
   );
 };
 
-const Objectives = () => {
-  const projectFeatures = [
-    {
-      header: "Clarity over Complexity:",
-      description:
-        "Ensure the app is intuitive from the very first screen, guiding trainees clearly toward their workout plan without cognitive overload.",
-    },
-    {
-      header: "Human-Centered Guidance + Consistency Builds Confidence:",
-      description:
-        "Provide a structured path using daily cues, schedules, and clear step-by-step instructions so users always know what to do next.",
-    },
-    {
-      header: "Motivation through Progress + Minimal Effort, Maximum Value:",
-      description:
-        "Allow trainees to check their progress effortlessly during or after workouts through subtle tracking, helping them stay motivated without disrupting their flow.",
-    },
-  ];
-
+const DesignEvolution = () => {
   return (
-    <Wrapper>
-      <div className="w-full py-4 border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          My Design Objective
+    <Wrapper className="flex overflow-visible flex-col gap-8 items-center md:gap-16">
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          The Design Evolution
         </h2>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+              The Hypothesis of Home Page:
+            </h3>
+            <p>
+              The Hypothesis of Home Page: My initial wireframe was a rigid
+              "Daily View." It showed the user exactly what to do today, but
+              locked them out of the broader context.{" "}
+              <span className="px-1 bg-highlightYellow">
+                They couldn't easily look back at yesterday's stats or preview
+                tomorrow's leg day.
+              </span>
+            </p>
+          </div>
+          <div className="w-full">
+            <h3 className="mb-1 text-lg italic font-bold font-satoshi">
+              The Friction:
+            </h3>
+            <p>
+              Testing showed that while users need focus during a workout, they
+              need flexibility when planning their week. The "Static" view made
+              them feel trapped in a blind tunnel.
+            </p>
+          </div>
+          <div className="w-full">
+            <span className="font-satoshi">
+              <span className="italic font-bold">The Pivot:</span> I
+              synchronized the Smart Calendar with a Swipeable Carousel.
+            </span>
+            <ul className="pl-6 mt-4 w-full text-lg list-disc font-satoshi">
+              {/* Item 1 */}
+              <li className="pl-2 mb-4">
+                <span>
+                  <span className="italic font-bold">The Interaction:</span>
+                  &nbsp;Swiping the carousel automatically updates the calendar
+                  date, and tapping a calendar date snaps the carousel to that
+                  specific plan.
+                </span>
+              </li>
+
+              {/* Item 2 */}
+              <li className="pl-2">
+                <span>
+                  <span className="italic font-bold">The Value:</span>
+                  &nbsp; This gave users "Temporal Context" the ability to audit
+                  past performance and mentally prepare for future workouts
+                  without leaving the main dashboard.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-
-      <div className="flex flex-col w-full gap-8 md:flex-row md:gap-20 text-primaryText">
-        <div className="flex flex-col w-full md:w-1/2">
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            The core goal of this design was to create a simple, motivating
-            experience for trainees that helps them build consistent habits
-            without feeling overwhelmed. To achieve this, the app was guided by
-            three key objectives:
-          </p>
-        </div>
-
-        <div className="grid w-full grid-cols-1 gap-4 md:w-1/2">
-          {projectFeatures.map((feature, i) => (
-            <div
-              key={i}
-              className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
-            >
-              <h3 className="mb-6 text-2xl font-semibold font-satoshi text-primaryText">
-                {feature.header}
-              </h3>
-
-              <p className="w-full text-[18px] font-base font-satoshi md:text-[20px] text-primaryText flex-grow">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
+      <div className="cs-image-container">
+        {" "}
+        <Image
+          src={evolution}
+          alt="Final design of Upliftt's application"
+          fill
+          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+        />
       </div>
     </Wrapper>
   );

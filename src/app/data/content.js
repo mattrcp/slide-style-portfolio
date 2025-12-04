@@ -15,7 +15,7 @@ export const projects = [
     id: "upliftt",
     year: 2025,
     // color: "#F5F5F5",
-    tag: ["Intern", "UI/UX", "Mobile App Design", "Design System"],
+    tag: ["Intern", "Mobile App Design", "Design System"],
   },
   {
     title: "Teammie",
