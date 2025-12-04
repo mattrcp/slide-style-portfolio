@@ -67,15 +67,15 @@ const ImageThumbnail = () => {
   ];
   return (
     <Wrapper
-      className="flex gap-8 justify-start items-center pt-24 mb-0 w-full h-auto md:pt-28 md:mb-16"
+      className="flex gap-8 justify-start items-center pt-24 mb-8 w-full h-auto md:pt-28 md:mb-16"
       id="overview"
     >
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container h-[65dvh] rounded-lg ">
+      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container h-[20dvh] md:h-[65dvh] rounded-lg ">
         <Image
           src={thumbnail}
           alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
           fill // <-- Use the fill prop
-          className="object-contain object-center overflow-visible w-auto h-auto"
+          className="object-contain md:object-cover object-cober"
           priority
         />
       </div>
