@@ -19,6 +19,8 @@ module.exports = {
         hoverSwap: "rgb(var(--hover-swap))",
         bw: "rgb(var(--bw))",
         wb: "rgb(var(--wb))",
+        highlightRed: "rgb(var(--highlight-red))",
+        highlightYellow: "rgb(var(--highlight-yellow))",
       },
       fontFamily: {
         satoshi: ["Satoshi", "sans-serif"],

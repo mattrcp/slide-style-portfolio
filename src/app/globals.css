@@ -6,7 +6,7 @@
   --primary-bg: 252, 252, 252;
   --secondary-bg: 248, 248, 248;
   --ternary-bg: 240, 240, 240;
-  --swap-bg:22,22,22;
+  --swap-bg: 22, 22, 22;
   --primary-text: 25, 42, 66;
   --secondary-text: 102, 102, 102;
   --ternary-text: 112, 112, 112;
@@ -16,26 +16,30 @@
   --highlight-blue: 36, 112, 245;
   --border: 237, 237, 237;
   --hover-swap: 27, 29, 42;
-  --bw: 1,1,1,
-  --wb: 255,255,255,
+  --bw: 1, 1, 1;
+  --wb: 255, 255, 255;
+  --highlight-red: 255, 0, 4;
+  --highlight-yellow: 255, 245, 230;
 }
 
 .dark {
-  --primary-bg:22,22,22;
+  --primary-bg: 22, 22, 22;
   --secondary-bg: 28, 28, 28;
   --ternary-bg: 38, 38, 38;
   --swap-bg: 252, 252, 252;
   --primary-text: 252, 252, 252;
   --secondary-text: 242, 242, 242;
   --ternary-text: 166, 166, 166;
-  --swap-text:22,22,22;
+  --swap-text: 22, 22, 22;
   --primary-grey: 64, 64, 64;
   --secondary-grey: 82, 82, 82;
   --highlight-blue: 82, 157, 255;
   --border: 64, 64, 64;
   --hover-swap: 237, 237, 237;
-  --bw: 255,255,255,
-  --wb: 1,1,1,
+  --bw: 255, 255, 255;
+  --wb: 1, 1, 1;
+  --highlight-red: 255, 0, 4;
+  --highlight-yellow: 71, 44, 0;
 }
 
 * {
@@ -63,7 +67,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   /* Original: cursor: auto; */
   /* FIX: Commented out to avoid conflict/redundancy, although 'auto' is the default you want */
-  /* cursor: auto; */ 
+  /* cursor: auto; */
 }
 
 /* Only hide body overflow when snap-container is present (home page) */
@@ -88,8 +92,6 @@ body.has-snap-container {
   scroll-behavior: smooth;
   overscroll-behavior-y: none; /* Critical for Mac Trackpads */
   scrollbar-width: none; /* Firefox */
-
-
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera inside container */
@@ -103,7 +105,7 @@ body.has-snap-container {
   scroll-snap-align: center;
   scroll-snap-stop: always; /* Forces browser to stop at EVERY slide */
   position: relative;
-  margin-inline: auto; 
+  margin-inline: auto;
   margin-bottom: 40px;
   overflow: visible;
 }
@@ -183,10 +185,23 @@ body.has-snap-container {
   }
 }
 
-
-
 @media (min-width: 768px) and (max-width: 1024px) {
   .snap-section {
     width: 70vw;
+  }
+}
+
+@layer components {
+  /* Case Study Image Container */
+  .cs-image-container {
+    @apply overflow-hidden relative rounded-lg;
+    @apply w-[90vw] h-[30dvh];
+    @apply sm:w-[80vw] md:w-[70vw] 2xl:w-[60vw] md:h-[65dvh];
+  }
+
+  /* Case Study Text Content Container */
+  .cs-content-container {
+    @apply w-[90vw] gap-4 px-0;
+    @apply md:w-[70vw] 2xl:w-[60vw] md:gap-8 md:px-4;
   }
 }
