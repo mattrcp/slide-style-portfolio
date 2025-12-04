@@ -1,25 +1,21 @@
 import thumbnail from "./thumbnail2.png";
-import handoff from "./handoff.webp";
-import user1 from "./user1.webp";
-import user2 from "./user2.webp";
-import navigation from "./navigation.png";
-import meal from "./meal.png";
-import document from "./document.png";
-import calendar from "./calendar.png";
-import workout from "./workout.png";
-import component from "./upliftt-component.png";
-import gymbackground from "./background.jpg";
+import datatodesign from "./datatodesign.png";
+import designSystem1 from "./designSystem1.png";
+import designSystem2 from "./designSystem2.png";
+import evolution from "./evolution.png";
+import handoff1 from "./handoff1.png";
+import handoff2 from "./handoff2.png";
+import hifi from "./hifi.png";
+import lowfi from "./lowfi.png";
 
 export {
   thumbnail,
-  handoff,
-  user1,
-  user2,
-  navigation,
-  meal,
-  document,
-  calendar,
-  workout,
-  component,
-  gymbackground,
+  datatodesign,
+  designSystem1,
+  designSystem2,
+  evolution,
+  handoff1,
+  handoff2,
+  hifi,
+  lowfi,
 };
