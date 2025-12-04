@@ -41,7 +41,7 @@ const Summary = () => {
           </p>
         </div>
       </div>
-      <div className="cs-image-container">
+      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
         {" "}
         {/* Added relative */}
         <Image

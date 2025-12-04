@@ -124,13 +124,13 @@ const DesignFramework = () => {
           </div>
         </div>
       </div>
-      <div className="cs-image-container">
+      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
         {" "}
         <Image
           src={lowfi}
           alt="Final design of Upliftt's application"
           fill
-          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+          className="object-contain object-center overflow-visible w-auto h-auto"
         />
       </div>
     </Wrapper>
@@ -198,13 +198,13 @@ const DesignEvolution = () => {
           </div>
         </div>
       </div>
-      <div className="cs-image-container">
+      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
         {" "}
         <Image
           src={evolution}
           alt="Final design of Upliftt's application"
           fill
-          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+          className="object-contain object-center overflow-visible w-auto h-auto"
         />
       </div>
     </Wrapper>

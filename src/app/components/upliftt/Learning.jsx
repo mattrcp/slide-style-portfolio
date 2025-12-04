@@ -37,22 +37,22 @@ const Handoff = () => {
           </div>
         </div>
       </div>
-      <div className="cs-image-container">
+      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
         {" "}
         <Image
           src={handoff1}
           alt="Final design of Upliftt's application"
           fill
-          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+          className="object-contain object-center overflow-visible w-auto h-auto"
         />
       </div>
-      <div className="cs-image-container">
+      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
         {" "}
         <Image
           src={handoff2}
           alt="Final design of Upliftt's application"
           fill
-          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
+          className="object-contain object-center overflow-visible w-auto h-auto"
         />
       </div>
     </Wrapper>

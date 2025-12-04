@@ -196,7 +196,7 @@ body.has-snap-container {
   .cs-image-container {
     @apply overflow-hidden relative rounded-lg;
     @apply w-[90vw] h-[30dvh];
-    @apply sm:w-[80vw] md:w-[70vw] 2xl:w-[60vw] md:h-[65dvh];
+    @apply sm:w-[80vw] md:w-[70vw] 2xl:w-[60vw] md:h-[50dvh];
   }
 
   /* Case Study Text Content Container */
