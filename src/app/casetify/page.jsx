@@ -39,7 +39,9 @@ const page = () => {
         <TableOfContents items={tocItems} />
         {/* <ProjectsShowcase /> */}
       </div>
-      <FooterSection />
+      <footer className="flex justify-center items-center w-full">
+        <FooterSection />
+      </footer>
     </div>
   );
 };

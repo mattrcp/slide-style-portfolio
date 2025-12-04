@@ -37,7 +37,9 @@ const page = () => {
       <div className="hidden fixed bottom-2 z-50 gap-6 justify-center items-center px-2 py-2 w-screen md:flex">
         <TableOfContents items={tocItems} />
       </div>
-      <FooterSection />
+      <footer className="flex justify-center items-center w-full">
+        <FooterSection />
+      </footer>
     </div>
   );
 };
