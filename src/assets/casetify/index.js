@@ -1,0 +1,27 @@
+// Export image paths as strings pointing to public folder
+export const thumbnail = "/casetify/thumbnail.png";
+export const cart = "/casetify/cart.png";
+export const competitor = "/casetify/competitor.png";
+export const edit = "/casetify/edit.png";
+export const home = "/casetify/home.png";
+export const product = "/casetify/product.png";
+export const sketch = "/casetify/sketches.jpg";
+export const usability = "/casetify/usability.png";
+export const v1cart = "/casetify/v1cart.png";
+export const v1commu = "/casetify/v1commu.png";
+export const v1home = "/casetify/v1home.png";
+export const pHome = "/casetify/pHome.png";
+export const pProduct = "/casetify/pProduct.png";
+export const pCustom = "/casetify/pCustom.png";
+export const exploreUsability = "/casetify/exploreUsability.png";
+export const fButton = "/casetify/fButton.png";
+export const fCommu = "/casetify/fCommu.png";
+export const fReview = "/casetify/fReview.png";
+export const designSystem = "/casetify/designSystem.png";
+export const casetifyComponent = "/casetify/casetifyComponent.png";
+export const casetifyBackground = "/casetify/casetifyBackground.jpg";
+export const hifi = "/casetify/hifi.png";
+export const evaluation = "/casetify/evaluation.png";
+export const research = "/casetify/research.png";
+export const testing = "/casetify/testing2.png";
+export const userflow = "/casetify/userflow.png";

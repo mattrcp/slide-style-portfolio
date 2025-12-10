@@ -1,6 +1,4 @@
-import { casetify, gradmatch, teammie, upliftt } from "public/assets";
-import { IconMobiledata } from "@tabler/icons-react";
-import { casetifyBackground, casetifyComponent } from "public/casetify";
+import { casetify, gradmatch, teammie, upliftt } from "../../assets/public";
 
 export const projects = [
   {

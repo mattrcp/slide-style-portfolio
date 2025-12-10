@@ -1,0 +1,26 @@
+// Export image paths as strings pointing to public folder
+export const thumbnail = "/teammie/thumbnail.png";
+export const projectOwner = "/teammie/business-student.webp";
+export const designStudent = "/teammie/design-student.webp";
+export const formPage = "/teammie/form.png";
+export const hmw = "/teammie/hmw.png";
+export const homePage = "/teammie/home.png";
+export const keeva = "/teammie/keeva.jpg";
+export const lowfi = "/teammie/lowfi.png";
+export const matt = "/teammie/matt.jpg";
+export const midfi = "/teammie/midfi.png";
+export const ownerPage = "/teammie/owner.png";
+export const promote = "/teammie/promote.jpeg";
+export const promote2 = "/teammie/promote2.jpeg";
+export const studentPage = "/teammie/student.png";
+export const timeline = "/teammie/timeline.png";
+export const usability = "/teammie/usability.png";
+export const userflow = "/teammie/userflow.png";
+export const userJourney = "/teammie/userjourney.png";
+export const faqPage = "/teammie/faq.png";
+export const interview = "/teammie/interview.png";
+export const mobile = "/teammie/mobile.png";
+export const desktop = "/teammie/desktop.png";
+export const background = "/teammie/background.jpg";
+export const userResearch = "/teammie/userresearch.png";
+export const nextjs = "/teammie/nextjs.png";
