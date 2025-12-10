@@ -153,14 +153,14 @@ const UnderstandUser = () => {
           <div className="p-4 w-full bg-highlightYellow">
             <div className="flex flex-col gap-2 md:flex-row">
               <span className="w-6">💡</span>
-              <p className="flex-grow">
-                <span className="flex-shrink-0 italic font-bold">
+              <p className="grow">
+                <span className="italic font-bold shrink-0">
                   What I tried to achieve:
                 </span>
                 &nbsp;I need to put the app out of the spreadsheet of exercise
                 styles, but to design a turn-by-turn navigation system for their
-                health, and easier for them to use and guide them during the
-                workout.
+                health, and make it easier for them to use and guide them during
+                the workout.
               </p>
             </div>
           </div>

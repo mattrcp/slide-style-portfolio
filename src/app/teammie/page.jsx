@@ -68,6 +68,17 @@ const ImageThumbnail = () => {
       header: "Tech Stack:",
       details: [{ id: 1, label: " Next.js, MongoDB, Tailwind CSS" }],
     },
+    {
+      header: "Prototype:",
+      details: [
+        {
+          id: 1,
+          // Added a label so the link has text to wrap
+          label: "View Live Site ↗",
+          link: "https://teammie.vercel.app/",
+        },
+      ],
+    },
   ];
   return (
     <Wrapper
@@ -101,7 +112,18 @@ const ImageThumbnail = () => {
               <ul className="flex flex-col gap-2 font-satoshi text-primaryText h-fit">
                 {category.details.map((item) => (
                   <li key={item.id} className="md:text-[18px] text-base">
-                    {item.label}
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline transition-colors duration-200 decoration-1 underline-offset-8 hover:text-highlightRed"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      item.label
+                    )}
                   </li>
                 ))}
               </ul>

@@ -49,7 +49,7 @@ const UsabilityPivot = () => {
               {/* Item 1 */}
               <li className="pl-2 mb-4">
                 <span>
-                  <span className="italic font-bold">The Issue::</span>
+                  <span className="italic font-bold">The Issue:</span>
                   &nbsp;100% of participants found the main "Category Filter"
                   misleading. They expected it to sort by Industry (Fintech,
                   Health), but it sorted by Role (Designer, Dev).

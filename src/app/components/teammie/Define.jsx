@@ -45,27 +45,26 @@ const Interaction = () => {
               {/* Item 1 */}
               <li className="pl-2 mb-4">
                 <span>
-                  <span className="italic font-bold">Must-Haves:</span>
-                  &nbsp;User Auth, Project Posting, Filtering, Application
-                  System.
+                  <span className="italic font-bold">Logic:</span>
+                  &nbsp;Sign Up → Create Profile → Post → Project Dashboard
                 </span>
               </li>
 
               {/* Item 2 */}
-              <li className="pl-2 mb-1">
+              <li className="pl-2">
                 <span>
-                  <span className="italic font-bold">Nice-to-Haves (Cut):</span>
-                  &nbsp; Real-time Chat, Portfolio Hosting (Moved to V2).
+                  <span className="italic font-bold">Dev Impact:</span>
+                  &nbsp;This flowchart didn't just guide the design; it became
+                  the direct blueprint for my
                 </span>
               </li>
             </ul>
           </div>
           <div className="w-full">
             <p>
-              <span className="italic font-bold">The Gantt Chart:</span>
-              &nbsp;I managed the cross-functional timeline, aligning design
-              sprints with development sprints to ensure blocking issues were
-              resolved early.
+              Next.js Routing structure, ensuring I knew exactly which routes
+              (like `/dashboard` and `/create`) required authentication
+              middleware vs. public access.
             </p>
           </div>
         </div>

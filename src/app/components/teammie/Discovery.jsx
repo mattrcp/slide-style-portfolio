@@ -98,7 +98,7 @@ const TheProblem = () => {
           between technical founders who need design help and students who need
           real-world experience, enabling them
           <span className="italic text-highlightRed">
-            to build and ship portfolio-worthy products
+            to build and ship portfolio-worthy products&nbsp;
           </span>{" "}
           together?
         </h1>
