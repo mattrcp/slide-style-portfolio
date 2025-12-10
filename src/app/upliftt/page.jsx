@@ -5,11 +5,11 @@ import Discovery from "../components/upliftt/Discovery";
 import Define from "../components/upliftt/Define";
 import Delivery from "../components/upliftt/Learning";
 import Learning from "../components/upliftt/Delivery";
-import { thumbnail } from "../../../public/upliftt";
 import Image from "next/image";
 import Wrapper from "../components/Wrapper";
 import TableOfContents from "../components/TableoOfContents";
 import FooterSection from "../components/FooterSection";
+import { upliftt } from "../../assets/public";
 
 const tocItems = [
   { id: "overview", label: "Overview", href: "#overview" },
@@ -24,7 +24,7 @@ const page = () => {
   return (
     <div className="relative bg-primaryBg">
       <Navigation />
-      <ImageThumbnail />
+      <ImageThumbnail pri />
       <main className="w-full">
         <Overview />
         <Discovery />
@@ -37,7 +37,7 @@ const page = () => {
         {/* <ProjectsShowcase /> */}
       </div>
 
-      <footer className="flex justify-center items-center w-full">
+      <footer className="flex justify-center items-center w-full h-full">
         <FooterSection />
       </footer>
     </div>
@@ -69,13 +69,14 @@ const ImageThumbnail = () => {
     <Wrapper
       className="flex gap-8 justify-start items-center pt-24 mb-8 w-full h-auto md:pt-28 md:mb-16"
       id="overview"
+      priority
     >
       <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container h-[20dvh] md:h-[65dvh] rounded-lg ">
         <Image
-          src={thumbnail}
+          src={upliftt}
           alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
           fill // <-- Use the fill prop
-          className="object-contain md:object-cover object-cober"
+          className="object-cover object-center overflow-visible w-auto h-auto"
           priority
         />
       </div>

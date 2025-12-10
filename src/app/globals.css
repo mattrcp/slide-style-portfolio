@@ -1,7 +1,41 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
+@theme {
+  /* Fonts */
+  --font-instrument: var(--font-instrument-serif);
+  --font-satoshi: Satoshi, sans-serif;
+
+  /* Colors */
+  --color-primaryBg: rgb(var(--primary-bg));
+  --color-secondaryBg: rgb(var(--secondary-bg));
+  --color-ternaryBg: rgb(var(--ternary-bg));
+  --color-swapBg: rgb(var(--swap-bg));
+  --color-primaryText: rgb(var(--primary-text));
+  --color-secondaryText: rgb(var(--secondary-text));
+  --color-ternaryText: rgb(var(--ternary-text));
+  --color-swapText: rgb(var(--swap-text));
+  --color-primaryGrey: rgb(var(--primary-grey));
+  --color-secondaryGrey: rgb(var(--secondary-grey));
+  --color-highlightBlue: rgb(var(--highlight-blue));
+  --color-border: rgb(var(--border));
+  --color-hoverSwap: rgb(var(--hover-swap));
+  --color-bw: rgb(var(--bw));
+  --color-wb: rgb(var(--wb));
+  --color-highlightRed: rgb(var(--highlight-red));
+  --color-highlightYellow: rgb(var(--highlight-yellow));
+
+  /* Animations */
+  --ease-card: cubic-bezier(0.83, -0.33, 0, 1.29);
+
+  /* Breakpoints (if needed, defaults are usually fine, but you had md: 780px) */
+  --breakpoint-md: 780px;
+}
+
+/* CSS Variables for Color Swapping 
+   Note: Tailwind v4 handles dark mode via standard CSS.
+   Since we swap the variables below, utilities like 'bg-primaryBg' 
+   will automatically update without needing 'dark:' modifiers.
+*/
 :root {
   --primary-bg: 252, 252, 252;
   --secondary-bg: 248, 248, 248;
@@ -22,6 +56,7 @@
   --highlight-yellow: 255, 245, 230;
 }
 
+/* When the "dark" class is on HTML, these variables override the root ones */
 .dark {
   --primary-bg: 22, 22, 22;
   --secondary-bg: 28, 28, 28;
@@ -42,13 +77,9 @@
   --highlight-yellow: 71, 44, 0;
 }
 
+/* Global Reset & Styles */
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  /* Original: cursor: none; */
-  /* FIX: Commented out to restore default cursor for all elements */
-  /* cursor: none; */
 }
 
 html,
@@ -57,44 +88,40 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
-/* Default: Allow normal scrolling for all pages */
 body {
   overflow-y: auto;
   height: auto;
   min-height: 100vh;
-  /* background-color: rgb(var(--primary-bg)); */
+  /* We set the base styles here manually as a fallback, 
+     but using utility classes like 'bg-primaryBg' on the <body> tag 
+     in layout.jsx is the preferred method now.
+  */
   color: rgb(var(--primary-text));
+  background-color: rgb(var(--primary-bg));
   transition: background-color 0.3s ease, color 0.3s ease;
-  /* Original: cursor: auto; */
-  /* FIX: Commented out to avoid conflict/redundancy, although 'auto' is the default you want */
-  /* cursor: auto; */
 }
 
-/* Only hide body overflow when snap-container is present (home page) */
-/* Using :has() selector - well supported in modern browsers */
+/* Snap container logic */
 body:has(.snap-container) {
-  overflow: hidden; /* We disable body scroll so .snap-container takes over */
-  height: 100%; /* Required for the internal scroll container to work */
+  overflow: hidden;
+  height: 100%;
 }
 
-/* Fallback for browsers without :has() support - use class on body */
 body.has-snap-container {
   overflow: hidden;
   height: 100%;
 }
 
-/* --- SCROLL SNAP ARCHITECTURE START --- */
 .snap-container {
   height: 100dvh;
   width: 100vw;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory; /* Forces stop at sections */
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overscroll-behavior-y: none; /* Critical for Mac Trackpads */
-  scrollbar-width: none; /* Firefox */
+  overscroll-behavior-y: none;
+  scrollbar-width: none;
 }
 
-/* Hide scrollbar for Chrome/Safari/Opera inside container */
 .snap-container::-webkit-scrollbar {
   display: none;
 }
@@ -103,61 +130,30 @@ body.has-snap-container {
   height: 65dvh;
   width: 60vw;
   scroll-snap-align: center;
-  scroll-snap-stop: always; /* Forces browser to stop at EVERY slide */
+  scroll-snap-stop: always;
   position: relative;
   margin-inline: auto;
   margin-bottom: 40px;
   overflow: visible;
 }
-/* --- SCROLL SNAP ARCHITECTURE END --- */
 
-/* Custom Cursor Logic (This entire section is already commented out and correctly disabled) */
-/* .custom-cursor {
-  position: fixed;
-  top: -20px;
-  left: -20px;
-  z-index: 9999;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  background-color: rgba(var(--highlight-blue));
-  border-radius: 50%;
-  transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease,
-    background-color 0.3s ease, transform 0.1s ease-out;
-} */
-/* ... (rest of custom cursor logic) ... */
-
-@layer utilities {
-  .ease-card {
-    transition-timing-function: cubic-bezier(0.83, -0.33, 0, 1.29);
-  }
-}
-
-/* Satoshi Font Family */
-/* ... (font face rules) ... */
-
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Utilities */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Satoshi Font */
+/* Base layer overrides */
 @layer base {
   h1,
   h2,
   h3,
   h4 {
-    @apply font-instrument; /* Ensure you have font-instrument defined in tailwind.config.js, or switch to font-satoshi if needed */
+    @apply font-instrument;
     font-weight: 300;
   }
   p {
@@ -166,19 +162,14 @@ body.has-snap-container {
   }
 }
 
-/* ... (animations and components) ... */
-
+/* Media Queries & Components */
 @media (max-width: 768px) {
   .custom-cursor {
     display: none !important;
   }
-
-  /* Restore native cursor/touch */
   * {
-    /* FIX: This was already set to auto, but it's good to keep it for mobile specificity */
     cursor: auto !important;
   }
-
   .snap-section {
     width: 90vw;
     height: 50dvh;
@@ -192,14 +183,12 @@ body.has-snap-container {
 }
 
 @layer components {
-  /* Case Study Image Container */
   .cs-image-container {
-    @apply overflow-hidden relative rounded-lg;
+    @apply flex overflow-hidden relative justify-center items-center rounded-lg;
     @apply w-[90vw] h-[30dvh];
-    @apply sm:w-[80vw] md:w-[70vw] 2xl:w-[60vw] md:h-[50dvh];
+    @apply sm:w-[80vw] md:w-[70vw] 2xl:w-[60vw] md:h-[60dvh];
   }
 
-  /* Case Study Text Content Container */
   .cs-content-container {
     @apply w-[90vw] gap-4 px-0;
     @apply md:w-[70vw] 2xl:w-[60vw] md:gap-8 md:px-4;

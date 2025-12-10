@@ -4,7 +4,15 @@ import React from "react";
 import Navigation from "../components/Navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { logo, personal2, running, gym, web1, web2, web3 } from "public/assets";
+import {
+  logo,
+  personal2,
+  running,
+  gym,
+  web1,
+  web2,
+  web3,
+} from "../../assets/assets";
 import FooterSection from "../components/FooterSection";
 import { useState } from "react";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
@@ -78,6 +86,8 @@ const FirstSection = () => {
           I’m Matt{" "}
           <Image
             src={personal2}
+            width={200}
+            height={200}
             alt="Matt's personal photo"
             className="inline-block align-baseline h-[2em] w-auto mx-2 rotate-6"
           />{" "}
@@ -108,16 +118,22 @@ const SecondSection = () => {
           <span className="p-2 w-auto h-auto">
             <Image
               src={web1}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider aspect-square  object-center align-middle h-[1em]  rotate-6 rounded-[2px]"
               alt="Matt's running selfie"
             />
             <Image
               src={web2}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider aspect-square  object-center align-middle h-[1em]  -rotate-6 rounded-[2px]"
               alt="Matt's gym mirror selfie"
             />
             <Image
               src={web3}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider align-middle h-[1em]  rotate-6 rounded-[2px]"
               alt="Logo image"
             />
@@ -146,16 +162,22 @@ const ThirdSection = () => {
           <span className="pr-2 w-auto h-auto">
             <Image
               src={running}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider aspect-square object-cover object-center align-middle h-[1em]  rotate-6 rounded-md"
               alt="Matt's running selfie"
             />
             <Image
               src={gym}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider aspect-square object-cover object-center align-middle h-[1em]  -rotate-6 rounded-md"
               alt="Matt's gym mirror selfie"
             />
             <Image
               src={logo}
+              height={200}
+              width={200}
               className="inline  w-auto tracking-wider align-middle h-[1em]  rotate-6 rounded-md"
               alt="Logo image"
             />

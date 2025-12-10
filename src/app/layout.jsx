@@ -60,14 +60,12 @@ const instrumentSerif = Instrument_Serif({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={instrumentSerif.variable}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body
-        className={`${instrumentSerif.variable} antialiased bg-gradient-to-b from-secondaryBg to-primaryBg`}
-      >
+      <body className="antialiased bg-primaryBg">
         <LenisProvider>
           <ThemeProvider>
             <PageTransitionProvider>{children}</PageTransitionProvider>
