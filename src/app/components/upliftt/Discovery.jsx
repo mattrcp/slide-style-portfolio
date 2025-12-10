@@ -3,7 +3,7 @@ import Wrapper from "../Wrapper";
 import Image from "next/image";
 
 import { IconArrowNarrowDown } from "@tabler/icons-react";
-import { datatodesign } from "public/upliftt";
+import { datatodesign } from "../../../assets/upliftt";
 
 const Discovery = () => {
   return (
@@ -22,7 +22,7 @@ const BusinessChallenge = () => {
       className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
       id="problem"
     >
-      <div className="flex justify-between items-center border-b-[1px] cs-content-container border-b-secondaryGrey pb-6 text-secondaryText">
+      <div className="flex justify-between items-center pb-6 border-b cs-content-container border-b-secondaryGrey text-secondaryText">
         <span className="text-sm">Scroll to read more</span>
         <IconArrowNarrowDown stroke={1} />
       </div>
@@ -71,15 +71,17 @@ const BusinessChallenge = () => {
           their trainers create.
         </h1>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg  p-8">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
         {/* Added relative */}
-        <Image
-          src={datatodesign}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-left overflow-visible w-auto h-auto"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src={datatodesign}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );
@@ -151,8 +153,8 @@ const UnderstandUser = () => {
           <div className="p-4 w-full bg-highlightYellow">
             <div className="flex flex-col gap-2 md:flex-row">
               <span className="w-6">💡</span>
-              <p class="flex-grow">
-                <span class="flex-shrink-0 italic font-bold">
+              <p className="flex-grow">
+                <span className="flex-shrink-0 italic font-bold">
                   What I tried to achieve:
                 </span>
                 &nbsp;I need to put the app out of the spreadsheet of exercise

@@ -13,6 +13,8 @@ import {
   IconBrandDribbble,
   IconBrandInstagram,
   IconBrandTwitter,
+  IconMail,
+  IconFileCv,
 } from "@tabler/icons-react";
 
 // Animation Variants
@@ -166,24 +168,34 @@ export default function Navbar({ totalSegments }) {
 
   const links = [
     {
+      href: "mailto:ratchapon.ngam@gmail.com",
+      label: "Email",
+      logo: <IconMail stroke={2} />,
+    },
+    {
+      href: "https://drive.google.com/file/d/1ByQSdo7pawVR3PmdSTslC5VGNi-N7nnS/view?usp=sharing",
+      label: "Resume",
+      logo: <IconFileCv stroke={2} />,
+    },
+    {
       href: "https://dribbble.com/ratchapon",
       label: "Dribble",
-      logo: <IconBrandDribbble stroke={1} className="w-8 h-8" />,
+      logo: <IconBrandDribbble stroke={2} />,
     },
     {
       href: "https://www.instagram.com/justmatt.studio/",
       label: "Instagram",
-      logo: <IconBrandInstagram stroke={1} className="w-8 h-8" />,
+      logo: <IconBrandInstagram stroke={2} />,
     },
     {
       href: "https://www.linkedin.com/in/matt-ngamdan-b251171a1/",
       label: "LinkedIn",
-      logo: <IconBrandLinkedin stroke={1} className="w-8 h-8" />,
+      logo: <IconBrandLinkedin stroke={2} />,
     },
     {
       href: "https://x.com/mattjustbored",
       label: "Twitter",
-      logo: <IconBrandTwitter stroke={1} className="w-8 h-8" />,
+      logo: <IconBrandTwitter stroke={2} />,
     },
   ];
 
@@ -451,7 +463,7 @@ export default function Navbar({ totalSegments }) {
                         <Link
                           href={link.href}
                           target="_blank"
-                          className="flex flex-row gap-4 justify-end cursor-pointer items-start p-4 w-full h-full text-white bg-[#151515] rounded-lg transition-all duration-150 ease-out hover:bg-gray-900 hover:text-white"
+                          className="flex flex-row gap-4 justify-start md:justify-end cursor-pointer items-start p-4 w-full h-full text-white bg-[#151515] rounded-lg transition-all duration-150 ease-out hover:bg-gray-900 hover:text-white"
                           key={index}
                         >
                           <span className="">{link.logo}</span>

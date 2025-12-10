@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import Wrapper from "../Wrapper"; // Assuming Wrapper is a simple container now as per previous fix
 import { motion } from "framer-motion";
-import { designSystem1, designSystem2 } from "public/upliftt";
+import { designSystem1, designSystem2 } from "../../../assets/upliftt";
 import Image from "next/image";
 
 const Delivery = () => {
@@ -32,7 +32,7 @@ const FinalDesign = () => {
         {/* Video 1 */}
         <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
           <div className="flex flex-col gap-6 w-full md:gap-8 md:flex-row">
-            <div className="w-full h-full md:w-1/4">
+            <div className="w-full h-full md:w-1/3">
               <h3 className="mb-2 text-lg italic font-bold md:mb-4 font-satoshi">
                 The "Smart Calendar": Reducing Decision Fatigue
               </h3>
@@ -44,7 +44,7 @@ const FinalDesign = () => {
               </p>
             </div>
 
-            <div className="flex flex-col  bg-[#1B1B1B] w-full md:w-2/3 rounded-lg p-6 py-8">
+            <div className="flex flex-col  bg-[#1B1B1B] w-full  rounded-lg p-6 py-8">
               {/* Dark Card Container */}
               <div className="flex overflow-hidden relative gap-8 justify-center items-center w-full flex-c ol aspect-video">
                 <div className="overflow-hidden relative w-full h-full rounded-lg">
@@ -66,7 +66,7 @@ const FinalDesign = () => {
 
         <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
           <div className="flex flex-col gap-6 w-full md:gap-8 md:flex-row">
-            <div className="w-full h-full md:w-1/4">
+            <div className="w-full h-full md:w-1/3">
               <h3 className="mb-2 text-lg italic font-bold md:mb-4 font-satoshi">
                 Workout Execution: Linear Focus
               </h3>
@@ -77,7 +77,7 @@ const FinalDesign = () => {
               </p>
             </div>
 
-            <div className="flex flex-col  bg-[#1B1B1B] w-full md:w-2/3 rounded-lg p-6 py-8">
+            <div className="flex flex-col  bg-[#1B1B1B] w-full  rounded-lg p-6 py-8">
               {/* Dark Card Container */}
               <div className="flex overflow-hidden relative gap-8 justify-center items-center w-full flex-c ol aspect-video">
                 <div className="overflow-hidden relative w-full h-full rounded-lg">
@@ -98,7 +98,7 @@ const FinalDesign = () => {
         {/* Video 1 */}
         <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
           <div className="flex flex-col gap-6 w-full md:gap-8 md:flex-row">
-            <div className="w-full h-full md:w-1/4">
+            <div className="w-full h-full md:w-1/3">
               <h3 className="mb-2 text-lg italic font-bold md:mb-4 font-satoshi">
                 Progress Tab & Stats Summary
               </h3>
@@ -110,7 +110,7 @@ const FinalDesign = () => {
               </p>
             </div>
 
-            <div className="flex flex-col  bg-[#1B1B1B] w-full md:w-2/3 rounded-lg p-6 py-8">
+            <div className="flex flex-col  bg-[#1B1B1B] w-full  rounded-lg p-6 py-8">
               {/* Dark Card Container */}
               <div className="flex overflow-hidden relative gap-8 justify-center items-center w-full flex-c ol aspect-video">
                 <div className="overflow-hidden relative w-full h-full rounded-lg">
@@ -131,7 +131,7 @@ const FinalDesign = () => {
         {/* Video 1 */}
         <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
           <div className="flex flex-col gap-6 w-full md:gap-8 md:flex-row">
-            <div className="w-full h-full md:w-1/4">
+            <div className="w-full h-full md:w-1/3">
               <h3 className="mb-2 text-lg italic font-bold md:mb-4 font-satoshi">
                 Meal Tracking: Gamifying Nutrition
               </h3>
@@ -142,7 +142,7 @@ const FinalDesign = () => {
               </p>
             </div>
 
-            <div className="flex flex-col  bg-[#1B1B1B] w-full md:w-2/3 rounded-lg p-6 py-8">
+            <div className="flex flex-col  bg-[#1B1B1B] w-full  rounded-lg p-6 py-8">
               {/* Dark Card Container */}
               <div className="flex overflow-hidden relative gap-8 justify-center items-center w-full flex-c ol aspect-video">
                 <div className="overflow-hidden relative w-full h-full rounded-lg">
@@ -262,23 +262,29 @@ const DesignSystem = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={designSystem1}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={designSystem1}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={designSystem2}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={designSystem2}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );

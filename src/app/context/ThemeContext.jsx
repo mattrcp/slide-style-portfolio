@@ -22,11 +22,14 @@ export function ThemeProvider({ children }) {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(newTheme);
+    setTheme((currentTheme) => {
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      // Apply the class immediately to ensure CSS variables update
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(newTheme);
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
   };
 
   return (

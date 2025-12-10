@@ -43,7 +43,7 @@ export default function ProjectSlide({ project }) {
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
       >
         {/* --- LEFT SCREEN: SUMMARY (100vw) --- */}
-        <div className="flex overflow-hidden relative flex-col justify-between items-center p-6 w-full h-full">
+        <div className="flex overflow-hidden relative flex-col gap-6 justify-between items-center p-6 w-full h-full">
           {/* Main Text Overlay */}
           {/* <div className="absolute top-1/2 left-1/2 z-10 p-8 text-center -translate-x-1/2 -translate-y-1/2">
             <h2 className="text-6xl md:text-9xl font-black text-[#192A42] dark:text-white">
@@ -52,19 +52,22 @@ export default function ProjectSlide({ project }) {
           </div> */}
 
           {/* Image Container */}
-          <div className="relative w-full h-full">
-            {project.image ? (
+          <div className="overflow-hidden relative w-full h-full rounded-lg">
+            <div className="relative w-full h-full">
+              {project.image ? (
               <Image
                 src={project.image}
                 alt={project.title || "Project image"}
                 fill
-                className="object-contain scale-125 sm:scale-110"
+                className="object-cover object-center overflow-visible w-auto h-auto"
                 priority={false}
                 sizes="100vh"
+                unoptimized={true}
               />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-800 dark:to-zinc-900" />
-            )}
+              ) : (
+                <div className="w-full h-full" />
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col gap-4 justify-between items-start w-full md:flex-row md:items-center">

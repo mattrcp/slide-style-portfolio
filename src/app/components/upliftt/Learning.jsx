@@ -1,8 +1,7 @@
 import React from "react";
 import Wrapper from "../Wrapper";
-import { document, handoff } from "/public/upliftt";
 import Image from "next/image";
-import { handoff1, handoff2 } from "public/upliftt";
+import { handoff1, handoff2 } from "../../../assets/upliftt";
 
 const Learning = () => {
   return (
@@ -37,23 +36,29 @@ const Handoff = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={handoff1}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={handoff1}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B]  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={handoff2}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={handoff2}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );

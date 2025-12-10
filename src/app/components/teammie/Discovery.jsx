@@ -2,194 +2,179 @@ import React from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
 import {
-  matt,
-  keeva,
   timeline,
   interview,
-  designStudent,
-  projectOwner,
-  userJourney,
-  hmw,
-} from "/public/teammie";
+  userResearch,
+  userflow,
+} from "../../../assets/teammie";
+import { IconArrowNarrowDown } from "@tabler/icons-react";
+
 import Link from "next/link";
 
 const Discovery = () => {
   return (
-    <section className="overflow-visible w-full h-full">
-      <WhatsTeammie />
-      <Planning />
-      <Research />
+    <section className="flex flex-col gap-8 justify-start items-center mb-8 w-full h-full md:gap-16 md:mb-16">
+      <TheProblem />
+      <ProductStrategy />
     </section>
   );
 };
 
 export default Discovery;
 
-const WhatsTeammie = () => {
+const TheProblem = () => {
   return (
-    <Wrapper id="problem">
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Why did we make Teammie?
-        </h2>
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="problem"
+    >
+      <div className="flex justify-between items-center pb-6 border-b cs-content-container border-b-secondaryGrey text-secondaryText">
+        <span className="text-sm">Scroll to read more</span>
+        <IconArrowNarrowDown stroke={1} />
       </div>
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          The Problem
+        </h2>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <p>
+              Through 5 user interviews with design students, we validated a
+              critical friction point in the education-to-career pipeline.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="mb-2 w-full">
+              <h3 className="italic font-bold mbtext-lg font-satoshi">
+                The Experience Gap:{" "}
+              </h3>
+            </div>
+            <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+              {/* Item 1 */}
+              <li className="pl-2 mb-4">
+                <span>
+                  <span className="italic font-bold">Students:</span>
+                  &nbsp; 100% of interviewees wanted to solve real user problems
+                  but ended up doing generic "redesigns" because they couldn't
+                  find engineers to build their ideas.
+                </span>
+              </li>
 
-      <div className="flex flex-col w-full">
-        <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
-          Many students struggle to find meaningful, real-world projects that
-          offer practical experience while managing personal growth. This
-          challenge reveals a clear opportunity: to create a space where
-          students can build relevant skills, collaborate with others, and grow
-          their portfolios with purpose.
+              {/* Item 2 */}
+              <li className="pl-2 mb-1">
+                <span>
+                  <span className="italic font-bold">Founders/Devs:</span>
+                  &nbsp;Often have great functional ideas but lack the design
+                  skills to make them usable.
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full">
+            <p>
+              <span className="italic font-bold">The Opportunity: </span>
+              &nbsp;Create a "dating app" for collaboration—matching technical
+              founders with creative talent to ship portfolio-worthy products.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#1B1B1B] p-8 cs-image-container rounded-lg">
+        {" "}
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={userResearch}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
+      </div>
+      <div className="flex justify-start items-center cs-content-container">
+        <h1 className="text-[clamp(40px,4.5vw,56px)] leading-[1.1]">
+          How might we
+          <span className="italic text-highlightRed"> bridge the gap</span>{" "}
+          between technical founders who need design help and students who need
+          real-world experience, enabling them
+          <span className="italic text-highlightRed">
+            to build and ship portfolio-worthy products
+          </span>{" "}
+          together?
         </h1>
       </div>
     </Wrapper>
   );
 };
 
-const Planning = () => {
-  const teams = [
-    {
-      image: matt,
-      name: "Matt Ngamdan",
-      role: "Project Lead + UXUI Designer",
-    },
-    { image: keeva, name: "Keeva Ng", role: "UXUI Designer" },
-  ];
-
+const ProductStrategy = () => {
   return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Project Planning
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="strategy"
+    >
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          Product Strategy
         </h2>
-      </div>
-      <div className="flex flex-col gap-8 sm:flex-row md:gap-20">
-        <div className="flex flex-col w-full md:w-1/2">
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            Before I started the project, I created a document to use as a
-            project document (
-            <Link
-              href="https://docs.google.com/document/d/1XbhmCtbKw1auHcsSDsSWA2pez_2CQkeiWIX3LKJ9ENo/edit?tab=t.0#heading=h.jyqb888g44qk"
-              target="_blank"
-              className="underline underline-offset-2"
-            >
-              PRD
-            </Link>
-            ,
-            <Link
-              href="https://docs.google.com/spreadsheets/d/1t3Y2aPFUsRdbYqnFOtDGIT79MjLtqj-Hdm6l3ISsm54/edit?gid=0#gid=0"
-              target="_blank"
-              className="underline underline-offset-2"
-            >
-              Grant-chart
-            </Link>
-            ), where I wrote the product requirement document, project grant
-            chart, and other documents necessary for a team to align with the
-            project goal.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 items-start w-full md:gap-0 md:items-center md:justify-between md:flex-row md:w-1/2">
-          {teams.map((team, i) => {
-            return (
-              <div className="flex flex-row gap-4 justify-center items-center">
-                <Image
-                  src={team.image}
-                  alt="an image of the planning process from google excel"
-                  className="w-20 h-20 rounded-full"
-                />
-                <div>
-                  <p className="text-lg font-medium">{team.name}</p>
-                  <p className="text-sm text-secondaryText">{team.role}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="flex flex-col w-full md:w-1/2"></div>
-      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
-        <Image
-          src={timeline}
-          alt="Figma workspace"
-          className="rounded-lg md:rounded-2xl"
-          quality={100}
-        />
-      </div>
-    </Wrapper>
-  );
-};
-
-const Research = () => {
-  const results = [
-    {
-      header: "100%",
-      description:
-        "of students initiate the project when they find the problem, searching on the internet or observing daily life.",
-    },
-    {
-      header: "100%",
-      description:
-        "agreed that collaboration helps them complete projects more effectively.",
-    },
-    {
-      header: "80%",
-      description: "of students said they want to solve real user problems.",
-    },
-    {
-      header: "80%",
-      description: "said they expect better results when working with others.",
-    },
-  ];
-
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          What have we found through User Interview?
-        </h2>
-      </div>
-
-      <div className="flex flex-col gap-8 md:flex-row md:gap-20">
-        <div className="flex flex-col w-full md:w-1/2">
-          <p className="w-full text-lg text-primaryText md:text-[18px] mb-2 md:mb-6">
-            To support the problem and find an opportunity, 
-            <span className="font-semibold">
-              I started by finding 5 students who study in the design field and
-              want to work as UXUI designers.
-            </span>
-          </p>
-          <p className="w-full text-lg text-primaryText md:text-[18px]">
-            The purpose of the interviews was to support the idea that the
-            problems have the potential to be solved and to find an opportunity
-            to support the project.
-          </p>
-        </div>
-        <div className="grid overflow-hidden relative place-items-center w-full md:w-1/2 border-border">
-          <Image
-            src={interview}
-            alt="an image of the results after the interview"
-            className="rounded-lg md:rounded-2xl"
-            quality={100}
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2">
-        {results.map((result, i) => (
-          <div
-            key={i}
-            className="flex flex-col h-full px-6 py-6 border-l-[5px] bg-secondaryBg rounded-r-xl border-highlightBlue"
-          >
-            <h3 className="mb-6 font-satoshi text-3xl md:text-[40px]  font-semibold text-primaryText">
-              {result.header}
-            </h3>
-
-            <p className="w-full text-[18px] font-base md:text-[20px] text-primaryText flex-grow">
-              {result.description}
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <p>
+              As the Project Lead, my first task wasn't design—it was
+              Operations. I had 17 weeks to ship a working full-stack
+              application.
             </p>
           </div>
-        ))}
+          <div className="flex flex-col gap-2">
+            <div className="mb-2 w-full">
+              <p className="text-lg">
+                <span className="italic font-bold">
+                  The PRD (Product Requirement Document):
+                </span>{" "}
+                I defined the MVP scope to ensure we didn't overbuild.
+              </p>
+            </div>
+            <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+              {/* Item 1 */}
+              <li className="pl-2 mb-4">
+                <span>
+                  <span className="italic font-bold">Must-Haves:</span>
+                  &nbsp;User Auth, Project Posting, Filtering, Application
+                  System.
+                </span>
+              </li>
+
+              {/* Item 2 */}
+              <li className="pl-2 mb-1">
+                <span>
+                  <span className="italic font-bold">Nice-to-Haves (Cut):</span>
+                  &nbsp; Real-time Chat, Portfolio Hosting (Moved to V2).
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full">
+            <p>
+              <span className="italic font-bold">The Gantt Chart:</span>
+              &nbsp;I managed the cross-functional timeline, aligning design
+              sprints with development sprints to ensure blocking issues were
+              resolved early.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="bg-[#1B1B1B] p-8 cs-image-container rounded-lg flex flex-col gap-4">
+        {" "}
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={timeline}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
+        <p className="text-lg font-bold text-white">Gantt Chart</p>
       </div>
     </Wrapper>
   );

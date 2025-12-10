@@ -3,10 +3,9 @@
 import React, { useRef, useEffect } from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
-import { navigation, meal, calendar, workout } from "/public/upliftt";
 import Link from "next/link";
 import { IconArrowUpRight } from "@tabler/icons-react";
-import { hifi } from "public/upliftt";
+import { hifi } from "../../../assets/upliftt";
 
 const Overview = () => {
   return (
@@ -41,15 +40,17 @@ const Summary = () => {
           </p>
         </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
         {/* Added relative */}
-        <Image
-          src={hifi}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-left w-auto h-auto rounded-2xl md:object-cover"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src={hifi}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );

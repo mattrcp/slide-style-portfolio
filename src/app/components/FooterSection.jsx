@@ -8,9 +8,21 @@ import {
   IconBrandDribbble,
   IconBrandInstagram,
   IconBrandTwitter,
+  IconMail,
+  IconFileCv,
 } from "@tabler/icons-react";
 
 const links = [
+  {
+    href: "mailto:ratchapon.ngam@gmail.com",
+    label: "Email",
+    logo: <IconMail stroke={2} />,
+  },
+  {
+    href: "https://drive.google.com/file/d/1ByQSdo7pawVR3PmdSTslC5VGNi-N7nnS/view?usp=sharing",
+    label: "Resume",
+    logo: <IconFileCv stroke={2} />,
+  },
   {
     href: "https://dribbble.com/ratchapon",
     label: "Dribble",
@@ -41,30 +53,20 @@ export default function FooterSection() {
   const isSnapPage = snapPaths.includes(pathname);
 
   // Determine container class based on path
-  const containerClass = isSnapPage ? "snap-section" : "cs-content-container";
+  const containerClass = isSnapPage
+    ? "snap-section"
+    : "cs-content-container h-[40vh]";
 
   return (
     <section
-      className={`flex flex-col justify-between items-start p-6 bg-primaryBg ${containerClass}`}
+      className={`flex flex-col justify-between items-start px-2 py-6 md:p-6 bg-primaryBg ${containerClass}`}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }} // Changed to whileInView for better trigger on scroll
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="flex text-[clamp(40px,4.5vw,96px)]"
-      >
+      <motion.div className="flex text-[clamp(40px,4.5vw,96px)]">
         <h1 className={"leading-none w-fit text-primaryText"}>
           Matt <br></br> Ngamdan
         </h1>
       </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="flex flex-col gap-4 justify-between items-start w-full md:items-end md:flex-row"
-      >
+      <motion.div className="flex flex-col gap-4 justify-between items-start w-full md:items-end md:flex-row">
         <div className="flex gap-2 w-full">
           {links.map((link, index) => (
             <Link

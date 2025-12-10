@@ -1,244 +1,170 @@
 import React from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
-import { designStudent, projectOwner, userJourney, hmw } from "/public/teammie";
+import { userflow } from "../../../assets/teammie";
 import Link from "next/link";
 
 const Define = () => {
   return (
-    <section className="overflow-visible w-full h-full">
-      <UserJourney />
-      <Audience />
-      <Ideation />
-      <Hmw />
-      <Solution />
+    <section className="flex flex-col gap-8 justify-start items-center mb-8 w-full h-full md:gap-16 md:mb-16">
+      <Interaction />
     </section>
   );
 };
 
 export default Define;
 
-const Audience = () => {
-  const userLists = [
-    {
-      id: 1,
-      image: designStudent,
-      header: "UX/UI Students",
-      description:
-        "Students studying UX/UI design who are looking for hands-on experience, real-world projects, and collaboration opportunities. They often struggle to find meaningful projects where they can apply their skills.",
-      list: [
-        {
-          title: "Goals",
-          items: [
-            "Gain experience by working on real-world projects",
-            "Build a strong, portfolio-ready body of work",
-            "Collaborate with developers and project owners",
-            "Bring their designs to life through practical execution",
-          ],
-        },
-      ],
-    },
-    {
-      id: 2,
-      image: projectOwner,
-      header: "Developers & Project Owners", // Changed header for differentiation
-      description:
-        "Engineering students, developers, or individuals with a project idea (entrepreneurs, startup founders, or students) who need a team to bring their vision to life. They may struggle to find UX/UI designers who understand technical feasibility and user experience.",
-      list: [
-        {
-          title: "Goals",
-          items: [
-            "Find skilled UX/UI designers",
-            "Get help visualizing ideas through wireframes and prototypes",
-            "Design user-friendly, intuitive interfaces",
-            "Collaborate with developers to turn concepts into functional products",
-          ],
-        },
-      ],
-    },
-  ];
-  const cardVariants = {
-    initial: { opacity: 0, y: 50 }, // Start yd down and invisible
-    inView: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    }, // y to original size and fade in
-  };
-
+const Interaction = () => {
   return (
-    <div
-      id="user"
-      className="flex overflow-auto flex-col gap-8 py-8 min-w-full md:py-16"
+    <Wrapper
+      className="flex overflow-visible flex-col gap-8 items-center md:gap-16"
+      id="process"
     >
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Our Target User
+      <div className="flex flex-col cs-content-container md:flex-row">
+        <h2 className="text-[clamp(32px,4.5vw,40px)] text-primaryText leading-[1.1] w-full md:w-1/3">
+          Interaction Architecture
         </h2>
-      </div>
-      <div className="flex flex-col gap-4 w-full md:flex-row text-primaryText">
-        {userLists.map((user) => (
-          <div
-            key={user.id}
-            className="flex flex-col w-full px-6 py-6 gap-8 bg-secondaryBg  border-border border md:flex-1 rounded-2xl md:rounded-[32px]"
-            variants={cardVariants} // Apply the defined variants
-            initial="initial" // Set the initial state
-            whileInView="inView" // Animate to 'inView' when in viewport
-            viewport={{ once: true, amount: 0.5 }} // Configure viewport behavior
-          >
-            <div className="flex items-center gap-4 h-[300px]  md:h-[600px] ">
-              {" "}
-              <Image
-                src={user.image}
-                alt={user.header}
-                className="object-cover object-center w-full h-full rounded-lg md:rounded-2xl"
-              />
-            </div>
-            <div className="flex flex-col gap-6">
-              <h4 className="text-xl font-semibold leading-tight font-satoshi md:text-2xl text-primaryText">
-                {user.header}
-              </h4>
-              <div className="flex flex-col gap-8">
-                <div>
-                  <h3 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
-                    Description
-                  </h3>
-                  <p className="text-base text-primaryText">
-                    {user.description}
-                  </p>
-                </div>
-                {user.list.map((section, sectionIndex) => (
-                  <div key={sectionIndex} className="flex flex-col gap-2">
-                    <h5 className="mb-2 text-lg font-medium font-satoshi text-primaryText">
-                      {section.title}
-                    </h5>
-                    {/* Removed list-disc list-inside from ul */}
-                    <ul className="space-y-1 text-base text-primaryText">
-                      {section.items.map((item, itemIndex) => (
-                        <li
-                          key={itemIndex}
-                          className="relative pl-5 before:content-['•'] font-satoshi before:absolute before:left-0 before:top-0" // The key classes
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="flex flex-col gap-4 w-full text-lg md:gap-6">
+          <div className="w-full">
+            <p>
+              Before touching pixels or code, I needed to define the structural
+              logic of the application. I mapped the "Golden Path" for our two
+              distinct users (Creators vs. Joiners) to ensure the system could
+              handle the handshake between them.
+            </p>
           </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+          <div className="flex flex-col gap-2">
+            <div className="mb-2 w-full">
+              <p className="text-lg">
+                <span className="italic font-bold">The User Flow:</span> I
+                defined the step-by-step logic for project creation to minimize
+                friction.
+              </p>
+            </div>
+            <ul className="pl-6 w-full text-lg list-disc font-satoshi">
+              {/* Item 1 */}
+              <li className="pl-2 mb-4">
+                <span>
+                  <span className="italic font-bold">Must-Haves:</span>
+                  &nbsp;User Auth, Project Posting, Filtering, Application
+                  System.
+                </span>
+              </li>
 
-const UserJourney = () => {
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          User Journey
-        </h2>
+              {/* Item 2 */}
+              <li className="pl-2 mb-1">
+                <span>
+                  <span className="italic font-bold">Nice-to-Haves (Cut):</span>
+                  &nbsp; Real-time Chat, Portfolio Hosting (Moved to V2).
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div className="w-full">
+            <p>
+              <span className="italic font-bold">The Gantt Chart:</span>
+              &nbsp;I managed the cross-functional timeline, aligning design
+              sprints with development sprints to ensure blocking issues were
+              resolved early.
+            </p>
+          </div>
+        </div>
       </div>
-
-      <div className="flex flex-col w-full md:w-1/2">
-        <p className="w-full text-lg text-primaryText md:text-[18px]">
-          After interviewing potential users, I found that they struggled to
-          find projects that aligned with their skills and interests, and
-          picking projects on the internet made them unable to gain experience.
-        </p>
-      </div>
-      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
-        <Image
-          src={userJourney}
-          alt="an image of how the user journey looks like"
-          className="rounded-lg md:rounded-2xl"
-          quality={100}
-        />
+      <div className="bg-[#1B1B1B] p-8 cs-image-container rounded-lg flex flex-col gap-4">
+        {" "}
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={userflow}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );
 };
 
-const Ideation = () => {
-  return (
-    <Wrapper id="ideation">
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Ideation
-        </h2>
-      </div>
+// const Ideation = () => {
+//   return (
+//     <Wrapper id="ideation">
+//       <div className="py-4 w-full border-b border-border">
+//         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+//           Ideation
+//         </h2>
+//       </div>
 
-      <div className="flex flex-col w-full md:w-1/2">
-        <p className="w-full text-lg text-primaryText md:text-[18px]">
-          I initiated a brainstorming session with the team using the How Might
-          We (HMW) method. We began{" "}
-          <span className="font-semibold font-satoshi">
-            by breaking down the main goal into three core themes, each
-            addressing a specific user challenge.
-          </span>{" "}
-          For each theme, we crafted HMW questions and generated solution ideas
-          based on the services we could offer. After ideation, we prioritized
-          which features should be included in the demo prototype versus those
-          reserved for the final product roadmap.
-        </p>
-      </div>
-      <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
-        <Image
-          src={hmw}
-          alt="an image of how the How Might We process looks like"
-          className="rounded-lg md:rounded-2xl"
-          quality={100}
-        />
-      </div>
-    </Wrapper>
-  );
-};
+//       <div className="flex flex-col w-full md:w-1/2">
+//         <p className="w-full text-lg text-primaryText md:text-[18px]">
+//           I initiated a brainstorming session with the team using the How Might
+//           We (HMW) method. We began{" "}
+//           <span className="font-semibold font-satoshi">
+//             by breaking down the main goal into three core themes, each
+//             addressing a specific user challenge.
+//           </span>{" "}
+//           For each theme, we crafted HMW questions and generated solution ideas
+//           based on the services we could offer. After ideation, we prioritized
+//           which features should be included in the demo prototype versus those
+//           reserved for the final product roadmap.
+//         </p>
+//       </div>
+//       <div className="grid overflow-hidden relative place-items-center w-full h-full border-border">
+//         <Image
+//           width={200}
+//           height={200}
+//           src={hmw}
+//           alt="an image of how the How Might We process looks like"
+//           className="rounded-lg md:rounded-2xl"
+//           quality={100}
+//         />
+//       </div>
+//     </Wrapper>
+//   );
+// };
 
-const Hmw = () => {
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Opportunity
-        </h2>
-      </div>
+// const Hmw = () => {
+//   return (
+//     <Wrapper>
+//       <div className="py-4 w-full border-b border-border">
+//         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+//           Opportunity
+//         </h2>
+//       </div>
 
-      <div className="flex flex-col w-full">
-        <h1 className="w-full  font-satoshi font-medium  text-[clamp(24px,5vw,32px)] text-primaryText">
-          <span className="text-highlightBlue">How might we</span> help project
-          owners build effective teams while making it easier for students to
-          discover, understand, and join the right projects based on their
-          skills and availability?
-        </h1>
-      </div>
-    </Wrapper>
-  );
-};
+//       <div className="flex flex-col w-full">
+//         <h1 className="w-full  font-satoshi font-medium  text-[clamp(24px,5vw,32px)] text-primaryText">
+//           <span className="text-highlightBlue">How might we</span> help project
+//           owners build effective teams while making it easier for students to
+//           discover, understand, and join the right projects based on their
+//           skills and availability?
+//         </h1>
+//       </div>
+//     </Wrapper>
+//   );
+// };
 
-const Solution = () => {
-  return (
-    <Wrapper>
-      <div className="py-4 w-full border-b border-border">
-        <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
-          Solution
-        </h2>
-      </div>
+// const Solution = () => {
+//   return (
+//     <Wrapper>
+//       <div className="py-4 w-full border-b border-border">
+//         <h2 className="text-[24px] md:text-[32px] leading-none text-secondaryText">
+//           Solution
+//         </h2>
+//       </div>
 
-      <div className="flex flex-col w-full">
-        <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
-          <span className="font-semibold text-highlightBlue">
-            A platform where project owners (creators) can share their concept
-            ideas and find designers with the right skill set to bring those
-            ideas to life.
-          </span>{" "}
-          Creators can post project details, specify required skills, and attach
-          their LinkedIn profile making it easy for interested design students
-          to discover the project and reach out for collaboration.
-        </h1>
-      </div>
-    </Wrapper>
-  );
-};
+//       <div className="flex flex-col w-full">
+//         <h1 className="w-full text-primaryText font-satoshi font-medium  text-[clamp(24px,5vw,40px)]">
+//           <span className="font-semibold text-highlightBlue">
+//             A platform where project owners (creators) can share their concept
+//             ideas and find designers with the right skill set to bring those
+//             ideas to life.
+//           </span>{" "}
+//           Creators can post project details, specify required skills, and attach
+//           their LinkedIn profile making it easy for interested design students
+//           to discover the project and reach out for collaboration.
+//         </h1>
+//       </div>
+//     </Wrapper>
+//   );
+// };

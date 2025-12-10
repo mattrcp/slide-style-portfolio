@@ -1,7 +1,7 @@
 import React from "react";
 import Wrapper from "../Wrapper";
 import Image from "next/image";
-import { evolution, lowfi } from "public/upliftt";
+import { evolution, lowfi } from "../../../assets/upliftt";
 
 const Discovery = () => {
   return (
@@ -124,14 +124,17 @@ const DesignFramework = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={lowfi}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={lowfi}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );
@@ -198,14 +201,17 @@ const DesignEvolution = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden relative bg-[#1B1B1B] p-8  cs-image-container rounded-lg ">
+      <div className="bg-[#1B1B1B] cs-image-container rounded-lg">
         {" "}
-        <Image
-          src={evolution}
-          alt="Final design of Upliftt's application"
-          fill
-          className="object-contain object-center overflow-visible w-auto h-auto"
-        />
+        {/* Added relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={evolution}
+            alt="Final design of Upliftt's application"
+            fill
+            className="object-contain object-center overflow-visible w-auto h-auto"
+          />
+        </div>
       </div>
     </Wrapper>
   );

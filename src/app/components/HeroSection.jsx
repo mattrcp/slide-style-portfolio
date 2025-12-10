@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { personal } from "public/assets";
 
 export default function HeroSection() {
   return (
@@ -16,9 +15,11 @@ export default function HeroSection() {
           Hello there! I’m Matt,{" "}
           <span className="w-auto h-auto">
             <Image
-              src={personal}
-              className="inline px-2 w-auto tracking-wider align-middle h-[1em] pb-2"
+              src="/assets/personal.png"
+              className="inline px-2 w-auto tracking-wider object-contain align-middle h-[1em] pb-2"
               alt="Matt's personal photo"
+              width={200}
+              height={200}
             />
           </span>{" "}
           a product designer turning complex problems into functional design.
