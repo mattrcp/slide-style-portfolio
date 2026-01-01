@@ -93,10 +93,10 @@ export default function Navbar({ totalSegments }) {
 
   // Compute responsive width for animation
   const computedWidth = (() => {
-    if (isMobileMenuOpen) return "60vw";
+    if (isMobileMenuOpen) return "90vw";
 
     if (windowWidth < 768) return "90vw";
-    if (windowWidth < 1024) return "70vw";
+    if (windowWidth < 1024) return "50vw";
     if (windowWidth < 1440) return "40vw";
     return "30vw";
   })();
