@@ -104,7 +104,7 @@ export default function Home() {
 
       {/* --- FINAL SLIDE: FOOTER --- */}
       {/* We wrap the footer in a snap-section so it snaps cleanly at the bottom */}
-      <section className="flex justify-center items-end snap-section">
+      <section className="flex justify-center items-end mt-10 md:mt-0 snap-section">
         <div className="flex flex-col justify-end w-full h-full">
           <FooterSection />
         </div>

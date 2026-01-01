@@ -93,10 +93,10 @@ export default function Navbar({ totalSegments }) {
 
   // Compute responsive width for animation
   const computedWidth = (() => {
-    if (isMobileMenuOpen) return "90vw";
+    if (isMobileMenuOpen) return "60vw";
 
     if (windowWidth < 768) return "90vw";
-    if (windowWidth < 1024) return "50vw";
+    if (windowWidth < 1024) return "70vw";
     if (windowWidth < 1440) return "40vw";
     return "30vw";
   })();
@@ -366,7 +366,7 @@ export default function Navbar({ totalSegments }) {
             <AnimatePresence mode="wait">
               {isMobileMenuOpen && (
                 <motion.div
-                  className="flex overflow-x-hidden overflow-y-hidden flex-col flex-1 gap-4 justify-start items-start p-2 pb-4 w-full h-full md:gap-8 md:flex-row"
+                  className="flex overflow-x-hidden overflow-y-hidden flex-col flex-1 gap-4 justify-start items-start p-2 pb-4 w-full h-full md:flex-row"
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
@@ -383,7 +383,7 @@ export default function Navbar({ totalSegments }) {
                 >
                   {/* Page Section */}
                   <motion.div
-                    className="flex flex-col gap-4 md:gap-8 w-full bg-[#151515] rounded-lg h-full p-4 sm:p-8"
+                    className="flex flex-col gap-4 md:gap-8 w-full bg-[#151515] rounded-lg h-full p-6  "
                     variants={sectionVariants}
                     initial="initial"
                     animate="animate"
@@ -417,7 +417,7 @@ export default function Navbar({ totalSegments }) {
 
                   {/* Project Section */}
                   <motion.div
-                    className="hidden flex-col gap-4 p-8 w-full md:gap-8 sm:flex"
+                    className="hidden flex-col gap-4 p-6 w-full md:gap-8 sm:flex"
                     variants={sectionVariants}
                     initial="initial"
                     animate="animate"
