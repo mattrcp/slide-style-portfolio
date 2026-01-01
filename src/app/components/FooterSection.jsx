@@ -54,8 +54,8 @@ export default function FooterSection() {
 
   // Determine container class based on path
   const containerClass = isSnapPage
-    ? "snap-section"
-    : "cs-content-container h-[40vh]";
+    ? "h-fll w-full snap-section"
+    : "cs-content-container h-[40vh] ";
 
   return (
     <section

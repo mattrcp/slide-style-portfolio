@@ -133,7 +133,7 @@ body.has-snap-container {
   scroll-snap-stop: always;
   position: relative;
   margin-inline: auto;
-  margin-bottom: 40px;
+  margin-top: 40px;
   overflow: visible;
 }
 
