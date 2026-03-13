@@ -231,8 +231,8 @@ export default function Navbar({ totalSegments }) {
               height: isMobileMenuOpen
                 ? "500px"
                 : isExpanded
-                ? "110px"
-                : "56px",
+                  ? "110px"
+                  : "56px",
               padding: isExpanded ? "0 8px 0 8px" : "0 8px 0 8px",
             }}
             transition={{
@@ -325,7 +325,7 @@ export default function Navbar({ totalSegments }) {
               {showProgress && isActive("/") && (
                 <motion.div
                   key="progress-bar"
-                  className="w-full h-[40px] z-[5]"
+                  className="w-full h-[40px] z-5"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{
                     opacity: 1,
@@ -336,21 +336,12 @@ export default function Navbar({ totalSegments }) {
                     y: -20,
                     transition: {
                       opacity: { duration: 0.2 },
-                      y: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      },
+                      ease: [0.25, 1, 0.5, 1],
                     },
                   }}
                   transition={{
-                    opacity: { duration: 0.3, delay: 1.0 },
-                    y: {
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 30,
-                      delay: 1.0,
-                    },
+                    opacity: { duration: 0.4, delay: 0.4 },
+                    ease: [0.25, 1, 0.5, 1],
                   }}
                 >
                   <ProgressBar
