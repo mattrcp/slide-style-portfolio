@@ -1,82 +1,83 @@
 "use client";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   const sentence =
     "Hello there! I’m Matt, a product designer turning complex problems into functional design.";
   const words = sentence.split(" ");
 
-  // Container variants to stagger the words
+  // 1. Fixed timing configuration
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.02, // Speed of the sequence
-        delayChildren: 0.5, // Wait for page load
+        delayChildren: 0.2, // Wait slightly before starting
+        staggerChildren: 0.05, // Fast, snappy interval between each word
       },
     },
   };
 
-  // Individual word variants
+  // 2. Removed the hardcoded delay so staggerChildren can take over
   const wordVariants = {
-    hidden: { y: "115%", opacity: 0, rotate: -10 },
+    hidden: { y: "115%", opacity: 0, rotate: 5 },
     visible: {
       y: 0,
       opacity: 1,
       rotate: 0,
       transition: {
-        duration: 0.4,
-        ease: [0.25, 1, 0.5, 1], // Custom cubic-bezier for a "premium" feel
+        duration: 1,
+        ease: [0.25, 1, 0.5, 1],
       },
     },
   };
 
-  // Footer variants (the "Open to Work" section)
   const footerVariants = {
     hidden: { opacity: 0, y: "115%" },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        delay: 0.8,
+        delay: 1,
         duration: 0.4,
-        ease: [0.25, 1, 0.5, 1], // Custom cubic-bezier for a "premium" feel
+        ease: [0.25, 1, 0.5, 1],
       },
     },
   };
 
   return (
-    <section className="flex flex-col min-h-[70vh] justify-between items-start p-6 bg-primaryBg h-[65dvh] w-[60vw] snap-center snap-always relative mx-auto  overflow-visible">
-      {/* Main Headline */}
+    <section className="flex flex-col min-h-[70vh] justify-between items-start p-6 bg-primaryBg h-[65dvh] w-[60vw] snap-center snap-always relative mx-auto overflow-visible">
+      {/* 3. Removed restrictive flex classes from the wrapper */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex text-[clamp(40px,4.5vw,96px)]"
+        className="w-full text-[clamp(40px,4.5vw,96px)]"
       >
-        <h1 className="leading-none w-fit text-primaryText">
+        {/* 4. Added flex flex-wrap and w-full to force proper stacking */}
+        <h1 className="flex flex-wrap w-full leading-none text-primaryText">
           {words.map((word, i) => (
             <span
               key={i}
-              className="inline-block overflow-hidden pb-[0.1em] mr-[0.2em] vertical-align-top"
+              className="inline-block overflow-hidden pb-[0.1em] mr-[0.2em] align-top"
             >
               <motion.span variants={wordVariants} className="inline-block">
                 {word === "Matt," ? (
-                  <>
+                  <span className="inline-flex items-baseline">
                     {word}
-                    <span className="inline-block mx-2 align-middle">
+                    <span className="inline-block self-center mx-2">
                       <Image
                         src="/assets/personal.png"
-                        className="object-contain h-[0.9em] w-auto pb-2"
+                        className="object-contain h-[0.9em] w-auto -mb-[0.1em]"
                         alt="Matt's personal photo"
                         width={200}
                         height={200}
                         priority
                       />
                     </span>
-                  </>
+                  </span>
                 ) : (
                   word
                 )}
@@ -86,7 +87,7 @@ export default function HeroSection() {
         </h1>
       </motion.div>
 
-      {/* Footer Info Section */}
+      {/* Footer Info Section remains unchanged */}
       <motion.div
         variants={footerVariants}
         initial="hidden"
@@ -95,14 +96,16 @@ export default function HeroSection() {
       >
         <div className="flex justify-start items-start w-full md:w-1/2">
           <div className="flex gap-2 items-center">
-            {/* Pulsing indicator for "Open to Work" */}
             <span className="flex relative w-2 h-2">
               <span className="inline-flex absolute w-full h-full bg-green-400 rounded-full opacity-75 animate-ping"></span>
               <span className="inline-flex relative w-2 h-2 bg-green-500 rounded-full"></span>
             </span>
-            <p className="text-base font-medium tracking-wider uppercase text-secondaryText">
-              Currently Open to Work!
-            </p>
+            <Link
+              className="text-base font-medium tracking-wider uppercase text-secondaryText"
+              href="mailto:ratchapon.ngam@gmail.com"
+            >
+              Ratchapon.ngam@gmail.com
+            </Link>
           </div>
         </div>
         <div className="hidden justify-start items-start w-full md:flex md:justify-end">

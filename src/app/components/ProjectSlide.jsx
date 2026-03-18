@@ -55,15 +55,15 @@ export default function ProjectSlide({ project }) {
           <div className="overflow-hidden relative w-full h-full rounded-lg">
             <div className="relative w-full h-full">
               {project.image ? (
-              <Image
-                src={project.image}
-                alt={project.title || "Project image"}
-                fill
-                className="object-cover object-center overflow-visible w-auto h-auto"
-                priority={false}
-                sizes="100vh"
-                unoptimized={true}
-              />
+                <Image
+                  src={project.image}
+                  alt={project.title || "Project image"}
+                  fill
+                  className="object-cover object-center overflow-visible w-auto h-auto transition-all duration-300 ease-in-out hover:scale-105"
+                  priority={false}
+                  sizes="100vh"
+                  unoptimized={true}
+                />
               ) : (
                 <div className="w-full h-full" />
               )}

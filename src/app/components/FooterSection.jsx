@@ -48,11 +48,12 @@ const links = [
 export default function FooterSection() {
   const pathname = usePathname();
 
-  // Define pages that use scroll snap
+  // Dynamic Year Detection
+  const currentYear = new Date().getFullYear();
+
   const snapPaths = ["/", "/about", "/contact"];
   const isSnapPage = snapPaths.includes(pathname);
 
-  // Determine container class based on path
   const containerClass = isSnapPage
     ? "h-fll w-full snap-section"
     : "cs-content-container h-[40vh] ";
@@ -81,7 +82,7 @@ export default function FooterSection() {
         </div>
         <div>
           <p className="flex text-sm text-secondaryText">
-            © 2025 for Ratchapon Ngamdan ⎯ Made with ❤️ in ReactJS
+            © {currentYear} for Ratchapon Ngamdan ⎯ Made with ❤️ in ReactJS
           </p>
         </div>
       </motion.div>

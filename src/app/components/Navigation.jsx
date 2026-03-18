@@ -29,9 +29,9 @@ const navAnimation = {
     y: 0,
     filter: "blur(0px)",
     transition: {
-      duration: 0.8,
+      duration: 1,
       ease: [0.25, 1, 0.5, 1], // Softer "easeOut"
-      delay: 0.6, // Nav enters first to "set the stage"
+      delay: 1.6, // Nav enters first to "set the stage"
     },
   },
 };
@@ -209,7 +209,7 @@ export default function Navbar({ totalSegments }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[980] bg-black/10 backdrop-blur-[1px]"
+            className="fixed inset-0 z-980 bg-black/10 backdrop-blur-[1px]"
             aria-hidden="true"
           />
         )}
