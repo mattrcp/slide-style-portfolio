@@ -84,7 +84,7 @@ const ImageThumbnail = () => {
       <div className="overflow-hidden relative bg-[#1B1B1B] cs-image-container h-[20dvh] md:h-[65dvh] rounded-lg">
         <Image
           src={gradmatch}
-          alt="Upliftt image thumbnail with 2 iphone mockup at the center of the image."
+          alt="GradMach image thumbnail with 1 iphone mockup at the center of the image."
           fill
           className="object-cover object-center overflow-visible w-auto h-auto"
           priority
@@ -92,8 +92,8 @@ const ImageThumbnail = () => {
       </div>
       <div className="flex flex-col gap-4 justify-center items-start px-0 md:gap-8 cs-content-container md:px-4">
         <h1 className="text-[clamp(40px,4.5vw,96px)] text-primaryText leading-[1.1] mb-4 md:w-3/4 2xl:w-4/5 w-full">
-          <span className="italic text-highlightRed">Casetify Redesign:</span>{" "}
-          Modernizing E-Commerce with GenAI
+          <span className="italic text-highlightRed">GradMatch:</span> Applying
+          to Jobs with a Single Gesture
         </h1>
         <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2">
           {projectDetails.map((category) => (
