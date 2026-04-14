@@ -92,7 +92,7 @@ export default function HeroSection() {
         variants={footerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-col gap-4 justify-between items-start mt-12 w-full md:items-center md:flex-row"
+        className="hidden flex-col gap-4 justify-between items-start mt-12 w-full  md:items-center md:flex-row sm:flex"
       >
         <div className="flex justify-start items-start w-full md:w-1/2">
           <div className="flex gap-2 items-center">

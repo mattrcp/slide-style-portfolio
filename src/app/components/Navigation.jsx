@@ -230,7 +230,7 @@ export default function Navbar({ totalSegments }) {
             animate={{
               width: computedWidth,
               height: isMobileMenuOpen
-                ? "500px"
+                ? "550px"
                 : isExpanded
                   ? "110px"
                   : "56px",
