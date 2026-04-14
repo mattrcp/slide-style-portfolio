@@ -48,7 +48,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="flex flex-col min-h-[70vh] justify-between items-start p-6 bg-primaryBg h-[65dvh] w-[60vw] snap-center snap-always relative mx-auto overflow-visible">
+    <section className="flex flex-col justify-between items-start p-6 bg-primaryBg snap-section">
       {/* 3. Removed restrictive flex classes from the wrapper */}
       <motion.div
         variants={containerVariants}
