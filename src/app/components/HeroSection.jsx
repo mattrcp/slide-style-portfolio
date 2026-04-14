@@ -101,7 +101,7 @@ export default function HeroSection() {
               <span className="inline-flex relative w-2 h-2 bg-green-500 rounded-full"></span>
             </span>
             <Link
-              className="text-base font-medium tracking-wider uppercase text-secondaryText"
+              className="text-sm font-medium tracking-wider uppercase text-secondaryText"
               href="mailto:ratchapon.ngam@gmail.com"
             >
               Ratchapon.ngam@gmail.com
@@ -109,7 +109,7 @@ export default function HeroSection() {
           </div>
         </div>
         <div className="hidden justify-start items-start w-full md:flex md:justify-end">
-          <p className="text-base opacity-60 text-secondaryText">
+          <p className="text-sm opacity-60 text-secondaryText">
             Product Design • App Design • Design System • Website Design
           </p>
         </div>

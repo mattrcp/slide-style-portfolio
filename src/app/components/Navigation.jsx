@@ -157,6 +157,7 @@ export default function Navbar({ totalSegments }) {
     { label: "Home", href: "/#hero" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
+    { label: "Playground", href: "/playground" },
   ];
 
   const projects = [
