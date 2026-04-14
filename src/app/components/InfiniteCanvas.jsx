@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 
@@ -55,6 +55,13 @@ export default function InfiniteCanvas() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
+  const [dragConstraints, setDragConstraints] = useState({
+    left: -4000,
+    right: 0,
+    top: -4000,
+    bottom: 0,
+  });
+
   // Add a spring so trackpad scrolling feels smooth and has inertia
   const springConfig = { damping: 25, stiffness: 120 };
   const smoothX = useSpring(x, springConfig);
@@ -76,10 +83,16 @@ export default function InfiniteCanvas() {
     return () => element?.removeEventListener("wheel", handleWheel);
   }, [x, y]);
 
-  // Center the canvas on load (assuming 4000x4000 canvas)
+  // Center the canvas on load and set drag constraints (assuming 4000x4000 canvas)
   useEffect(() => {
     x.set(-2000 + window.innerWidth / 2);
     y.set(-2000 + window.innerHeight / 2);
+    setDragConstraints({
+      left: -4000 + window.innerWidth,
+      right: 0,
+      top: -4000 + window.innerHeight,
+      bottom: 0,
+    });
   }, [x, y]);
 
   return (
@@ -92,12 +105,7 @@ export default function InfiniteCanvas() {
         // Bind the motion values to the canvas
         style={{ x: smoothX, y: smoothY }}
         // Constrain the drag so they don't lose the canvas entirely
-        dragConstraints={{
-          left: -4000 + window.innerWidth,
-          right: 0,
-          top: -4000 + window.innerHeight,
-          bottom: 0,
-        }}
+        dragConstraints={dragConstraints}
         dragElastic={0.1}
         dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
         className="absolute top-0 left-0 w-[4000px] h-[4000px] bg-primaryBg bg-repeat  "
