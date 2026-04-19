@@ -14,10 +14,10 @@ export function ThemeProvider({ children }) {
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(storedTheme);
     } else {
-      // If no theme is stored, set dark as default
+      // If no theme is stored, set light as default
       document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      document.documentElement.classList.add("light");
+      localStorage.setItem("theme", "light");
     }
   }, []);
 

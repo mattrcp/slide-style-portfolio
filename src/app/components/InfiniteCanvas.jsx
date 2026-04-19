@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import Image from "next/image";
 
 // 1. Data Structure for your playground items
 const playgroundItems = [
@@ -13,6 +12,7 @@ const playgroundItems = [
     src: "/playground/briefly.png",
     x: 1000,
     y: 1500,
+    rotation: -2,
   },
   {
     id: 2,
@@ -21,6 +21,7 @@ const playgroundItems = [
     src: "/playground/banking.png",
     x: 1800,
     y: 1200,
+    rotation: 1,
   },
   {
     id: 3,
@@ -29,6 +30,7 @@ const playgroundItems = [
     src: "/playground/joruno.png",
     x: 2000,
     y: 1800,
+    rotation: -1,
   },
   {
     id: 4,
@@ -37,6 +39,7 @@ const playgroundItems = [
     src: "/playground/sony.jpg",
     x: 1500,
     y: 1300,
+    rotation: 2,
   },
   {
     id: 5,
@@ -45,13 +48,23 @@ const playgroundItems = [
     src: "/playground/bank.png",
     x: 1700,
     y: 2000,
+    rotation: -3,
+  },
+  {
+    id: 6,
+    title: "Component Tree Plugin",
+    description: "Component tree extractor for Figma plugin",
+    src: "/playground/component.png",
+    x: 1200,
+    y: 1900,
+    rotation: 1,
   },
 ];
 
 export default function InfiniteCanvas() {
   const containerRef = useRef(null);
 
-  // 2. Motion Values for X and Y panning
+  // Motion Values for X and Y panning
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -62,16 +75,28 @@ export default function InfiniteCanvas() {
     bottom: 0,
   });
 
+  // State to track if the user is on a desktop device
+  const [isDesktop, setIsDesktop] = useState(true);
+
   // Add a spring so trackpad scrolling feels smooth and has inertia
   const springConfig = { damping: 25, stiffness: 120 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
 
-  // 3. Handle Trackpad / Mouse Wheel scrolling
+  // Handle Desktop check
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize(); // Check on mount
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Handle Trackpad / Mouse Wheel scrolling
   useEffect(() => {
     const handleWheel = (e) => {
       e.preventDefault();
-      // Adjust multiplier to control scroll speed
       x.set(x.get() - e.deltaX * 1.5);
       y.set(y.get() - e.deltaY * 1.5);
     };
@@ -83,7 +108,7 @@ export default function InfiniteCanvas() {
     return () => element?.removeEventListener("wheel", handleWheel);
   }, [x, y]);
 
-  // Center the canvas on load and set drag constraints (assuming 4000x4000 canvas)
+  // Center the canvas on load and set drag constraints
   useEffect(() => {
     x.set(-2000 + window.innerWidth / 2);
     y.set(-2000 + window.innerHeight / 2);
@@ -102,34 +127,39 @@ export default function InfiniteCanvas() {
     >
       <motion.div
         drag
-        // Bind the motion values to the canvas
         style={{ x: smoothX, y: smoothY }}
-        // Constrain the drag so they don't lose the canvas entirely
         dragConstraints={dragConstraints}
         dragElastic={0.1}
         dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-        className="absolute top-0 left-0 w-[4000px] h-[4000px] bg-primaryBg bg-repeat  "
+        className="absolute top-0 left-0 w-[4000px] h-[4000px] bg-primaryBg bg-repeat"
       >
         {playgroundItems.map((item) => (
           <motion.div
             key={item.id}
+            // 1. Enable drag only if on desktop
+            drag={isDesktop}
+            // 2. Remove momentum so cards stop exactly where you drop them
+            dragMomentum={false}
+            // 3. Stop propagation so dragging the card doesn't drag the canvas
+            onPointerDown={(e) => e.stopPropagation()}
             style={{
               left: item.x,
               top: item.y,
-              rotate: item.rotation,
+              rotate: item.rotation || 0,
             }}
-            whileHover={{ scale: 1.05, zIndex: 10 }}
-            // w-max forces the card to shrink-wrap the image. max-w-md prevents it from getting too massive.
-            className="absolute p-4 w-max max-w-md will-change-transform"
+            whileHover={{ scale: 1.02, zIndex: 10 }}
+            // 4. Elevate the card visually when picked up
+            whileDrag={{ scale: 1.05, zIndex: 50, rotate: 0 }}
+            className={`absolute p-4 w-max max-w-md will-change-transform ${
+              isDesktop ? "cursor-grab active:cursor-grabbing" : ""}`}
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 pointer-events-none">
               {/* Flexible Image Container */}
-              <div className="relative w-full r overflow-hidden bg-primaryBg  drop-shadow-xl flex items-center justify-center min-h-[200px]">
+              <div className="relative w-full overflow-hidden bg-primaryBg drop-shadow-xl flex items-center justify-center min-h-[200px]">
                 <img
                   src={item.src}
                   alt={item.title}
-                  className="w-full h-auto max-h-[500px] object-cover block "
-                  // Optional fallback if the image path is broken while you test
+                  className="w-full h-auto max-h-[500px] object-cover block"
                   onError={(e) => {
                     e.target.style.display = "none";
                     e.target.nextSibling.style.display = "flex";
