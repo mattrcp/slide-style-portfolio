@@ -1,9 +1,13 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+} from "framer-motion";
 
-// 1. Data Structure for your playground items
 const playgroundItems = [
   {
     id: 1,
@@ -55,18 +59,26 @@ const playgroundItems = [
     title: "Component Tree Plugin",
     description: "Component tree extractor for Figma plugin",
     src: "/playground/component.png",
-    x: 1200,
+    x: 1500,
     y: 1900,
     rotation: 1,
   },
 ];
 
+// SVG Grid patterns encoded as data URIs for performance
+// Adjust the stroke color (rgba) here to match your theme perfectly
+const GRID_BASE = `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L40 40 L40 0' fill='none' stroke='rgba(0,0,0,0.04)' stroke-width='1'/%3E%3C/svg%3E")`;
+const GRID_HIGHLIGHT = `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L40 40 L40 0' fill='none' stroke='rgba(0,0,0,0.15)' stroke-width='1'/%3E%3C/svg%3E")`;
+
 export default function InfiniteCanvas() {
   const containerRef = useRef(null);
 
-  // Motion Values for X and Y panning
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+
+  // Motion values to track the cursor relative to the 4000x4000 canvas
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const [dragConstraints, setDragConstraints] = useState({
     left: -4000,
@@ -75,25 +87,19 @@ export default function InfiniteCanvas() {
     bottom: 0,
   });
 
-  // State to track if the user is on a desktop device
   const [isDesktop, setIsDesktop] = useState(true);
 
-  // Add a spring so trackpad scrolling feels smooth and has inertia
   const springConfig = { damping: 25, stiffness: 120 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
 
-  // Handle Desktop check
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    handleResize(); // Check on mount
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle Trackpad / Mouse Wheel scrolling
   useEffect(() => {
     const handleWheel = (e) => {
       e.preventDefault();
@@ -108,7 +114,6 @@ export default function InfiniteCanvas() {
     return () => element?.removeEventListener("wheel", handleWheel);
   }, [x, y]);
 
-  // Center the canvas on load and set drag constraints
   useEffect(() => {
     x.set(-2000 + window.innerWidth / 2);
     y.set(-2000 + window.innerHeight / 2);
@@ -120,27 +125,54 @@ export default function InfiniteCanvas() {
     });
   }, [x, y]);
 
+  // Calculate exact mouse position inside the 4000x4000 wrapper
+  const handleMouseMove = (e) => {
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
+
   return (
     <div
       ref={containerRef}
-      className="overflow-hidden relative w-screen h-screen bg-secondaryBg cursor-grab active:cursor-grabbing"
+      className="overflow-hidden relative w-screen h-screen bg-primaryBg cursor-grab active:cursor-grabbing"
     >
       <motion.div
         drag
+        onMouseMove={handleMouseMove}
         style={{ x: smoothX, y: smoothY }}
         dragConstraints={dragConstraints}
         dragElastic={0.1}
         dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-        className="absolute top-0 left-0 w-[4000px] h-[4000px] bg-primaryBg bg-repeat"
+        className="absolute top-0 left-0 w-[4000px] h-[4000px]"
       >
+        {/* 1. Base Grid Layer (Dimmed) */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: GRID_BASE,
+            backgroundSize: "40px 40px",
+          }}
+        />
+
+        {/* 2. Spotlight Grid Layer (Dynamic Highlight) */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: GRID_HIGHLIGHT,
+            backgroundSize: "40px 40px",
+            // The Framer Motion template maps the CSS mask to follow the mouseX/mouseY values
+            WebkitMaskImage: useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`,
+            maskImage: useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`,
+          }}
+        />
+
+        {/* 3. Items Layer */}
         {playgroundItems.map((item) => (
           <motion.div
             key={item.id}
-            // 1. Enable drag only if on desktop
             drag={isDesktop}
-            // 2. Remove momentum so cards stop exactly where you drop them
             dragMomentum={false}
-            // 3. Stop propagation so dragging the card doesn't drag the canvas
             onPointerDown={(e) => e.stopPropagation()}
             style={{
               left: item.x,
@@ -148,13 +180,12 @@ export default function InfiniteCanvas() {
               rotate: item.rotation || 0,
             }}
             whileHover={{ scale: 1.02, zIndex: 10 }}
-            // 4. Elevate the card visually when picked up
             whileDrag={{ scale: 1.05, zIndex: 50, rotate: 0 }}
             className={`absolute p-4 w-max max-w-md will-change-transform ${
-              isDesktop ? "cursor-grab active:cursor-grabbing" : ""}`}
+              isDesktop ? "cursor-grab active:cursor-grabbing" : ""
+            }`}
           >
             <div className="flex flex-col gap-3 pointer-events-none">
-              {/* Flexible Image Container */}
               <div className="relative w-full overflow-hidden bg-primaryBg drop-shadow-xl flex items-center justify-center min-h-[200px]">
                 <img
                   src={item.src}
@@ -167,7 +198,6 @@ export default function InfiniteCanvas() {
                 />
               </div>
 
-              {/* Text Content */}
               <div className="flex flex-col w-full text-left">
                 <span className="text-sm font-medium font-satoshi text-secondaryText pb-0.5">
                   {item.title}
@@ -183,14 +213,14 @@ export default function InfiniteCanvas() {
         ))}
       </motion.div>
 
-      {/* Recenter UI Component */}
+      {/* Recenter UI */}
       <div className="absolute right-8 bottom-8 z-50">
         <button
           onClick={() => {
             x.set(-2000 + window.innerWidth / 2);
             y.set(-2000 + window.innerHeight / 2);
           }}
-          className="px-4 py-2 text-sm font-medium text-white rounded-full transition-colors bg-zinc-900 hover:bg-zinc-800"
+          className="px-4 py-2 text-sm font-medium text-white rounded-full shadow-lg transition-colors bg-zinc-900 hover:bg-zinc-800"
         >
           Recenter
         </button>
