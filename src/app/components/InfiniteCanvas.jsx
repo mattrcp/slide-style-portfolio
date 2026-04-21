@@ -59,8 +59,8 @@ const playgroundItems = [
     title: "Component Tree Plugin",
     description: "Component tree extractor for Figma plugin",
     src: "/playground/component.png",
-    x: 1500,
-    y: 1900,
+    x: 1000,
+    y: 2100,
     rotation: 1,
   },
 ];
@@ -182,8 +182,7 @@ export default function InfiniteCanvas() {
             whileHover={{ scale: 1.02, zIndex: 10 }}
             whileDrag={{ scale: 1.05, zIndex: 50, rotate: 0 }}
             className={`absolute p-4 w-max max-w-md will-change-transform ${
-              isDesktop ? "cursor-grab active:cursor-grabbing" : ""
-            }`}
+              isDesktop ? "cursor-grab active:cursor-grabbing" : ""}`}
           >
             <div className="flex flex-col gap-3 pointer-events-none">
               <div className="relative w-full overflow-hidden bg-primaryBg drop-shadow-xl flex items-center justify-center min-h-[200px]">
