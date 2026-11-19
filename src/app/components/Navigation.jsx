@@ -280,15 +280,11 @@ export default function Navbar({ totalSegments }) {
               <div className="flex justify-end w-full h-10">
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="flex relative z-20 flex-row gap-2 justify-end items-center pl-2 h-10 rounded-lg duration-150 ease-in-out cursor-pointer w-fit group hover:bg-gray-900"
+                  className={`flex relative z-20 justify-center items-center w-14 h-10 rounded-md hover:opacity-95 duration-150 ease-in-out cursor-pointer transition-colors ${theme === "dark" ? "bg-[#1f1f1f]" : "bg-white"}`}
                 >
-                  <span className="font-medium text-white font-satoshi h-fit w-fit">
-                    Menu
-                  </span>
-
                   <div className="relative z-20 flex flex-col items-center overflow-visible justify-center w-10 h-10 space-y-1.5">
                     <motion.span
-                      className="w-6 h-0.5 bg-white"
+                      className={`w-6 h-0.5 ${theme === "dark" ? "bg-white" : "bg-black"}`}
                       animate={{
                         rotate: isMobileMenuOpen ? 45 : 0,
                         y: isMobileMenuOpen ? 6 : 0,
@@ -300,12 +296,12 @@ export default function Navbar({ totalSegments }) {
                       }}
                     />
                     <motion.span
-                      className="w-6 h-0.5 bg-white"
+                      className={`w-6 h-0.5 ${theme === "dark" ? "bg-white" : "bg-black"}`}
                       animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
                       transition={{ duration: 0.2 }}
                     />
                     <motion.span
-                      className="w-6 h-0.5 bg-white"
+                      className={`w-6 h-0.5 ${theme === "dark" ? "bg-white" : "bg-black"}`}
                       animate={{
                         rotate: isMobileMenuOpen ? -45 : 0,
                         y: isMobileMenuOpen ? -10 : 0,

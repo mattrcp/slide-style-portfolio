@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export const LenisProvider = ({ children }) => {
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const isHomePage = pathname === "/" || pathname === "/canvas-test";
 
   // If on the home page, bypass Lenis to allow native CSS Scroll Snap to function without interference.
   if (isHomePage) {

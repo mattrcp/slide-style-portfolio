@@ -4,9 +4,10 @@ import { useRef, useEffect, useState } from "react";
 import {
   motion,
   useMotionValue,
-  useSpring,
   useMotionTemplate,
 } from "framer-motion";
+
+const CANVAS_SIZE = 4000;
 
 const playgroundItems = [
   {
@@ -66,7 +67,6 @@ const playgroundItems = [
 ];
 
 // SVG Grid patterns encoded as data URIs for performance
-// Adjust the stroke color (rgba) here to match your theme perfectly
 const GRID_BASE = `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L40 40 L40 0' fill='none' stroke='rgba(0,0,0,0.04)' stroke-width='1'/%3E%3C/svg%3E")`;
 const GRID_HIGHLIGHT = `url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L40 40 L40 0' fill='none' stroke='rgba(0,0,0,0.15)' stroke-width='1'/%3E%3C/svg%3E")`;
 
@@ -81,17 +81,16 @@ export default function InfiniteCanvas() {
   const mouseY = useMotionValue(0);
 
   const [dragConstraints, setDragConstraints] = useState({
-    left: -4000,
+    left: -CANVAS_SIZE,
     right: 0,
-    top: -4000,
+    top: -CANVAS_SIZE,
     bottom: 0,
   });
 
-  const [isDesktop, setIsDesktop] = useState(true);
+  // Keep a ref to constraints so wheel handler always has current values
+  const constraintsRef = useRef(dragConstraints);
 
-  const springConfig = { damping: 25, stiffness: 120 };
-  const smoothX = useSpring(x, springConfig);
-  const smoothY = useSpring(y, springConfig);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -103,8 +102,11 @@ export default function InfiniteCanvas() {
   useEffect(() => {
     const handleWheel = (e) => {
       e.preventDefault();
-      x.set(x.get() - e.deltaX * 1.5);
-      y.set(y.get() - e.deltaY * 1.5);
+      const c = constraintsRef.current;
+      const nx = Math.min(c.right, Math.max(c.left, x.get() - e.deltaX));
+      const ny = Math.min(c.bottom, Math.max(c.top, y.get() - e.deltaY));
+      x.set(nx);
+      y.set(ny);
     };
 
     const element = containerRef.current;
@@ -115,14 +117,18 @@ export default function InfiniteCanvas() {
   }, [x, y]);
 
   useEffect(() => {
-    x.set(-2000 + window.innerWidth / 2);
-    y.set(-2000 + window.innerHeight / 2);
-    setDragConstraints({
-      left: -4000 + window.innerWidth,
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    x.set(-CANVAS_SIZE / 2 + w / 2);
+    y.set(-CANVAS_SIZE / 2 + h / 2);
+    const c = {
+      left: -CANVAS_SIZE + w,
       right: 0,
-      top: -4000 + window.innerHeight,
+      top: -CANVAS_SIZE + h,
       bottom: 0,
-    });
+    };
+    setDragConstraints(c);
+    constraintsRef.current = c;
   }, [x, y]);
 
   // Calculate exact mouse position inside the 4000x4000 wrapper
@@ -140,10 +146,10 @@ export default function InfiniteCanvas() {
       <motion.div
         drag
         onMouseMove={handleMouseMove}
-        style={{ x: smoothX, y: smoothY }}
+        style={{ x, y }}
         dragConstraints={dragConstraints}
-        dragElastic={0.1}
-        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+        dragElastic={0.05}
+        dragTransition={{ bounceStiffness: 300, bounceDamping: 30, power: 0.3, timeConstant: 180 }}
         className="absolute top-0 left-0 w-[4000px] h-[4000px]"
       >
         {/* 1. Base Grid Layer (Dimmed) */}
@@ -216,8 +222,8 @@ export default function InfiniteCanvas() {
       <div className="absolute right-8 bottom-8 z-50">
         <button
           onClick={() => {
-            x.set(-2000 + window.innerWidth / 2);
-            y.set(-2000 + window.innerHeight / 2);
+            x.set(-CANVAS_SIZE / 2 + window.innerWidth / 2);
+            y.set(-CANVAS_SIZE / 2 + window.innerHeight / 2);
           }}
           className="px-4 py-2 text-sm font-medium text-white rounded-full shadow-lg transition-colors bg-zinc-900 hover:bg-zinc-800"
         >
